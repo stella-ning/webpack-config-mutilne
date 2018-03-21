@@ -1,0 +1,37 @@
+.el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li {
+  background: #fff;
+  border: 1px solid #DDDDDD;
+  min-width: 27px;
+  height: 27px;
+  color: #555555;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 27px;
+}
+.el-pagination.is-background .el-pager li.active {
+  border: 1px solid #E62225;
+  background: #fff;
+  color: #E62225;
+}
+.el-pagination__editor.el-input .el-input__inner {
+  height: 27px;
+  border-radius: 0;
+  line-height: 27px;
+}
+.el-pagination__editor{
+  margin: 0 10px;
+}
+.el-pagination span:not([class*=suffix]) {
+  font-size: 12px;
+}
+.el-pagination button.el-pagination__goBtn{
+  width: 60px;
+  height: 27px;
+  background: #FFFFFF;
+  border: 1px solid #DDDDDD;
+  line-height: 27px;
+  vertical-align: middle;
+  margin-left: 20px;
+  font-size: 12px;
+  color: #555555;
+}

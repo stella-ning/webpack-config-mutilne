@@ -1,0 +1,16 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": ["ie >= 8"]
+      },
+      "debug": true,
+      "useBuiltIns": true
+    }],
+    "stage-2"
+  ],
+  "plugins": ["transform-runtime", "transform-object-rest-spread", "babel-polyfill", "es6-promise", ["component", [{
+    "libraryName": "element-ui",
+    "styleLibraryName": "theme-chalk"
+  }]]]
+}

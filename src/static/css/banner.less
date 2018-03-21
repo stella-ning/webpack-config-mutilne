@@ -1,0 +1,54 @@
+@charset 'utf-8';
+.banner{
+    height:5rem;
+    //background:#0054A7;
+}
+.slide{
+    width: 100%;
+    overflow: hidden;
+    height: 5rem;
+    position: relative;
+}
+.slide-group{
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    .slide-item{
+        width:100vw;
+        height: 5rem;
+       // background: yellowgreen;
+        float: left;
+        text-align: center;
+        box-sizing: border-box;
+        a{
+            display:block;
+            width:100%;
+            overflow: hidden;
+        }
+        img{
+            display:block;
+            width:100%;
+        }
+    }
+}
+.dots{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    text-align: center;
+    font-size:0;
+    .dot{
+        background: rgba(255,255,255,.5);
+        display: inline-block;
+        margin: 0 4px;
+        height: 8px;
+        width: 8px;
+        border-radius: 50%;
+        &.active{
+            width: 20px;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.8);
+        }
+    }
+}

@@ -1,0 +1,155 @@
+@charset "utf-8";
+#header{
+    max-width: 640px;
+    min-width: 320px;
+    height: 1rem;
+    width: 100%;
+    position: fixed;
+    background-image: url(../images/public/outLetTopbg.png);
+    background-size: cover;
+    font-size:16px;
+    z-index:1000;
+}
+.logo{
+    height: 1rem;
+    line-height: 1rem;
+    padding-left: .2rem;
+}
+.siteBox .site{
+    font-size: 0.4rem;
+    color: #fff;
+    width: 1.3rem;
+    text-align: center;
+    height: 1rem;
+    overflow: hidden;
+}
+.siteBox .site img{
+    width: .3rem;
+    height: .3rem;
+    position: relative;
+}
+.search-box{
+    float: left;
+    width: 4.8rem;
+    margin: .14rem auto;
+    padding-left: 0.2rem;
+    position: relative;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+.search-box .iconfont{
+    position: absolute;
+    left: 0.25rem;
+    top:-.15rem;
+    height:.6rem;
+    font-size:22px;
+    color:#333;
+}
+.search-box .search{
+    width: 100%;
+    height:.72rem;
+    line-height: .72rem;
+    padding-left:0.05rem;
+    vertical-align: middle;
+    text-indent: 0.5rem;
+    -webkit-border-radius: 0.05rem;
+    -moz-border-radius: 0.05rem;
+    -ms-border-radius: 0.05rem;
+    -o-border-radius: 0.05rem;
+    border-radius: 0.05rem;
+    font-size: 0.28rem;
+}
+.headerPosition{
+    height:1rem;
+}
+.login{
+    color: #fff;
+    font-size: 0.4rem;
+    line-height: 1rem;
+    position: absolute;
+    right: 0.15rem;
+}
+.shopCart img{
+    width: .7rem;
+    display: block;
+    margin: .26rem .2rem;
+}
+
+/*-----站点选择弹窗----*/
+.modalDialogueBox{
+    width:100%;
+    height:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:9999999;
+    background:rgba(0,0,0,.6);
+    //display:none;
+}
+.modalDialogueBox .modalDialogue{
+    width: 5.5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -2.75rem;
+    margin-top: -2.85rem;
+}
+.modalHeader{
+    width:100%;
+    height:.84rem;
+    background:#0268cd;
+    border-bottom:1px solid #d2d2d2;
+    border-radius:6px 6px 0 0;
+}
+.modalHeader h2{
+    height:.84rem;
+    line-height:.84rem;
+    font-size:.28rem;
+    color:#fff;
+    padding-left:.4rem;
+    width: 98%;
+    margin: 0 auto;
+}
+.modalBody{
+    background: #fff;
+    border-radius:0 0 6px 6px;
+}
+.modalBody .siteList{
+    border-bottom:1px solid #d2d2d2;
+    width:98%;
+    margin:0 auto;
+
+}
+.modalBody .siteList a{
+    display:block;
+    height:1.5rem;
+    padding-top:.3rem;
+    padding-bottom:.3rem;
+    padding-left:.4rem;
+    position:relative;
+}
+.modalBody .siteList a h3{
+    font-size:.36rem;
+    color:#0268cd;
+}
+.modalBody .siteList a p{
+    font-size:.24rem;
+    color:#333;
+}
+.modalBody .siteList a img{
+    position:absolute;
+    top:.5rem;
+    right:.18rem;
+    width:.45rem;
+    height:.45rem;
+}
+.modalBody .closeBtn{
+    width:100%;
+    height:.9rem;
+    line-height:.9rem;
+    text-align: center;
+    color:#999;
+    font-size:.28rem;
+    //display:none;
+}

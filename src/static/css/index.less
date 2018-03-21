@@ -1,0 +1,404 @@
+
+/* 首页导航 */
+.cm-nav-container {
+    padding: 0.2rem 0;
+    background: #fff;
+  }
+  .cm-nav-cell {
+    width: 20%;
+    float: left;
+    text-align: center;
+  }
+  .icon-nav {
+    width: 35px;
+  }
+  .nav-title {
+    font-size: 0.2rem;
+    color: #666666;
+    margin-top:0.15rem;
+  }
+  .ad-factory-container {
+    position: relative;
+  }
+  .ad-factory-container img {
+    vertical-align: top;
+    width: 100%;
+  }
+  .factory-link {
+    font-size: 0.15rem;
+    font-weight: bold;
+    color: #ffffff;
+    position: absolute;
+    top: 0.51rem;
+    right: 0.15rem;
+  }
+/*-----专题标题-----*/
+.area-title{
+    position: relative;
+    height:.88rem;
+    img{
+        width: 100%;
+        vertical-align: top;
+    }
+
+}
+
+
+.more-to-link{
+    position: absolute;
+    right: 0.1rem;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 1.5rem;
+    height: .88rem;
+    line-height: .88rem;
+    a{
+        color: #666666;
+        font-size: 0.24rem;
+        display: block;
+        text-align: right;
+        .iconfont{
+            display:inline-block;
+            position:relative;
+            top:0.03rem;
+        }
+    }
+}
+.module-title{
+    display: table;
+    width: 100%;
+    border-top: 1px solid #eeeeee;
+    padding-left: 0.4rem;
+    height: 0.88rem;
+    line-height: 0.88rem;
+    position: relative;
+    .icon-module{
+        width: 0.5rem;
+        display: table-cell;
+        vertical-align: middle;
+        img{
+            width: 0.5rem;
+            display: block
+        }
+    }
+    .floor-title_1{
+        width: 1.5rem;
+        margin-left: 0.15rem;
+        font-size: 0.35rem;
+        font-weight: bold;
+        color: #0068cf;
+        vertical-align: middle;
+    }
+  }
+
+/*---------专题公共样式------------*/
+.swiper-container{
+    width: 100%;
+    padding: 0.15rem 0;
+    padding-bottom: 0.3rem !important;
+    overflow-x: hidden;
+    background: #ffffff;
+}
+
+  /*---品牌专区----*/
+.hotBrandInfo,.newBuyGift{
+    height: 4rem;
+    position: relative;
+  }
+.newBuyGift .swiper-slide, .hotBrandInfo .swiper-slide{
+    width: 100%;
+    padding: 0 0.15rem;
+}
+.swiper-slide{
+    .special-factory-img{
+        height:100%;
+        a{
+            display:block;
+            width:100%;
+            height:100%;
+            overflow:hidden;
+            img{
+                display:block;
+                width:100%;
+                height:100%;
+            }
+        }
+    }
+}
+
+  /*-----新品上线------*/
+.newProductBox{
+    width: 100%;
+    height: 4.2rem;
+    overflow-x: hidden;
+    background: #ffffff;
+    border-top: 1px solid #eeeeee;
+    .swiper-slide{
+        width: 30%;
+        border-right: 1px solid #eeeeee;
+        background: #ffffff;
+        .per-product{
+            height: 100%;
+            a{
+                color:#333;
+            }
+            .product-img{
+                img{
+                    display:block;
+                    width:100%;
+                }
+            }
+            .product-name{
+                width: 100%;
+                height: 0.58rem;
+                line-height: 0.3rem;
+                padding: 0.15 0.15rem 0;
+                text-align: left;
+                overflow: hidden;
+                -ms-text-overflow: ellipsis;
+                text-overflow: ellipsis;
+                word-break: break-all;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                text-align: center;
+                font-size:0.28rem;
+                .product-size{
+                    padding-left: .1rem;
+                    font-size: 0.22rem;
+                    color: #666;
+                }
+            }
+            .discount-price, .not-login, .not-permission{
+                padding-top: 0.15rem;
+                color: #ff0000;
+                font-size: 0.25rem;
+                text-align: center;
+            }
+        }
+    }
+}
+
+/*------特价优惠-----*/
+.special-product-container .special-product-list{
+    background: #eeeeee;
+    .special-product-cell{
+        border-bottom: 1px solid #eeeeee;
+        width: 50%;
+        height: 4.1rem;
+        background: #ffffff;
+        text-align: center;
+        float:left;
+        a{
+            dipaly:block;
+            img{
+                width: 2rem;
+            }
+        }
+        .area-product-name{
+            height: 0.76rem;
+            line-height: 0.38rem;
+            padding: 0 0.2rem;
+            text-align: center;
+            overflow: hidden;
+            font-size: 0.28rem;
+            -ms-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            word-break: break-all;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+        .area-product-price{
+            padding: 0.15rem 0;
+            font-size: 0.25rem;
+            text-align: center;
+            color: #ff0000;
+        }
+    }
+}
+/*----底部菜单-----*/
+.footer-menu{
+    margin-top: 0.2rem;
+    background: #ffffff;
+    .footer-menu-box{
+        border-bottom: 1px solid #dddddd;
+        height: 0.7rem;
+        display: flex;
+        display: -webkit-flex;
+        flex-direction: row;
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-wrap: nowrap;
+        -ms-flex-wrap: nowrap;
+        -webkit-flex-wrap: nowrap;
+        justify-content: space-around;
+        -webkit-justify-content: space-around;
+        align-items: center;
+        -webkit-align-items: center;
+
+        .footer-menu-item{
+            border-right: 1px solid #dddddd;
+            padding-right: 0.1rem;
+            font-size:0.25rem;
+            a{
+                color:#333;
+            }
+        }
+
+    }
+    .certificate-box{
+        height: 0.7rem;
+        display: flex;
+        display: -webkit-flex;
+        flex-direction: row;
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-wrap: nowrap;
+        -ms-flex-wrap: nowrap;
+        -webkit-flex-wrap: nowrap;
+        justify-content: space-around;
+        -webkit-justify-content: space-around;
+        align-items: center;
+        -webkit-align-items: center;
+        .certificate-item{
+            font-size:0.25rem;
+            a{
+                color:#333;
+            }
+        }
+    }
+    .cm-right-container{
+        font-size:0.25rem;
+        color:#333;
+    }
+    .cm-right-container{
+        border-top: 1px solid #dddddd;
+        border-bottom: 1px solid #dddddd;
+        height: 0.7rem;
+        line-height: 0.7rem;
+        text-align: center;
+    }
+}
+/*--------底部提醒---------*/
+.footer-tis{
+    font-size: 0.25rem;
+    color: #999999;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    text-align: center;
+    position: relative;
+    .line-left{
+        width: 1.3rem;
+        height: 1px;
+        background: #999999;
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+    .line-right{
+        width: 1.3rem;
+        height: 1px;
+        background: #999999;
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+}
+
+/*----置顶-----*/
+.to-top{
+    width: 0.8rem;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    text-align: center;
+    -webkit-border-radius: 0.4rem;
+    -moz-border-radius: 0.4rem;
+    -ms-border-radius: 0.4rem;
+    -o-border-radius: 0.4rem;
+    border-radius: 0.4rem;
+    background: rgba(102, 102, 102, 0.7);
+    position: fixed;
+    bottom: 1rem;
+    right: 0.2rem;
+    z-index: 1000;
+    a{
+        display: inline-block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        img{
+            width: 0.4rem;
+            vertical-align: middle;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

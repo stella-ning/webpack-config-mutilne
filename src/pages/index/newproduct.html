@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_424201_i05mmx8bkaoiggb9.css">
+    <title>新品上线</title>
+</head>
+<body>
+    <div id="newProduct">
+        <Head-top head-title="新品上线" go-back="true"></Head-top>
+        <div class="main-container">
+            <div class="factory-instr-ad">
+                <img src="../../static/images/topic/newproductMark.png" alt=""/>
+            </div>
+            <div class="product-list" v-for="(productItem,index) in resultArray" :key="index" v-cloak>
+                <div class="floor-title">
+                    <span class="line-left"></span>
+                    <span class="month-product">{{productItem.month}}</span>
+                    <span class="line-right"></span>
+                </div>
+                <!-- 产品楼层 -->
+                <div class="product-floor" v-for="(productItemList,key) in productItem.dailyNewArray" :key="key">
+                    <div class="product-thumb floor-item">
+                        <a href="javascript:void(0);">
+                            <img :src="productItemList.imgsrc" alt=""/>
+                        </a>
+                    </div>
+                    <!-- 产品信息 -->
+                    <div class="product-instr floor-item">
+                        <p class="product-name">
+                            <a href="javascript:void(0);">
+                                {{productItemList.name}}
+                            </a>
+                        </p>
+                        <p class="factory-name txt-style">
+                            {{productItemList.ean}}
+                        </p>
+                        <p class="product-spec txt-style">
+                            {{productItemList.specifications}}
+                        </p>
+                        <p class="product-package txt-style">
+                            中/大包装：{{productItemList.quantityFormat}}
+                        </p>
+                        <p class="product-date txt-style">
+                            生产日期：{{productItemList.creationDate}}
+                        </p>
+                        <p class="product-validity txt-style">
+                            有效日期：{{productItemList.effectiveDate}}
+                        </p>
+
+                        <div class="product-state-box clearfix">
+                            <div class="product-price f-left">
+                                <span class="txt-style">价格：</span>
+                                <span class="price">{{productItemList.price}}</span>
+                                <span class="unit-kg">/ {{productItemList.minUnit}}</span>
+                            </div>
+                            <div class="product-inventory f-right">
+                                <span class="txt-style">库存：</span>
+                                <span class="txt-style">{{productItemList.realStock}}</span>
+                            </div>
+                        </div>
+                        <div class="product-user clearfix">
+                            <span class="minus f-left">-</span>
+                            <input type="text" class="product-amount f-left" value="1"/>
+                            <span class="plus f-left">+</span>
+                            <span class="product-unit txt-style f-left">{{productItemList.minUnit}}</span>
+                            <a class="add-cart f-right" href="javascript:void(0);">加入购物车</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,175 @@
+/*----专题公共样式---*/
+.minus,.plus, .plus-btn, .minus-btn{
+    border: 1px solid #dddddd;
+    width: 30px;
+    height: 30px;
+    line-height: 28px;
+    font-size: 0.40rem;
+    color: #666666;
+    text-align: center;
+    display: inline-block;
+}
+.prompt_text{
+    font-size: 12px;
+    color: #666;
+    width: 2.3rem;
+    text-align: left;
+    b{
+        color: #ff3a32;
+    }
+}
+.product-amount{
+    border: 1px solid #dddddd;
+    border-left: transparent;
+    border-right: transparent;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+    border-radius: 0;
+    width: 1rem;
+    height: 30px;
+    line-height: 28px;
+    font-size: 0.28rem;
+    text-align: center;
+    color: #ff0000;
+}
+.product-unit{
+    padding-left: 0.15rem;
+    line-height: 0.65rem;
+}
+.add-cart, .arrivalNotice, .add_card, .add_card2{
+    width: 1.5rem;
+    height: 0.6rem;
+    line-height: 0.6rem;
+    background: #0068cf;
+    color: #ffffff;
+    text-align: center;
+    -webkit-border-radius: 0.1rem;
+    -moz-border-radius: 0.1rem;
+    -ms-border-radius: 0.1rem;
+    -o-border-radius: 0.1rem;
+    border-radius: 0.1rem;
+    display: inline-block;
+}
+
+/*-------新品上线--------*/
+.main-container{
+    background:#fff;
+    width:auto;
+    min-width:320px;
+    max-width:640px;
+    margin:0 auto;
+    .factory-instr-ad{
+        img{
+            width: auto;
+            max-width: 100%;
+            vertical-align: middle;
+        }
+    }
+    .product-list{
+        .floor-title{
+            line-height: 0.7rem;
+            background: #eeeeee;
+            text-align: center;
+            position: relative;
+            .line-left{
+                width: 1.3rem;
+                height: 1px;
+                background: #999999;
+                position: absolute;
+                left: 1.1rem;
+                top: 50%;
+                -webkit-transform: translateY(-50%);
+                -moz-transform: translateY(-50%);
+                -ms-transform: translateY(-50%);
+                -o-transform: translateY(-50%);
+                transform: translateY(-50%);
+            }
+            .line-right{
+                width: 1.3rem;
+                height: 1px;
+                background: #999999;
+                position: absolute;
+                right: 1.1rem;
+                top: 50%;
+                -webkit-transform: translateY(-50%);
+                -moz-transform: translateY(-50%);
+                -ms-transform: translateY(-50%);
+                -o-transform: translateY(-50%);
+                transform: translateY(-50%);
+            }
+            .month-product{
+                font-size: 0.26rem;
+                font-weight: bold;
+                display: inherit;
+            }
+        }
+        .product-floor{
+            &:not(:last-child){
+                border-bottom: 1px solid #dddddd;
+                background: #ffffff;
+            }
+            padding: 0.2rem 0.15rem;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: row;
+            -ms-flex-direction: row;
+            -webkit-flex-direction: row;
+            flex-wrap: nowrap;
+            -ms-flex-wrap: nowrap;
+            -webkit-flex-wrap: nowrap;
+            justify-content: center;
+            -webkit-justify-content: center;
+            align-items: center;
+            -webkit-align-items: center;
+            .product-thumb{
+                text-align: center;
+                img{
+                    width: auto;
+                    max-width: 100%;
+                }
+            }
+            .product-instr{
+                width: 75%;
+                padding-left: 0.15rem;
+                .product-name{
+                    color: #004C97;
+                    a{
+                        font-size: 0.28rem;
+                        color: #004C97;
+                    }
+                }
+                .txt-style{
+                    font-size: 0.24rem;
+                    color: #666666;
+                    padding-top: 0.05rem;
+                }
+                .product-state-box{
+                    padding-top: 0.06rem;
+                    margin-bottom: .1rem;
+                    .product-price{
+                        font-size: 0.25rem;
+                        color: #ff0000;
+                        .price{
+                            color:#333
+                        }
+                        .unit-kg{
+                            color:#333
+                        }
+                    }
+                    .product-inventory{
+                        padding-right: 0.45rem;
+                    }
+                }
+                .product-user{
+                    padding-top: 0.06rem;
+                    margin-bottom: .1rem;
+                }
+
+            }
+        }
+    }
+}
+
+

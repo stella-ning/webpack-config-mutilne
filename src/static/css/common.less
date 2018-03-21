@@ -1,0 +1,264 @@
+@import './reset.css';
+button, input {
+  outline: none;
+  padding: 0;
+}
+button {
+  border: none;
+  cursor: pointer;
+}
+a {
+  text-decoration: none;
+}
+body, html {
+  height: 100%;
+}
+i, em, b {
+  font-style: normal;
+}
+.textCenter{
+  text-align: center;
+}
+
+/** 容器样式临时存放点 **/
+.mainContent {
+  width: 996px;
+  box-sizing: border-box;
+  padding: 28px 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+  min-height: 900px; /** 临时样式, 后期删除 **/
+}
+
+/** 头部标题样式临时存放点 **/
+.dataHeader {
+  margin-top: 16px;
+  height: 40px;
+  line-height: 40px;
+  background: #D7D7D7;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  box-sizing: border-box;
+  padding-left: 18px;
+}
+
+/** 表格公共样式临时存放点 **/
+.dataTable {
+  width: 100%;
+  box-sizing: border-box;
+  &__title {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    color: #333;
+    font-size: 14px;
+    background-color: #fff;
+  }
+  &__header {
+    background: #F4F4F4;
+    font-size: 12px;
+    color: #333;
+    th {
+      height: 30px;
+      text-align: center;
+    }
+  }
+  &__inner {
+    border: 1px solid #ddd;
+    width: 100%;
+  }
+  &__content,&__content--bg {
+    font-size: 12px;
+    color: #555;
+    td {
+      padding: 18px 5px;
+      text-align: center;
+      border: 1px solid #ddd;
+      line-height: 1.5;
+    }
+  }
+  &__content--bg{
+    background: #f9f9f9;
+  }
+  &__links {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0;
+  }
+  &__link {
+    display: inline-block;
+    padding: 0 29px;
+    height: 30px;
+    line-height: 30px;
+    background: #d1d1d1;
+    border-radius: 2px;
+    font-size: 16px;
+    color: #555555;
+    margin: 0 5px;
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+  &__btns {
+    font-size: 0;
+  }
+  &__btn {
+    font-size: 12px;
+    color: #0054A7;
+    margin: 0 6px;
+  }
+}
+/** 表单公共样式临时存放点 **/
+.dataForm {
+  &__wrapper {
+    padding:0 0 15px 18px;
+    border: 1px solid #ddd;
+  }
+  &__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    padding-top: 16px;
+  }
+  &__inner {
+    padding-top: 5px;
+  }
+  &__item {
+    padding: 5px 0;
+    font-size: 0;
+  }
+  &__label {
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+    width: 100px;
+    text-align: left;
+    font-size: 14px;
+    color: #555;
+    line-height: 30px;
+    &--required::before {
+      content: "*";
+      position: relative;
+      margin-right: 4px;
+      top: 2px;
+      font-weight: bold;
+      color: #D8243A;
+    }
+  }
+  &__input {
+    vertical-align: middle;
+    height: 30px;
+    box-sizing: border-box;
+    line-height: 30px;
+    border: 1px solid #999;
+    font-size: 14px;
+    color: #555;
+    padding-left: 14px;
+    &--large {
+      width: 800px;
+    }
+  }
+  &__text {
+    padding-left: 10px;
+    font-size: 14px;
+    color: #555;
+    line-height: 30px;
+    vertical-align: middle;
+  }
+  &__outer {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 0;
+  }
+  &__button {
+    display: inline-block;
+    vertical-align: middle;
+    min-width: 100px;
+    height: 30px;
+    line-height: 30px;
+    background: #ddd;
+    border-radius: 2px;
+    font-size: 16px;
+    color: #555;
+    margin: 0 10px;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.85;
+    }
+    &--danger {
+      background-color: #E32423;
+      color: #fff;
+    }
+  }
+}
+/*页面title样式*/
+.pageTitle{
+  font-size: 16px;
+  color: #E62225;
+  text-indent: 15px;
+  position: relative;
+  line-height: 1;
+  &::before {
+    position: absolute;
+    content: '';
+    width: 4px;
+    height: 16px;
+    background: #E62225;
+    left: 0;
+    vertical-align: center;
+  }
+}
+/*信息卡片形式ui*/
+.infoCard{
+  border: 1px solid #DDDDDD;
+  padding: 18px;
+  width: 100%;
+  &__content{
+    border-bottom: 1px solid #DDDDDD;
+    margin-bottom: 14px;
+    padding: 0 0 14px;
+  }
+  &__title,&__title--primary{
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  &__content:nth-last-child(1){
+    border: none;
+    margin: 14px 0 0;
+    padding: 0;
+  }
+  &__title{
+    color: #333333;
+  }
+  &__title--primary{
+    color: #E62225;
+  }
+  &__row{
+    font-size: 0;
+  }
+  &__label,&__value{
+    display: inline-block;
+    font-size: 14px;
+    color: #333333;
+    line-height: 26px;
+  }
+  &__value{
+    width: calc(~"100% - 98px");
+    word-break: break-all;
+  }
+  &__label{
+    width: 98px;
+    vertical-align: top;
+  }
+}
+.btn--text{
+  font-size: 12px;
+  color: #0054A7;
+}
+[v-cloak]{
+  display: none;
+}
