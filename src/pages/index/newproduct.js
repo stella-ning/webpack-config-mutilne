@@ -6,7 +6,7 @@ import HeadTop from 'src/common/header.vue';
 
 import '@style/topic.less';
 
-Vue.config.productionTip = false;
+// Vue.config.productionTip = false;
 new Vue({
     el: '#newProduct',
     router,

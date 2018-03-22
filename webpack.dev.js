@@ -5,10 +5,10 @@ const base = require('./webpack.base');
 const { config: webpackBaseConfig, getFiles } = base;
 
 //  接口服务器地址
-const API_HOST = 'https://10.16.17.42:9002';
+const API_HOST = 'https://test.cmyynet.com';
 
 // 开发环境的webp打包工具配置
-const PORT = 3000;
+const PORT = 4000;
 
 // 开发环境下，将静态资源的根路径重置为/
 webpackBaseConfig.output.publicPath = '/';
@@ -61,11 +61,11 @@ webpackBaseConfig.devServer = {
 //     target: API_HOST,
 //     secure: false
 // }];
-//webpackBaseConfig.devServer.https = true;
 webpackBaseConfig.devServer.proxy = {
     '/Interface':{
         target: API_HOST,
-        secure: false
+        secure: false,
+        changeOrigin: true,
     }
 };
 

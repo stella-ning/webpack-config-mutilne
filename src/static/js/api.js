@@ -5,7 +5,7 @@
  */
 export const indexData = 'http://jspang.com/DemoApi/typeGoods.php';
 
-export const testData = 'https://www.cmyynet.com/Interface/getNewLine';
+export const testData = '/getNewLine';
 
 /**
  * 派车列表
