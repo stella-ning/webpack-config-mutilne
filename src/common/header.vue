@@ -25,6 +25,7 @@
         </transition>
    </div>
 </template>
+
 <style lang="less" scoped>
 .headerBox {
   min-width: 320px;

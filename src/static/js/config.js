@@ -1,1 +1,1 @@
-export const PREFIX_PATH = '/Interface';
+export const PREFIX_PATH = '';

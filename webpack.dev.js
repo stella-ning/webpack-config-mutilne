@@ -66,7 +66,12 @@ webpackBaseConfig.devServer.proxy = {
         target: API_HOST,
         secure: false,
         changeOrigin: true,
-    }
+    },
+    '/UserInterface':{
+        target: API_HOST,
+        secure: false,
+        changeOrigin: true,
+    },
 };
 
 
