@@ -3,9 +3,13 @@
  * 首页数据
  *
  */
-export const indexData = 'http://jspang.com/DemoApi/typeGoods.php';
+export const indexData = '/indexDataRevision';
 
-export const testData = '/getNewLine';
+/**
+ * 新品上线
+ *
+ */
+export const newProductData = '/getNewLine';
 
 /**
  * 派车列表

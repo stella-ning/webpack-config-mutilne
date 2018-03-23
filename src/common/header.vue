@@ -160,7 +160,6 @@
 import { request } from 'common';
 import * as Datas from "api";
 import "@style/reset";
-
 export default {
   name: "headTop",
   data() {
@@ -169,14 +168,7 @@ export default {
     };
   },
   created() {
-    // request.get(Datas.indexData,{})
-    // .then((res) =>{
-    //     console.log(1212)
-    //     console.log(res)
-    // });
-    request.get(Datas.testData, {}).then(res => {
-      console.log(res);
-    });
+
   },
   props: ["signinUp", "headTitle", "goBack"],
   methods: {

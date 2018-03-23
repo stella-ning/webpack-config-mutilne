@@ -35,21 +35,21 @@
                     </header>
                     <div class="modalBody">
                         <ul class="sites">
-                            <li class="siteList clearfix" @click="chooseSite('粤东')">
+                            <li class="siteList clearfix" @click="chooseSite('粤东','1000')">
                                 <a href="javascript:void(0)">
                                     <h3>粤东地区</h3>
                                     <p>向（创美药业股份有限公司）采购</p>
                                     <img class="arrowRight" src="../../static/images/public/arrowRight.png">
                                 </a>
                             </li>
-                            <li class="siteList clearfix" @click="chooseSite('佛山')">
+                            <li class="siteList clearfix" @click="chooseSite('佛山','1001')">
                                 <a href="javascript:void(0)">
                                     <h3>佛山地区</h3>
                                     <p>向（广东创美药业股份有限公司）采购</p>
                                     <img class="arrowRight" src="../../static/images/public/arrowRight.png">
                                 </a>
                             </li>
-                            <li class="siteList clearfix" @click="chooseSite('珠海')">
+                            <li class="siteList clearfix" @click="chooseSite('珠海','1002')">
                                 <a href="javascript:void(0)">
                                     <h3>珠海地区</h3>
                                     <p>向（珠海创美恒祥医药有限公司）采购</p>
@@ -388,10 +388,11 @@
 
 <script>
     import '@style/reset';
-    //import  HeadTop from 'src/common/header'
-    import FullPageSlide from 'src/pages/index/components/full-page-slide.vue'
-    import 'src/static/plugins/jquery-1.11.3.js'
-    import 'src/static/plugins/swiper-3.4.2.min.js'
+    import FullPageSlide from 'src/pages/index/components/full-page-slide.vue';
+    import 'src/static/plugins/jquery-1.11.3.js';
+    import 'src/static/plugins/swiper-3.4.2.min.js';
+    import { request } from 'common';
+    import * as Datas from "api";
     export default {
         name:'App',
         components:{
@@ -405,6 +406,7 @@
                 isLogin:false,
                 scroll:'',
                 toTop:false,
+                companyCode:1000,
                 items:[
                     require('../../static/images/public/m-banner-20180112-01.jpg'),
                     require('../../static/images/public/m-banner-20180306-02.jpg'),
@@ -614,7 +616,7 @@
             }
         },
         created(){
-
+           this.getIndexData();
         },
         mounted(){
             //品牌专区
@@ -635,16 +637,27 @@
             window.addEventListener('scroll', this.scrFn);
         },
         methods:{
+            getIndexData(){
+                 request.post(Datas.indexData, {
+                     'companyCode':this.companyCode,
+                     'uid':'',
+                     'regionId':''
+                 })
+                .then(res => {
+                    console.log(res)
+                });
+            },
             finish(){
                 this.$router.back()
             },
             showSitesHandle(){
                 this.showSites = true;
             },
-            chooseSite(curSite){
+            chooseSite(curSite,companyCode){
                 this.isFirst = true;
                 this.showSites = false;
                 this.site = curSite;
+
             },
             closeSitesLay(){
                 this.isFirst = true;
