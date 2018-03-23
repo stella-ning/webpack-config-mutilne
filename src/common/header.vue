@@ -2,7 +2,7 @@
    <!-- 头部 -->
    <div class="headerBox">
        <div class="header">
-            <span class="icon-back"></span>
+            <span class="icon-back" @click="goback"></span>
             <h1>{{headTitle}}</h1>
             <span class="more-info" @click="handleMenu"></span>
         </div>
@@ -175,7 +175,11 @@ export default {
   methods: {
     handleMenu() {
       this.isShow = !this.isShow;
-    }
+    },
+    goback(){
+        window.history.go(-1)
+    },
+
   }
 };
 </script>
