@@ -28,7 +28,7 @@
                 <div class="product-floor" v-for="(productItemList,key) in productItem.dailyNewArray" :key="key">
                     <div class="product-thumb floor-item">
                         <a href="javascript:void(0);">
-                            <img :src="productItemList.imgsrc" alt=""/>
+                            <img v-lazy="productItemList.imgsrc" alt=""/>
                         </a>
                     </div>
                     <!-- 产品信息 -->

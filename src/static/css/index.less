@@ -19,10 +19,20 @@
   }
   .ad-factory-container {
     position: relative;
+    width:auto;
+    display: table;
+    vertical-align: middle;
+    margin:0 auto;
+  }
+  .ad-factory-container a{
+    display: table-cell;
+    vertical-align: middle;
+    box-sizing: border-box;
   }
   .ad-factory-container img {
     vertical-align: top;
-    width: 100%;
+    width:auto;
+    max-width: 100%;
   }
   .factory-link {
     font-size: 0.15rem;
@@ -104,6 +114,24 @@
     background: #ffffff;
 }
 
+.imgBox{
+    width:2rem;
+    display: table;
+    vertical-align: middle;
+    margin:0 auto;
+}
+.imgBox a{
+    display: table-cell;
+    vertical-align: middle;
+    box-sizing: border-box;
+    width: 2rem;
+}
+.imgBox a img{
+    display:block;;
+    width:auto;
+    max-width:100%;
+}
+
   /*---品牌专区----*/
 .hotBrandInfo,.newBuyGift{
     height: 4rem;
@@ -115,16 +143,22 @@
 }
 .swiper-slide{
     .special-factory-img{
+        width:auto;
+        display: table;
+        vertical-align: middle;
+        margin:0 auto;
         height:100%;
         a{
-            display:block;
+            display: table-cell;
+            vertical-align: middle;
+            box-sizing: border-box;
             width:100%;
             height:100%;
             overflow:hidden;
             img{
                 display:block;
-                width:100%;
-                height:100%;
+                width:auto;
+                max-width:100%;
             }
         }
     }
@@ -147,9 +181,18 @@
                 color:#333;
             }
             .product-img{
+                display: table;
+                vertical-align: middle;
+                margin:0 auto;
+                .imgList{
+                    display: table-cell;
+                    vertical-align: middle;
+                    width:100%;
+                }
                 img{
                     display:block;
-                    width:100%;
+                    width:auto;
+                    max-width:100%;
                 }
             }
             .product-name{
@@ -193,12 +236,6 @@
         background: #ffffff;
         text-align: center;
         float:left;
-        a{
-            dipaly:block;
-            img{
-                width: 2rem;
-            }
-        }
         .area-product-name{
             height: 0.76rem;
             line-height: 0.38rem;

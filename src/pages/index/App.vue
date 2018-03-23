@@ -65,7 +65,7 @@
             </div>
         </div>
         <div class="recommed">
-            <FullPageSlide :data="items" @finish="finish"></FullPageSlide>
+            <FullPageSlide :data="carouselInfo" @finish="finish"></FullPageSlide>
         </div>
         <!-- 导航栏 -->
         <div class="cm-nav-container">
@@ -92,14 +92,13 @@
             <!-- 品牌专区 -->
             <div class="hotBrandInfo swiper-container">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide" v-for="(hotBrand,index) in hotBrandInfo" :key="index">
+                    <div class="swiper-slide" v-for="(hotBrand,index) in hotBrandInfo.itemsArray" :key="index">
                         <div class="special-factory-img">
                             <a href="javascript:void(0);">
-                                <img :src="hotBrand"/>
+                                <img v-lazy="hotBrand.imgsrc"/>
                             </a>
                         </div>
                     </div>
-
                 </div>
                 <div class="swiper-pagination slider-pagination"></div>
             </div>
@@ -122,11 +121,13 @@
             <div class="newProductBox swiper-container">
                 <div class="swiper-wrapper">
                     <!--已登录-->
-                    <div class="swiper-slide" v-for="(newProduct,index) in dailyNewInfo.itemsArrays" :key="index">
+                    <div class="swiper-slide" v-for="(newProduct,index) in dailyNewInfo.itemsArray" :key="index">
                         <div class="per-product">
                             <a :href="newProduct.sentUrl">
                                 <div class="product-img">
-                                    <img :src="newProduct.imgsrc" alt=""/>
+                                    <span class="imgList">
+                                        <img v-lazy="newProduct.imgsrc" alt=""/>
+                                    </span>
                                 </div>
                                 <p class="product-name">
                                     {{newProduct.name}}
@@ -157,10 +158,10 @@
             <!-- 活动买赠 -->
             <div class="newBuyGift swiper-container">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide" v-for="( newBuyGiftItem ,index) in  newBuyGift.itemsArrays" :key="index">
+                    <div class="swiper-slide" v-for="( newBuyGiftItem ,index) in  newBuyGift.itemsArray" :key="index">
                         <div class="special-factory-img">
                             <a :href="newBuyGiftItem.sentUrl">
-                                <img :src="newBuyGiftItem.imgsrc"/>
+                                <img v-lazy="newBuyGiftItem.imgsrc"/>
                             </a>
                         </div>
                     </div>
@@ -182,10 +183,12 @@
             </div>
             <div class="special-product-container">
                 <ul class="special-product-list clearfix">
-                    <li class="special-product-cell" v-for="(specialOffersItem,index ) in specialOffersInfo.itemsArrays" :key="index">
-                        <a :href="specialOffersItem.sentUrl">
-                            <img :src="specialOffersItem.imgsrc" alt=""/>
-                        </a>
+                    <li class="special-product-cell" v-for="(specialOffersItem,index ) in specialOffersInfo.itemsArray" :key="index">
+                        <div class="imgBox">
+                            <a :href="specialOffersItem.sentUrl">
+                                <img v-lazy="specialOffersItem.imgsrc" alt=""/>
+                            </a>
+                        </div>
                         <p class="area-product-name">{{specialOffersItem.name}}</p>
                         <p class="area-product-price">
                             <span v-show="isLogin" class="icon-symbol">&yen;</span>
@@ -196,9 +199,9 @@
             </div>
         </div>
         <!-- 厂家广告图 -->
-        <div class="ad-factory-container short-floor">
+        <div class="ad-factory-container short-floor" v-for="(infoItem,index) in extensionInfo.itemsArray" :key="index">
             <a href="javascript:void(0);">
-                <img src="../../static/images/index/factory_ad_01.png" alt=""/>
+                <img v-lazy="infoItem.imgsrc" alt=""/>
             </a>
         </div>
         <!-- 药店常备 -->
@@ -214,10 +217,12 @@
             </div>
             <div class="special-product-container">
                 <ul class="special-product-list clearfix">
-                    <li class="special-product-cell" v-for = "(necessMedicine ,index) in necessMedicineInfo.itemsArrays" :key="index">
-                        <a :href="necessMedicine.sentUrl">
-                            <img :src="necessMedicine.imgsrc" alt=""/>
-                        </a>
+                    <li class="special-product-cell" v-for = "(necessMedicine ,index) in necessMedicineInfo.itemsArray" :key="index">
+                        <div class="imgBox">
+                            <a :href="necessMedicine.sentUrl">
+                                <img :src="necessMedicine.imgsrc" alt=""/>
+                            </a>
+                        </div>
                         <p class="area-product-name">{{necessMedicine.name}}</p>
                         <p class="area-product-price">
                             <span v-show="isLogin" class="icon-symbol">&yen;</span>
@@ -228,9 +233,9 @@
             </div>
         </div>
         <!-- 厂家广告图 -->
-        <div class="ad-factory-container short-floor">
+        <div class="ad-factory-container short-floor" v-for="info2Item in extensionInfoTwo.itemsArray">
             <a href="javascript:void(0);">
-                <img src="../../static/images/index/factory_ad_01.png" alt=""/>
+                <img v-lazy="info2Item.imgsrc" alt=""/>
             </a>
         </div>
         <!-- 高毛利 -->
@@ -246,10 +251,12 @@
             </div>
             <div class="special-product-container">
                 <ul class="special-product-list clearfix">
-                    <li class="special-product-cell" v-for="(highMarginItem,index) in highMarginInfo.itemsArrays" :key="index">
-                        <a :href="highMarginItem.sendUrl">
-                            <img :src="highMarginItem.imgsrc" alt=""/>
+                    <li class="special-product-cell" v-for="(highMarginItem,index) in highMarginInfo.itemsArray" :key="index">
+                        <div class="imgBox">
+                            <a :href="highMarginItem.sendUrl">
+                            <img v-lazy="highMarginItem.imgsrc" alt=""/>
                         </a>
+                        </div>
                         <p class="area-product-name">{{highMarginItem.name}}</p>
                         <p class="area-product-price">
                             <span v-show = "isLogin" class="icon-symbol">&yen;</span>
@@ -272,44 +279,16 @@
             </div>
             <div class="special-product-container">
                 <ul class="special-product-list clearfix">
-                    <li class="special-product-cell">
-                        <a href="#">
-                            <img src="../../static/images/index/product_001.jpg" alt=""/>
-                        </a>
-                        <p class="area-product-name">生命诚可贵，爱情价更高生命诚可贵，爱情价更高生命诚可贵，爱情价更高</p>
+                    <li class="special-product-cell" v-for="(discountItem,index) in discountDepotInfo.itemsArray" :key="index">
+                        <div class="imgBox">
+                            <a :href="specialOffersItem.sentUrl">
+                                <img v-lazy="specialOffersItem.imgsrc" alt=""/>
+                            </a>
+                        </div>
+                        <p class="area-product-name">{{discountItem.name}}</p>
                         <p class="area-product-price">
                             <span class="icon-symbol">&yen;</span>
-                            <span class="product-price">28.00</span>
-                        </p>
-                    </li>
-                    <li class="special-product-cell">
-                        <a href="#">
-                            <img src="../../static/images/index/product_001.jpg" alt=""/>
-                        </a>
-                        <p class="area-product-name">生命诚可贵，爱情价更高</p>
-                        <p class="area-product-price">
-                            <span class="icon-symbol">&yen;</span>
-                            <span class="product-price">28.00</span>
-                        </p>
-                    </li>
-                    <li class="special-product-cell">
-                        <a href="#">
-                            <img src="../../static/images/index/product_001.jpg" alt=""/>
-                        </a>
-                        <p class="area-product-name">生命诚可贵，爱情价更高</p>
-                        <p class="area-product-price">
-                            <!--<span>&yen;</span>-->
-                            <a class="not-permission">超出您的经营范围</a>
-                        </p>
-                    </li>
-                    <li class="special-product-cell">
-                        <a href="#">
-                            <img src="../../static/images/index/product_001.jpg" alt=""/>
-                        </a>
-                        <p class="area-product-name">生命诚可贵，爱情价更高</p>
-                        <p class="area-product-price">
-                            <!-- <span class="icon-symbol">&yen;</span> -->
-                            <a class="not-login">登录可见</a>
+                            <span class="product-price">{{discountItem.price}}</span>
                         </p>
                     </li>
                 </ul>
@@ -382,9 +361,17 @@
     @import url('../../static/css/swiper-3.4.1.min.css');
    // @import url('');
 </style>
-<style src="../../static/css/headTop.less" lang="less">
+<style src="../../static/css/headTop.less" lang="less"></style>
 
+<style lang='less' >
+    .app{
+        width:auto;
+        min-width:320px;
+        max-width:640px;
+        margin:0 auto;
+    }
 </style>
+
 
 <script>
     import '@style/reset';
@@ -407,11 +394,7 @@
                 scroll:'',
                 toTop:false,
                 companyCode:1000,
-                items:[
-                    require('../../static/images/public/m-banner-20180112-01.jpg'),
-                    require('../../static/images/public/m-banner-20180306-02.jpg'),
-                    require('../../static/images/public/m-banner-20180306-03.jpg')
-                ],
+                carouselInfo:[],
                 navitems:[
                     {
                         navImg:'../../static/images/index/m-nav20160918-01.png',
@@ -439,180 +422,19 @@
                         navText:'会员中心'
                     }
                 ],
-                hotBrandInfo:[
-                    'https://www.cmyynet.com/Hybris/App/foshan/brand/banner/fs-banner-20171211-03.png',
-                    'https://www.cmyynet.com/Hybris/App/foshan/brand/banner/fs-banner-20171211-02.png',
-                    'https://www.cmyynet.com/Hybris/App/foshan/brand/banner/fs-banner-20171211-01.png'
-                ],
+                hotBrandInfo:[],
                 dailyNewInfo:{
                     name:'新品上线',
-                    itemsArrays:[
-                        {
-                            'code':'100120',
-                            'price':'登录可见',
-                            'imgsrc':'http://121.10.217.170:8089/Hybris/Goods/100120/100120_000.jpg',
-                            'specifications':'15ML*30支',
-                            'sentUrl':'/p/100120',
-                            'target':'detail'
-                        },
-                        {
-                            "code": "80062",
-                            "price": "登录可见",
-                            "name": "天麻饮片(破壁)",
-                            "imgsrc": "http://121.10.217.170:8089/Hybris/Goods/80062/80062_000.jpg",
-                            "specifications": "1g*20袋",
-                            "sentUrl": "/p/80062",
-                            "target": "detail"
-                        },
-                        {
-                            "code": "72228",
-                            "price": "登录可见",
-                            "name": "碳酸钙D3片(Ⅱ)",
-                            "imgsrc": "http://121.10.217.170:8089/Hybris/Goods/72228/72228_000.jpg",
-                            "specifications": "30片:Ca500+D3.200",
-                            "sentUrl": "/p/72228",
-                            "target": "detail"
-                        },
-                        {
-                            "code": "50350",
-                            "price": "登录可见",
-                            "name": "咳速停糖浆",
-                            "imgsrc": "http://121.10.217.170:8089/Hybris/Goods/50350/50350_000.jpg",
-                            "specifications": "100ml",
-                            "sentUrl": "/p/50350",
-                            "target": "detail"
-                        },
-                        {
-                            "code": "2032",
-                            "price": "登录可见",
-                            "name": "金感胶囊",
-                            "imgsrc": "http://121.10.217.170:8089/Hybris/Goods/2032/2032_000.jpg",
-                            "specifications": "0.45g*24粒",
-                            "sentUrl": "/p/2032",
-                            "target": "detail"
-                        },
-                        {
-                            "code": "1023",
-                            "price": "登录可见",
-                            "name": "藿香正气片",
-                            "imgsrc": "http://121.10.217.170:8089/Hybris/Goods/1023/1023_000.jpg",
-                            "specifications": "0.3G*80片",
-                            "sentUrl": "/p/1023",
-                            "target": "detail"
-                        },
-                        {
-                            "code": "102",
-                            "price": "登录可见",
-                            "name": "美洛昔康片",
-                            "imgsrc": "http://121.10.217.170:8089/Hybris/Goods/102/102_000.jpg",
-                            "specifications": "7.5mg*7片",
-                            "sentUrl": "/p/102",
-                            "target": "detail"
-                        }
-                    ]
+                    itemsArray:[]
                 },
-                newBuyGift:{
-                    name:'活动买赠',
-                    itemsArrays:[
-                        {
-                            "price": "",
-                            "name": "活动买赠",
-                            "imgsrc": "https://www.cmyynet.com/Hybris/Home/PC/Logo/brandlogo/ZY-fengliaoxing.jpg",
-                            "sentUrl": "/c/20",
-                            "cacode": "20",
-                            "target": "detail"
-                        },
-                        {
-                            "price": "",
-                            "name": "活动买赠",
-                            "imgsrc": "https://www.cmyynet.com/Hybris/Home/PC/Logo/brandlogo/ZY-guanghua.jpg",
-                            "sentUrl": "/c/20",
-                            "cacode": "20",
-                            "target": "detail"
-                        },
-                        {
-                            "price": "",
-                            "name": "活动买赠",
-                            "imgsrc": "https://www.cmyynet.com/Hybris/Home/PC/Logo/brandlogo/ZY-huarunsanjiu.jpg",
-                            "sentUrl": "/c/19",
-                            "cacode": "19",
-                            "target": "detail"
-                        }
-                    ]
-                },
-                specialOffersInfo:{
-                    name:'特价优惠',
-                    itemsArrays:[
-                        {
-                            "code": "71800",
-                            "price": "登录可见",
-                            "name": "摩罗丹(浓缩丸)",
-                            "imgsrc": "http://121.10.217.170:8089/Hybris/Goods/71800/71800_000.jpg",
-                            "specifications": "72丸",
-                            "sentUrl": "/p/71800",
-                            "target": "detail"
-                        }
-                    ]
-                },
-                highMarginInfo:{
-                    name:'高毛利专区',
-                    itemsArrays:[
-                        {
-                            "code": "79981",
-                            "price": "登录可见",
-                            "name": "香丹清牌珂妍胶囊",
-                            "imgsrc": "http://121.10.217.170:8089/Hybris/Goods/79981/79981_000.jpg",
-                            "specifications": "8g(0.4g*20粒)",
-                            "sentUrl": "/p/79981",
-                            "target": "detail"
-                        }
-                    ]
-                },
-                necessMedicineInfo:{
-                    name:'药店常备',
-                    itemsArrays:[
-                        {
-                            "code": "139",
-                            "price": "登录可见",
-                            "name": "复方氨酚肾素片",
-                            "imgsrc": "http://121.10.217.170:8089/Hybris/Goods/139/139_000.jpg",
-                            "specifications": "12片",
-                            "sentUrl": "/p/139",
-                            "target": "detail"
-                        },
-                        {
-                            "code": "602",
-                            "price": "登录可见",
-                            "name": "双氯芬酸二乙胺乳胶剂",
-                            "imgsrc": "http://121.10.217.170:8089/Hybris/Goods/602/602_000.jpg",
-                            "specifications": "20g",
-                            "sentUrl": "/p/602",
-                            "target": "detail"
-                        },
-                        {
-                            "code": "347",
-                            "price": "登录可见",
-                            "name": "京都念慈菴蜜炼川贝枇杷膏",
-                            "imgsrc": "http://121.10.217.170:8089/Hybris/Goods/347/347_000.jpg",
-                            "specifications": "150ML",
-                            "sentUrl": "/p/347",
-                            "target": "detail"
-                        },
-                        {
-                            "code": "347",
-                            "price": "登录可见",
-                            "name": "京都念慈菴蜜炼川贝枇杷膏",
-                            "imgsrc": "http://121.10.217.170:8089/Hybris/Goods/347/347_000.jpg",
-                            "specifications": "150ML",
-                            "sentUrl": "/p/347",
-                            "target": "detail"
-                        }
-                    ]
-                },
-                discountDepotInfo:{
-                    name:'折扣专区',
-                    itemsArrays:[]
-                }
+                newBuyGift:{},
+                specialOffersInfo:{},
+                highMarginInfo:{},
+                necessMedicineInfo:{},
+                discountDepotInfo:{},
+                extensionInfo:{},
+                extensionInfoTwo:{}
+
             }
         },
         created(){
@@ -622,22 +444,29 @@
             //品牌专区
         	new Swiper('.hotBrandInfo', {
 		        pagination: '.swiper-pagination',
-		        loop: true
+                loop: true,
+                observer:true,
+                observeParents:true
             });
             //新品上线
            new Swiper('.newProductBox',{
                 direction: 'horizontal',
-                slidesPerView: 'auto'
+                slidesPerView: 'auto',
+                observer:true,
+                observeParents:true
             });
             //活动买赠
             new Swiper('.newBuyGift',{
                 pagination:'.swiper-pagination',
-                loop:true
+                loop:true,
+                observer:true,
+                observeParents:true
             });
             window.addEventListener('scroll', this.scrFn);
         },
         methods:{
             getIndexData(){
+                let $this = this;
                  request.post(Datas.indexData, {
                      'companyCode':this.companyCode,
                      'uid':'',
@@ -645,6 +474,29 @@
                  })
                 .then(res => {
                     console.log(res)
+                    //首页轮播图
+                    res.carouselInfo.itemsArray.map(function(item){
+                        $this.carouselInfo.push(item.imgsrc);
+                    });
+                    //品牌专区
+                    $this.hotBrandInfo = res.hotBrandInfo;
+                    //新品上线
+                    $this.dailyNewInfo.itemsArray = res.dailyNewInfo.itemsArray;
+                    //活动买赠
+                    $this.newBuyGift = res.manysimpleInfo;
+                    //特价优惠
+                    $this.specialOffersInfo = res.specialOffersInfo;
+                    //推广广告1
+                    $this.extensionInfo = res.extensionInfo;
+                    //药店常备
+                    $this.necessMedicineInfo = res.necessMedicineInfo;
+                    //高毛利
+                    $this.highMarginInfo = res.highMarginInfo;
+                    //折扣区
+                    $this.discountDepotInfo = res.discountDepotInfo;
+                    //推广广告2
+                    $this.extensionInfoTwo = res.extension2Info;
+
                 });
             },
             finish(){
