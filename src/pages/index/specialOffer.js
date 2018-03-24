@@ -17,7 +17,7 @@ import '@style/topic.less';
 
 // Vue.config.productionTip = false;
 new Vue({
-    el: '#newProduct',
+    el: '#specialOffer',
     router,
     components:{
         HeadTop,
@@ -25,14 +25,14 @@ new Vue({
     },
     data(){
         return{
-            'resultArray': [],
+            'specialOfferArray': [],
             'resultAdArray': []
         };
     },
     methods: {
         getDatas(){
-            request.get(Datas.newProductData, {}).then(res => {
-                this.resultArray = res.resultArray;
+            request.post(Datas.getSpecialOffers, {}).then(res => {
+                this.specialOfferArray = res.resultArray;
             });
         }
     },

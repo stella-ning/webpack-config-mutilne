@@ -61,6 +61,8 @@ webpackBaseConfig.devServer = {
 //     target: API_HOST,
 //     secure: false
 // }];
+
+//代理跨域
 webpackBaseConfig.devServer.proxy = {
     '/Interface':{
         target: API_HOST,

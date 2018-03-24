@@ -9,23 +9,17 @@
     <meta name="full-screen" content="yes">
     <meta name="x5-fullscreen" content="true">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_424201_i05mmx8bkaoiggb9.css">
-    <title>新品上线</title>
+    <title>特价优惠</title>
 </head>
 <body>
-    <div id="newProduct">
-        <Head-top head-title="新品上线" go-back="true"></Head-top>
+    <div id="specialOffer">
+        <Head-top head-title="特价优惠" go-back="true"></Head-top>
         <div class="main-container">
             <div class="factory-instr-ad">
-                <img src="../../static/images/topic/newproductMark.png" alt=""/>
+                <img src="../../static/images/topic/specialOfferMark.png" alt=""/>
             </div>
-            <div class="product-list" v-for="(productItem,index) in resultArray" :key="index" v-cloak>
-                <div class="floor-title">
-                    <span class="line-left"></span>
-                    <span class="month-product">{{productItem.month}}</span>
-                    <span class="line-right"></span>
-                </div>
-                <!-- 产品楼层 -->
-                <!-- <div class="product-floor" v-for="(productItemList,key) in productItem.dailyNewArray" :key="key">
+            <div class="product-list"  v-cloak>
+                <div class="product-floor" v-for="(productItemList,key) in specialOfferArray" :key="key">
                     <div class="product-thumb floor-item">
                         <a href="javascript:void(0);">
                             <img v-lazy="productItemList.imgsrc" alt=""/>
@@ -72,8 +66,8 @@
                             <a class="add-cart f-right" href="javascript:void(0);">加入购物车</a>
                         </div>
                     </div>
-                </div> -->
-                <Product-list :datas='productItem.dailyNewArray'></Product-list>
+                </div>
+                <Product-list :datas='specialOfferArray'></Product-list>
             </div>
         </div>
     </div>

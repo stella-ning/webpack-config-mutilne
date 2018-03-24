@@ -403,7 +403,7 @@
                     },
                      {
                         navImg:'../../static/images/index/m-nav20160918-02.png',
-                        navLink:'indx.html',
+                        navLink:'/index/specialOffer',
                         navText:'特价优惠'
                     },
                      {
