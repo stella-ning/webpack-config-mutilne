@@ -6,34 +6,29 @@ import { request } from 'common';
 import * as Datas from 'api';
 import VueLazyLoad from 'vue-lazyload';
 import HeadTop from 'src/common/header.vue';
-import ProductList from './components/topic.vue';
 
 Vue.use(VueLazyLoad,{
     error:'../static/images/public/loading.gif',
     loading:'../static/images/public/loading.gif'
 });
-
 import '@style/topic.less';
 
-// Vue.config.productionTip = false;
 new Vue({
-    el: '#newProduct',
+    el: '#newbuygift',
     router,
     components:{
-        HeadTop,
-        ProductList
+        HeadTop
     },
     data(){
         return{
-            'resultArray': [],
-            'resultAdArray': [],
-            'bannurl':'../../static/images/topic/newproductMark.png'
+            'newbuygiftArray': [],
+            'bannurl':'../../static/images/topic/newbuygift.png'
         };
     },
     methods: {
         getDatas(){
-            request.get(Datas.newProductData, {}).then(res => {
-                this.resultArray = res.resultArray;
+            request.post(Datas.getManysimple, {}).then(res => {
+                this.newbuygiftArray = res.resultArray;
             });
         }
     },

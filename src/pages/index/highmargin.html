@@ -12,14 +12,14 @@
     <title>特价优惠</title>
 </head>
 <body>
-    <div id="specialOffer" v-cloak>
+    <div id="highmargin">
         <Head-top head-title="特价优惠" go-back="true"></Head-top>
         <div class="main-container">
             <div class="factory-instr-ad">
-                <img :src="bannurl"  alt=""/>
+                <img :src="bannurl" alt=""/>
             </div>
-            <div class="product-list"  >
-                <product-list :info-datas='specialOfferArray'></product-list>
+            <div class="product-list"  v-cloak>
+                <product-list :info-datas='highmarginArray'></product-list>
             </div>
         </div>
     </div>

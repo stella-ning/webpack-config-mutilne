@@ -1,7 +1,7 @@
 <template>
     <!-- 产品楼层 -->
     <div class="productListBox">
-        <div class="product-floor" v-for="(productItemList,index) in items" :key="index" >
+        <div class="product-floor" v-for="(productItemList,index) in infoDatas" :key="index" >
             <div class="product-thumb floor-item">
                 <a href="javascript:void(0);">
                     <img v-lazy="productItemList.imgsrc" alt=""/>
@@ -57,14 +57,14 @@
 <script>
 export default {
     props: {
-      datas: {
+      infoDatas: {
         type: Array,
         default: []
       }
     },
     data(){
         return {
-            items: this.datas
+            items:this.infoDatas
         };
     }
 }

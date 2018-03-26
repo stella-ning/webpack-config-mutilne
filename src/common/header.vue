@@ -8,8 +8,8 @@
         </div>
         <div class="header-position"></div>
          <transition name="fade">
-            <div id="menu-modal" v-show="isShow">
-                <div class="menu-modal" v-on:click.stop="handleMenu">
+            <div id="menu-modal" v-on:click.stop="handleMenu" v-show="isShow" >
+                <div class="menu-modal" >
                     <div class="menu f-right">
                         <span class="icon-triangle"></span>
                         <ul class="menu-list">
@@ -81,16 +81,19 @@
 .header-position {
   height: 0.88rem;
 }
+#menu-modal{
+    min-width: 320px;
+    max-width: 640px;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 44px;
+    bottom: 0;
+    z-index: 100;
+    background: rgba(21, 21, 21, 0.4);
+}
 .menu-modal {
-  min-width: 320px;
-  max-width: 640px;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 44px;
-  bottom: 0;
-  z-index: 100;
-  background: rgba(21, 21, 21, 0.4);
+
   .menu {
     width: 40%;
     height: 225px;

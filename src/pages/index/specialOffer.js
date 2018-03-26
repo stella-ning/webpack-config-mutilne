@@ -26,7 +26,8 @@ new Vue({
     data(){
         return{
             'specialOfferArray': [],
-            'resultAdArray': []
+            'resultAdArray': [],
+            'bannurl':'../../static/images/topic/specialOfferMark.png'
         };
     },
     methods: {

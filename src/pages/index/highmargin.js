@@ -17,7 +17,7 @@ import '@style/topic.less';
 
 // Vue.config.productionTip = false;
 new Vue({
-    el: '#newProduct',
+    el: '#highmargin',
     router,
     components:{
         HeadTop,
@@ -25,15 +25,15 @@ new Vue({
     },
     data(){
         return{
-            'resultArray': [],
+            'highmarginArray': [],
             'resultAdArray': [],
-            'bannurl':'../../static/images/topic/newproductMark.png'
+            'bannurl':'../../static/images/topic/highProfit.png'
         };
     },
     methods: {
         getDatas(){
-            request.get(Datas.newProductData, {}).then(res => {
-                this.resultArray = res.resultArray;
+            request.post(Datas.getHighMargin, {}).then(res => {
+                this.highmarginArray = res.resultArray;
             });
         }
     },

@@ -1,5 +1,5 @@
 <template>
-    <div class="app">
+    <div class="app" v-cloak>
         <div id="header">
             <div class="header-container clearfix hasBgImg">
                 <div class="logo">
@@ -111,7 +111,7 @@
                 </div>
                 <div class="floor-title_1">{{dailyNewInfo.name}}</div>
                 <div class="more-to-link">
-                    <a href="javascript:void(0);">
+                    <a href="/index/newproduct">
                         更多
                         <span class="icon iconfont icon-left"></span>
                     </a>
@@ -149,7 +149,7 @@
             <div class="area-title">
                 <img src="../../static/images/index/floor_title_bg_02.png" alt=""/>
                 <div class="more-to-link">
-                    <a href="javascript:void(0);">
+                    <a href="/index/newbuygift">
                         更多
                         <span class="icon iconfont icon-left"></span>
                     </a>
@@ -175,7 +175,7 @@
             <div class="area-title">
                 <img src="../../static/images/index/floor_title_bg_04.png" alt=""/>
                  <div class="more-to-link">
-                    <a href="javascript:void(0);">
+                    <a href="/index/specialOffer">
                         更多
                         <span class="icon iconfont icon-left"></span>
                     </a>
@@ -209,7 +209,7 @@
             <div class="area-title">
                 <img src="../../static/images/index/floor_title_bg_03.png" alt=""/>
                  <div class="more-to-link">
-                    <a href="javascript:void(0);">
+                    <a href="/index/necessMedicine">
                         更多
                         <span class="icon iconfont icon-left"></span>
                     </a>
@@ -243,7 +243,7 @@
             <div class="area-title">
                 <img src="../../static/images/index/floor_title_bg_05.png" alt=""/>
                  <div class="more-to-link">
-                    <a href="javascript:void(0);">
+                    <a href="/index/highmargin">
                         更多
                         <span class="icon iconfont icon-left"></span>
                     </a>
