@@ -413,7 +413,7 @@
                     },
                      {
                         navImg:'../../static/images/index/m-nav20160918-04.png',
-                        navLink:'indx.html',
+                        navLink:'/index/controlsale',
                         navText:'控销专区'
                     },
                      {
