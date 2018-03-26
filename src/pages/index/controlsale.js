@@ -74,7 +74,7 @@ new Vue({
             setTimeout(() => {
                 this.page ++;
                 this.getGoodsList(true);
-            }, 500);
+            }, 100);
         }
 
     },

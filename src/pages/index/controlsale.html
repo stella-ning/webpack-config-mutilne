@@ -18,14 +18,14 @@
             <div class="product-list"  >
                 <div class="product-floor" v-for="(productItemList,index) in controlSaleArray" :key="index" >
                     <div class="product-thumb floor-item">
-                        <a href="javascript:void(0);">
+                        <a :href="'/index/productdetail?code='+productItemList.code">
                             <img v-lazy="productItemList.imgsrc" alt=""/>
                         </a>
                     </div>
                     <!-- 产品信息 -->
                     <div class="product-instr floor-item">
                         <p class="product-name">
-                            <a href="javascript:void(0);">
+                            <a :href="'/index/productdetail?code='+productItemList.code">
                                 {{productItemList.name}}
                             </a>
                         </p>
@@ -65,7 +65,9 @@
                         </div>
                     </div>
                 </div>
-                <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10"></div>
+                <div class='loading' v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+                    加载中...
+                </div>
             </div>
         </div>
     </div>

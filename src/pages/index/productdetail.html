@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_424201_i05mmx8bkaoiggb9.css">
+    <title>商品详情</title>
+</head>
+<body>
+    <div id="productdetail" v-cloak>
+        <!-- 头部 -->
+        <div class="headerBox">
+            <div class="header">
+                <span class="icon-back"></span>
+                <h1>
+                    <span id="namepages" class="product-btn">
+                        商品
+                    </span>
+                    <span id="books" class="specification">
+                        说明书
+                    </span>
+                </h1>
+                <span class="more-info" @click="handleMenu"></span>
+            </div>
+            <div class="header-position"></div>
+            <transition name="fade">
+                <div id="menu-modal" v-on:click.stop="handleMenu" v-show="isShow" >
+                    <div class="menu-modal" >
+                        <div class="menu f-right">
+                            <span class="icon-triangle"></span>
+                            <ul class="menu-list">
+                                <li class="shopping-card"><a href="/cart">购物车</a></li>
+                                <li class="search"><a href="/searchpage">搜索</a></li>
+                                <li class="category"><a href="/cmyy-category">分类</a></li>
+                                <li class="home"><a href="/index/index">首页</a></li>
+                                <li class="my"><a href="/my-account">我的</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+        </div>
+    </div>
+</body>
+</html>
