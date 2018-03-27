@@ -71,7 +71,9 @@
     "better-scroll": "^1.8.4",
     "element-ui": "^2.2.2",
     "js-md5": "^0.6.1",
+    "vee-validate": "^2.0.6",
     "vue": "^2.4.2",
+    "vue-i18n": "^7.6.0",
     "vue-infinite-scroll": "^2.0.2",
     "vue-router": "^3.0.1"
   }
