@@ -218,7 +218,7 @@ export const deleteCustomerPhone = '/UserInterface/deleteCustomerPhone';
  *数据加密解密
  *@type {string}
  */
-export const dataEnDecode = '/UserInterface/dataEnDecode';
+export const encrypt = '/UserInterface/dataEnDecode';
 
 /**
  * 线上订单
@@ -340,7 +340,7 @@ export const deleteMyBrows = '/UserInterface/deleteMyBrows';
  *用户登录
  *@type {string}
  */
-export const userLogin = '/UserInterface/userLogin';
+export const userLogin = '/UserInterface/userLoginNew';
 
 /**
  *获取手机验证码

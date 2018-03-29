@@ -2,19 +2,23 @@
     <div class="loginBox">
         <Head-top head-title="会员登录" go-back="true"></Head-top>
         <div class="loginContain">
-            <form id="command" role="form" action="" method="post" @submit.prevent="submitForm" >
+            <form id="command" role="form"  method="post" @submit.prevent="submitForm" >
                 <div class="username_row clearfix">
                     <span class="iconfont icon-guanbi f-left"></span>
                     <input class="username f-left" :class="{'input': true, 'is-fault': errors.has('j_username') }" id="username"
                         placeholder="请输入账号" name="j_username" type="text"
                         v-model="ruleForm.j_username" v-validate="{required:true}"
+                        @blur="encryptname"
                     >
                     <span v-show="errors.has('j_username')" class="help is-danger">{{ errors.first('j_username') }}</span>
                 </div>
                 <div class="psw_row clearfix">
                     <span class="iconfont icon-mima f-left"></span>
                     <input class="password f-left" id="InputPassword" placeholder="请输入密码" :class="{'input': true, 'is-fault': errors.has('j_password') }"
-                    name="j_password" type="password" v-model="ruleForm.j_password" v-validate="{required:true}">
+                        name="j_password" type="password" v-model="ruleForm.j_password"
+                        v-validate="{required:true}"
+                        @blur="encryptpwd"
+                    >
                     <span class="eyes iconfont icon-eyeshover" @click="seePwd($event)"></span>
                     <span v-show="errors.has('j_password')" class="help is-danger">{{ errors.first('j_password') }}</span>
                 </div>
@@ -60,8 +64,10 @@
 <style lang='less' scoped>
 
     .loginContain{
-        width:100%;
+        width:auto;
         min-height: 200px;
+        min-width:320px;
+        max-width:640px;
         .username_row{
             margin-top: 20px;
             margin-bottom: 10px;
@@ -157,50 +163,15 @@
 </style>
 
 <script>
-    import Vue from 'vue';
-    import VeeValidate,{Validator} from 'vee-validate';//导入vee-validate
-    import messages from 'src/static/js/zh_CN';  //自定义的message
-    import custom from 'src/static/js/custom';   //自定义的属性message
-    import VueI18n from 'vue-i18n';//国际化文件
+    import axios from 'axios';
     import { request } from 'common';
     import * as Datas from 'api';
     import HeadTop from 'src/common/header.vue';
+    import registerVue from './register.vue';
+    import { Notification } from 'element-ui';
+    import {mapState, mapMutations} from 'vuex';
 
-    //定义字典
-    const dictionary = {
-        zh_CN: {
-        /*
-        *   自定义统一的消息提示
-        * */
-        messages:messages,
-        /*
-        *   自定义字段
-        * */
-        custom:custom
-        },
 
-    };
-
-    //自定义验证规则
-    Validator.extend('isMobile', {
-        getMessage: field =>  '必须是有效的手机号码',
-        validate: value => /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(value)
-    });
-
-    // 2.0.0之后，引入了国际化文件，想要中文须定义i18n国际化对象
-    Vue.use(VueI18n);
-    const i18n = new VueI18n({
-        locale: 'zh_CN'
-    });
-
-    //定义配置文件
-    const config =  {
-    i18n:i18n,
-    i18nRootKey: 'validation',
-    dictionary:dictionary
-    }
-
-    Vue.use(VeeValidate,config);
 
     export default {
         name: 'login',
@@ -212,25 +183,111 @@
                 ruleForm: {
                     j_username: '',
                     j_password:'',
-                    isLogin:''
-                }
+                    encryptUsername:'',
+                    encryptPassword:''
+                },
+                userInfo:null
+
             }
         },
         methods:{
+            ...mapMutations([
+                'RECORD_USERINFO',
+            ]),
             seePwd(event){
                 let InputPassword = document.querySelector('#InputPassword'),
                     currentTargetDom = event.currentTarget;
                 InputPassword.setAttribute('type','text');
                 currentTargetDom.className = 'eyes iconfont icon-yanjing';
             },
-            submitForm() {
-                this.$validator.validateAll().then(function(success) {
-                if (!success) {
-                    console.log("error");
-                }else{
-                    console.log("success");
-                }
+            encryptname(){
+                let _this = this;
+                request.get(Datas.encrypt,{
+                    'paramData':_this.ruleForm.j_username,
+                    'type':'en'
+                }).then((resultname) => {
+                    console.log('用户名'+resultname.data)
+                    if(resultname.status == 200){
+                        _this.ruleForm.encryptUsername = resultname.data
+                    }
+
                 })
+                .catch(function (error) {
+                    if (error.response) {
+                         // 请求已发出，但服务器响应的状态码不在 2xx 范围内
+                        console.log('1'+error.response.data);
+                        console.log('2'+error.response.status);
+                        console.log('3'+error.response.headers);
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                         console.log('Error', error.message);
+                    }
+                    console.log(error.config);
+                });
+            },
+            encryptpwd(){
+                let _this = this;
+                request.get(Datas.encrypt,{
+                    'paramData':_this.ruleForm.j_password,
+                    'type':'en'
+                }).then((resultpwd) => {
+                    if(resultpwd.status == 200){
+                        _this.ruleForm.encryptPassword = resultpwd.data
+                    }
+                    console.log('已加密'+_this.ruleForm.encryptPassword)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            submitForm() {
+                let $this = this;
+                $this.$validator.validateAll().then(function(success) {
+                    if (!success) {
+                        console.log("error");
+                    }else{
+                        console.log("success");
+                        axios.create({
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            }
+                        });
+                        axios.post(Datas.userLogin,'username='+$this.ruleForm.encryptUsername+'&password='+$this.ruleForm.encryptPassword)
+                        .then((res)=>{
+                            console.log('请求成功')
+                            console.log(res)
+                            //判断账号密码是否正确
+                            if(res.data.status == 401){
+                                Notification.error({
+                                    message: res.data.message,
+                                    type: 'error',
+                                    duration:2000,
+                                    offset:100
+                                })
+                            }else if(res.data.status == 200){
+                                $this.userInfo = res.data.data;
+                                $this.RECORD_USERINFO($this.userInfo);
+                                //window.history.go(-1);
+                                $this.$router.go(-1);
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log('请求失败')
+                            if (error.response) {
+                                // 请求已发出，但服务器响应的状态码不在 2xx 范围内
+                                console.log('1'+error.response.data);
+                                console.log('2'+error.response.status);
+                                console.log('3'+error.response.headers);
+                            } else {
+                                // Something happened in setting up the request that triggered an Error
+                                console.log('Error', error.message);
+                            }
+                            console.log(error.config);
+                        });
+                    }
+                })
+
             }
         }
     }
