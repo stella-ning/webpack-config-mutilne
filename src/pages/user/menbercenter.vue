@@ -8,10 +8,19 @@
     import HeadTop from 'src/common/header.vue';
     import Login from './login.vue';
     export default {
+        created(){
+            console.log(this.$store.state.login)
+        },
         components:{
             HeadTop,
             Login
         },
+        computed: {
+            isLogin() {
+                return this.$store.state.login;
+            }
+        },
     }
+
 </script>
 
