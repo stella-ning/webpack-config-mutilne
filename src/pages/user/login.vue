@@ -69,28 +69,28 @@
         min-width:320px;
         max-width:640px;
         .username_row{
-            margin-top: 20px;
-            margin-bottom: 10px;
+            margin-top: 0.4rem;
+            margin-bottom: 0.2rem;
         }
         .username_row, .psw_row{
-            margin-left: 15px;
-            margin-right: 15px;
+            margin-left: 0.3rem;
+            margin-right: 0.3rem;
             position: relative;
             font-size:14px;
         }
         .iconfont{
             display: inline-block;
             border: 1px solid #e4e4e4;
-            width: 40px;
-            height: 40px;
-            line-height:40px;
+            width: 0.8rem;
+            height: 0.8rem;
+            line-height:0.8rem;
             text-align: center;
             font-size:20px;
         }
         .username, .password{
             width: 87%;
-            height: 40px;
-            padding-left: 10px;
+            height: 0.8rem;
+            padding-left: 0.2rem;
             -webkit-border-radius: 3px;
             -moz-border-radius: 3px;
             border-radius: 3px;
@@ -103,22 +103,22 @@
             color:#333;
         }
         .about_psw, .login_protocol{
-            line-height: 30px;
-            margin-left: 15px;
-            margin-right: 15px;
+            line-height: 0.6rem;
+            margin-left: 0.3rem;
+            margin-right: 0.3rem;
             position: relative;
         }
         .about_psw{
-            height:30px;
+            height:0.6rem;
         }
         .eyes{
             position:absolute;
             top: 0;
             right: 0;
-            width: 40px;
-            height: 40px;
+            width: 0.8rem;
+            height: 0.8rem;
             text-align: center;
-            line-height: 40px;
+            line-height: 0.8rem;
             border:none;
         }
         .forget_psw{
@@ -126,8 +126,8 @@
             color:#333;
         }
         .login{
-            height: 40px;
-            line-height: 40px;
+            height: 0.8rem;
+            line-height: 0.8rem;
             -webkit-border-radius: 2px;
             -moz-border-radius: 2px;
             text-align: center;
@@ -142,7 +142,7 @@
             }
         }
         .readed{
-            padding-left:5px;
+            padding-left:0.1rem;
             font-size:.28rem;
             color:#333;
             a{

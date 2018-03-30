@@ -14,6 +14,7 @@ export default{
     [RECORD_USERINFO](state, info) {
         state.userInfo = info;
         state.login = true;
-        setStore('user_id', info.uid);
+        setStore('user_id',info.uid);
+        setStore('user_code', info.companyCode);
     },
 };

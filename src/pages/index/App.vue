@@ -4,7 +4,13 @@
             <div class="header-container clearfix hasBgImg">
                 <div class="logo">
                     <!-- site / 站点 -->
-                    <div class="siteBox f-left">
+                    <div v-if="isLogin" class="siteBox f-left">
+                        <p class="site">
+                            <span class="siteChecked">{{site}}</span>
+                            <img src="../../static/images/public/arrowDown.png" alt="">
+                        </p>
+                    </div>
+                    <div v-else class="siteBox f-left">
                         <p class="site" @click="showSitesHandle">
                             <span class="siteChecked">{{site}}</span>
                             <img src="../../static/images/public/arrowDown.png" alt="">
@@ -17,12 +23,12 @@
                         </a>
                     </div>
 
-                    <a class="shopCart f-right" href="javascript:void(0);" >
+                    <a v-if="isLogin" class="shopCart f-right" href="javascript:void(0);" >
                         <img src="../../static/images/public/iconCart.png" alt="">
                     </a>
-                    <!-- <a class="login f-right" href="javascript:void(0);">
+                    <a v-else class="login f-right" href="/user/index#/login">
                         登录
-                    </a> -->
+                    </a>
                 </div>
             </div>
             <!-- 站点弹窗 -->
@@ -123,7 +129,7 @@
                     <!--已登录-->
                     <div class="swiper-slide" v-for="(newProduct,index) in dailyNewInfo.itemsArray" :key="index">
                         <div class="per-product">
-                            <a :href="newProduct.sentUrl">
+                            <a :href="'productdetail?code='+newProduct.code">
                                 <div class="product-img">
                                     <span class="imgList">
                                         <img v-lazy="newProduct.imgsrc" alt=""/>
@@ -185,7 +191,7 @@
                 <ul class="special-product-list clearfix">
                     <li class="special-product-cell" v-for="(specialOffersItem,index ) in specialOffersInfo.itemsArray" :key="index">
                         <div class="imgBox">
-                            <a :href="specialOffersItem.sentUrl">
+                            <a :href="'productdetail?code='+specialOffersItem.code">
                                 <img v-lazy="specialOffersItem.imgsrc" alt=""/>
                             </a>
                         </div>
@@ -219,7 +225,7 @@
                 <ul class="special-product-list clearfix">
                     <li class="special-product-cell" v-for = "(necessMedicine ,index) in necessMedicineInfo.itemsArray" :key="index">
                         <div class="imgBox">
-                            <a :href="necessMedicine.sentUrl">
+                            <a :href="'productdetail?code='+necessMedicine.code">
                                 <img :src="necessMedicine.imgsrc" alt=""/>
                             </a>
                         </div>
@@ -253,7 +259,7 @@
                 <ul class="special-product-list clearfix">
                     <li class="special-product-cell" v-for="(highMarginItem,index) in highMarginInfo.itemsArray" :key="index">
                         <div class="imgBox">
-                            <a :href="highMarginItem.sendUrl">
+                            <a :href="'productdetail?code='+highMarginItem.sendUrl">
                             <img v-lazy="highMarginItem.imgsrc" alt=""/>
                         </a>
                         </div>
@@ -281,7 +287,7 @@
                 <ul class="special-product-list clearfix">
                     <li class="special-product-cell" v-for="(discountItem,index) in discountDepotInfo.itemsArray" :key="index">
                         <div class="imgBox">
-                            <a :href="specialOffersItem.sentUrl">
+                            <a :href="'productdetail?code='+specialOffersItem.code">
                                 <img v-lazy="specialOffersItem.imgsrc" alt=""/>
                             </a>
                         </div>
@@ -380,6 +386,8 @@
     import 'src/static/plugins/swiper-3.4.2.min.js';
     import { request } from 'common';
     import * as Datas from "api";
+    import {setStore,getStore} from '@js/config';
+    import {mapState, mapMutations} from 'vuex';
     export default {
         name:'App',
         components:{
@@ -438,7 +446,17 @@
             }
         },
         created(){
-           this.getIndexData();
+           let  userId = getStore('user_id'),
+                userCode = getStore('user_code');
+
+           console.log('用户id'+userId);
+           //console.log('用户信息'+userInfo)
+           if(userId){
+                this.isLogin = true;
+                this.getIndexData(userCode,userId);
+           }else{
+               this.getIndexData(1000,'');
+           }
         },
         mounted(){
             //品牌专区
@@ -465,38 +483,40 @@
             window.addEventListener('scroll', this.scrFn);
         },
         methods:{
-            getIndexData(){
+            getIndexData(code,uid){
                 let $this = this;
-                 request.post(Datas.indexData, {
-                     'companyCode':this.companyCode,
-                     'uid':'',
+                $this.requestFn($this,code,uid)
+            },
+            requestFn(_this,code,user_id){
+                request.post(Datas.indexData, {
+                     'companyCode':code,
+                     'uid':user_id,
                      'regionId':''
                  })
                 .then(res => {
                     console.log(res)
                     //首页轮播图
                     res.carouselInfo.itemsArray.map(function(item){
-                        $this.carouselInfo.push(item.imgsrc);
+                        _this.carouselInfo.push(item.imgsrc);
                     });
                     //品牌专区
-                    $this.hotBrandInfo = res.hotBrandInfo;
+                    _this.hotBrandInfo = res.hotBrandInfo;
                     //新品上线
-                    $this.dailyNewInfo.itemsArray = res.dailyNewInfo.itemsArray;
+                    _this.dailyNewInfo.itemsArray = res.dailyNewInfo.itemsArray;
                     //活动买赠
-                    $this.newBuyGift = res.manysimpleInfo;
+                    _this.newBuyGift = res.manysimpleInfo;
                     //特价优惠
-                    $this.specialOffersInfo = res.specialOffersInfo;
+                    _this.specialOffersInfo = res.specialOffersInfo;
                     //推广广告1
-                    $this.extensionInfo = res.extensionInfo;
+                    _this.extensionInfo = res.extensionInfo;
                     //药店常备
-                    $this.necessMedicineInfo = res.necessMedicineInfo;
+                    _this.necessMedicineInfo = res.necessMedicineInfo;
                     //高毛利
-                    $this.highMarginInfo = res.highMarginInfo;
+                    _this.highMarginInfo = res.highMarginInfo;
                     //折扣区
-                    $this.discountDepotInfo = res.discountDepotInfo;
+                    _this.discountDepotInfo = res.discountDepotInfo;
                     //推广广告2
-                    $this.extensionInfoTwo = res.extension2Info;
-
+                    _this.extensionInfoTwo = res.extension2Info;
                 });
             },
             finish(){
@@ -506,10 +526,13 @@
                 this.showSites = true;
             },
             chooseSite(curSite,companyCode){
-                this.isFirst = true;
-                this.showSites = false;
-                this.site = curSite;
-
+                let $this = this;
+                $this.isFirst = true;
+                $this.showSites = false;
+                $this.site = curSite;
+                $this.companyCode = companyCode;
+                $this.carouselInfo = [];
+               $this.requestFn($this,companyCode);
             },
             closeSitesLay(){
                 this.isFirst = true;

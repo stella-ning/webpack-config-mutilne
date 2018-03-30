@@ -7,9 +7,12 @@
 <script>
     import HeadTop from 'src/common/header.vue';
     import Login from './login.vue';
+    import {setStore,getStore} from '@js/config';
     export default {
         created(){
-            console.log(this.$store.state.login)
+            console.log(this.$store.state.login);
+            let user_id = getStore('user_id');
+            console.log(user_id);
         },
         components:{
             HeadTop,

@@ -5,6 +5,8 @@ import '@js/rem';
 import { request , resolveParams } from 'common';
 import * as Datas from 'api';
 import VueLazyLoad from 'vue-lazyload';
+import axios from 'axios';
+import {setStore,getStore} from '@js/config';
 
 Vue.use(VueLazyLoad,{
     error:'../static/images/public/loading.gif',
@@ -44,18 +46,32 @@ new Vue({
         };
     },
     beforemount(){
+
     },
     methods: {
         handleMenu() {
             this.isShow = !this.isShow;
         },
+        goback(){
+            window.history.go(-1)
+        },
         getDatas(){
-            request.post(Datas.productDetail+'?code='+2717, {
-                'code':this.code
-            }).then(res => {
-                //this.specialOfferArray = res.resultArray;
-                console.log(res);
+            let $this = this,
+                userId = getStore('user_id'),
+                userCode = getStore('user_code');
+
+            axios.create({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                }
             });
+            //'code='+$this.code+'&uid='+userId+'&companyCode='+userCode
+            axios.post(Datas.productDetail,'code='+$this.code)
+                .then(res => {
+                    //this.specialOfferArray = res.resultArray;
+                    console.log(res);
+                });
         }
     },
     beforeCreate(){
