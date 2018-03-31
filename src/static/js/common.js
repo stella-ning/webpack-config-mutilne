@@ -12,7 +12,8 @@ export const request = axios.create({
     baseURL: PREFIX_PATH,
     headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=utf-8',
+        //'Content-Type': 'application/json; charset=utf-8',
+        'Content-Type': 'application/x-www-form-urlencoded',
     }
 });
 

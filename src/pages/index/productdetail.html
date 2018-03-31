@@ -9,6 +9,7 @@
     <meta name="full-screen" content="yes">
     <meta name="x5-fullscreen" content="true">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_424201_i05mmx8bkaoiggb9.css">
+    <link rel="stylesheet" href="../../static/css/swiper-3.4.1.min.css">
     <title>商品详情</title>
 </head>
 <body>
@@ -18,7 +19,7 @@
             <div class="header">
                 <span class="icon-back" @click="goback"></span>
                 <h1>
-                    <span id="namepages" class="product-btn">
+                    <span id="namepages" class="product-btn active">
                         商品
                     </span>
                     <span id="books" class="specification">
@@ -44,6 +45,30 @@
                     </div>
                 </div>
             </transition>
+        </div>
+        <!-- 产品图 -->
+        <div class="prodectPictureBox swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" v-for="(prodectPic,index) in productPicArray" :key="index">
+                    <div class="special-factory-img">
+                        <a href="javascript:void(0);">
+                            <img v-lazy="prodectPic.imgsrc"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination slider-pagination"></div>
+        </div>
+        <div class="productInfoBox">
+            <div class="productInfo">
+                <div class="productNameBox">
+                    <p class="productName">{{name}}</p>
+                    <p class="activityMsg">{{salesPromotion}}</p>
+                </div>
+                <div class="productDetailCon">
+
+                </div>
+            </div>
         </div>
     </div>
 </body>

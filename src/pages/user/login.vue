@@ -17,7 +17,7 @@
                     <input class="password f-left" id="InputPassword" placeholder="请输入密码" :class="{'input': true, 'is-fault': errors.has('j_password') }"
                         name="j_password" type="password" v-model="ruleForm.j_password"
                         v-validate="{required:true}"
-                        @blur="encryptpwd"
+                        @keyup="encryptpwd"
                     >
                     <span class="eyes iconfont icon-eyeshover" @click="seePwd($event)"></span>
                     <span v-show="errors.has('j_password')" class="help is-danger">{{ errors.first('j_password') }}</span>
@@ -175,6 +175,7 @@
     import registerVue from './register.vue';
     import { Notification } from 'element-ui';
     import {mapState, mapMutations} from 'vuex';
+import { setTimeout } from 'timers';
 
     //定义字典
     const dictionary = {
@@ -308,7 +309,10 @@
                                 $this.userInfo = res.data.data;
                                 $this.RECORD_USERINFO($this.userInfo);
                                 //window.history.go(-1);
-                                $this.$router.go(-1);
+                                setTimeout(function(){
+                                    $this.$router.go(-1);
+                                },500)
+
                             }
                         })
                         .catch(function (error) {

@@ -4,18 +4,33 @@
     padding: 0.2rem 0;
     background: #fff;
   }
+  .cm-nav-list{
+    display: -webkit-flex;
+    flex-direction: row;
+    -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
+    justify-content: space-around;
+    -webkit-justify-content: space-around;
+    align-items: center;
+    -webkit-align-items: center;
+  }
   .cm-nav-cell {
     width: 20%;
-    float: left;
     text-align: center;
+    a{
+        display:block;
+    }
   }
+
   .icon-nav {
-    width: 35px;
+    width: .8rem;
   }
   .nav-title {
-    font-size: 0.2rem;
+    font-size: 0.28rem;
     color: #666666;
-    margin-top:0.15rem;
   }
   .ad-factory-container {
     position: relative;
@@ -134,9 +149,12 @@
 
   /*---品牌专区----*/
 .hotBrandInfo,.newBuyGift{
-    height: 4rem;
+    height: 4.45rem;
     position: relative;
   }
+.hotBrandInfo .swiper-slide .special-factory-img a{
+    height:4rem;
+}
 .newBuyGift .swiper-slide, .hotBrandInfo .swiper-slide{
     width: 100%;
     padding: 0 0.15rem;
@@ -153,12 +171,13 @@
             vertical-align: middle;
             box-sizing: border-box;
             width:100%;
-            height:100%;
             overflow:hidden;
             img{
                 display:block;
                 width:auto;
                 max-width:100%;
+                height: auto;
+                max-height: 100%;
             }
         }
     }
@@ -179,6 +198,7 @@
             height: 100%;
             a{
                 color:#333;
+                height:100%;
             }
             .product-img{
                 display: table;

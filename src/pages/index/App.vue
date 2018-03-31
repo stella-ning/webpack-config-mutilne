@@ -7,13 +7,12 @@
                     <div v-if="isLogin" class="siteBox f-left">
                         <p class="site">
                             <span class="siteChecked">{{site}}</span>
-                            <img src="../../static/images/public/arrowDown.png" alt="">
                         </p>
                     </div>
                     <div v-else class="siteBox f-left">
                         <p class="site" @click="showSitesHandle">
                             <span class="siteChecked">{{site}}</span>
-                            <img src="../../static/images/public/arrowDown.png" alt="">
+                            <img  v-if="!isLogin" src="../../static/images/public/arrowDown.png" alt="">
                         </p>
                     </div>
                     <div class="search-box f-left">
@@ -76,39 +75,68 @@
         <!-- 导航栏 -->
         <div class="cm-nav-container">
             <ul class="cm-nav-list clearfix">
-                <li class="cm-nav-cell" v-for="(navList , index) in navitems" :key="index">
-                    <a :href="navList.navLink">
-                        <img class="icon-nav" :src="navList.navImg" alt=""/>
-                        <p class="nav-title">{{navList.navText}}</p>
+                <li class="cm-nav-cell">
+                    <a href="/index/newproduct">
+                        <img class="icon-nav" src="../../static/images/index/m-nav20160918-01.png" alt=""/>
+                        <p class="nav-title">新品上线</p>
+                    </a>
+                </li>
+                <li class="cm-nav-cell">
+                    <a href="/index/specialOffer">
+                        <img class="icon-nav" src="../../static/images/index/m-nav20160918-02.png" alt=""/>
+                        <p class="nav-title">特价优惠</p>
+                    </a>
+                </li>
+                <li class="cm-nav-cell">
+                    <a href="/index/newproduct">
+                        <img class="icon-nav" src="../../static/images/index/m-nav20160918-03.png" alt=""/>
+                        <p class="nav-title">商品分类</p>
+                    </a>
+                </li>
+                <template v-if="companyCode == 1000">
+                    <li class="cm-nav-cell">
+                        <a href="/index/controlsale">
+                            <img class="icon-nav" src="../../static/images/index/m-nav20160918-04.png" alt=""/>
+                            <p class="nav-title">控销专区</p>
+                        </a>
+                    </li>
+                </template>
+
+                <li class="cm-nav-cell">
+                    <a href="/user/menbercenter">
+                        <img class="icon-nav" src="../../static/images/index/m-nav20160918-05.png" alt=""/>
+                        <p class="nav-title">会员中心</p>
                     </a>
                 </li>
             </ul>
         </div>
         <!-- 品牌专区 -->
-        <div class="special-area">
-            <div class="area-title">
-                <img src="../../static/images/index/floor_title_bg_01.png" alt=""/>
-                <div class="more-to-link">
-                    <a href="javascript:void(0);">
-                        更多
-                        <span class="icon iconfont icon-left"></span>
-                    </a>
-                </div>
-            </div>
-            <!-- 品牌专区 -->
-            <div class="hotBrandInfo swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide" v-for="(hotBrand,index) in hotBrandInfo.itemsArray" :key="index">
-                        <div class="special-factory-img">
-                            <a href="javascript:void(0);">
-                                <img v-lazy="hotBrand.imgsrc"/>
-                            </a>
-                        </div>
+        <template v-if="companyCode == 1000 || companyCode == 1001">
+            <div class="special-area">
+                <div class="area-title">
+                    <img src="../../static/images/index/floor_title_bg_01.png" alt=""/>
+                    <div class="more-to-link">
+                        <a href="javascript:void(0);">
+                            更多
+                            <span class="icon iconfont icon-left"></span>
+                        </a>
                     </div>
                 </div>
-                <div class="swiper-pagination slider-pagination"></div>
+                <!-- 品牌专区 -->
+                <div class="hotBrandInfo swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" v-for="(hotBrand,index) in hotBrandInfo.itemsArray" :key="index">
+                            <div class="special-factory-img">
+                                <a href="javascript:void(0);">
+                                    <img v-lazy="hotBrand.imgsrc"/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination slider-pagination"></div>
+                </div>
             </div>
-        </div>
+        </template>
         <!-- 新品上线 -->
         <div class="module-floor short-floor">
             <div class="module-title">
@@ -126,10 +154,9 @@
             <!-- 产品轮播 -->
             <div class="newProductBox swiper-container">
                 <div class="swiper-wrapper">
-                    <!--已登录-->
                     <div class="swiper-slide" v-for="(newProduct,index) in dailyNewInfo.itemsArray" :key="index">
                         <div class="per-product">
-                            <a :href="'productdetail?code='+newProduct.code">
+                            <a :href="'/index/productdetail?code='+newProduct.code">
                                 <div class="product-img">
                                     <span class="imgList">
                                         <img v-lazy="newProduct.imgsrc" alt=""/>
@@ -191,7 +218,7 @@
                 <ul class="special-product-list clearfix">
                     <li class="special-product-cell" v-for="(specialOffersItem,index ) in specialOffersInfo.itemsArray" :key="index">
                         <div class="imgBox">
-                            <a :href="'productdetail?code='+specialOffersItem.code">
+                            <a :href="'/index/productdetail?code='+specialOffersItem.code">
                                 <img v-lazy="specialOffersItem.imgsrc" alt=""/>
                             </a>
                         </div>
@@ -225,7 +252,7 @@
                 <ul class="special-product-list clearfix">
                     <li class="special-product-cell" v-for = "(necessMedicine ,index) in necessMedicineInfo.itemsArray" :key="index">
                         <div class="imgBox">
-                            <a :href="'productdetail?code='+necessMedicine.code">
+                            <a :href="'/index/productdetail?code='+necessMedicine.code">
                                 <img :src="necessMedicine.imgsrc" alt=""/>
                             </a>
                         </div>
@@ -259,54 +286,62 @@
                 <ul class="special-product-list clearfix">
                     <li class="special-product-cell" v-for="(highMarginItem,index) in highMarginInfo.itemsArray" :key="index">
                         <div class="imgBox">
-                            <a :href="'productdetail?code='+highMarginItem.sendUrl">
+                            <a :href="'/index/productdetail?code='+highMarginItem.code">
                             <img v-lazy="highMarginItem.imgsrc" alt=""/>
                         </a>
                         </div>
                         <p class="area-product-name">{{highMarginItem.name}}</p>
                         <p class="area-product-price">
                             <span v-show = "isLogin" class="icon-symbol">&yen;</span>
-                            <span class="product-price">{{highMarginItem.name}}</span>
+                            <span class="product-price">{{highMarginItem.price}}</span>
                         </p>
                     </li>
                 </ul>
             </div>
         </div>
         <!-- 折扣专区 -->
-        <div class="special-area">
-            <div class="area-title">
-                <img src="../../static/images/index/floor_title_bg_06.png" alt=""/>
-                 <div class="more-to-link">
-                    <a href="javascript:void(0);">
-                        更多
-                        <span class="icon iconfont icon-left"></span>
-                    </a>
+        <template v-if="companyCode == 1000 || companyCode == 1001">
+            <div class="special-area">
+                <div class="area-title">
+                    <img src="../../static/images/index/floor_title_bg_06.png" alt=""/>
+                    <div class="more-to-link">
+                        <a href="javascript:void(0);">
+                            更多
+                            <span class="icon iconfont icon-left"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="special-product-container">
+                    <ul class="special-product-list clearfix">
+                        <li class="special-product-cell" v-for="(discountItem,index) in discountDepotInfo.itemsArray" :key="index">
+                            <div class="imgBox">
+                                <a :href="'/index/productdetail?code='+discountItem.code">
+                                    <img v-lazy="discountItem.imgsrc" alt=""/>
+                                </a>
+                            </div>
+                            <p class="area-product-name">{{discountItem.name}}</p>
+                            <p class="area-product-price">
+                                <span class="icon-symbol">&yen;</span>
+                                <span class="product-price">{{discountItem.price}}</span>
+                            </p>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="special-product-container">
-                <ul class="special-product-list clearfix">
-                    <li class="special-product-cell" v-for="(discountItem,index) in discountDepotInfo.itemsArray" :key="index">
-                        <div class="imgBox">
-                            <a :href="'productdetail?code='+specialOffersItem.code">
-                                <img v-lazy="specialOffersItem.imgsrc" alt=""/>
-                            </a>
-                        </div>
-                        <p class="area-product-name">{{discountItem.name}}</p>
-                        <p class="area-product-price">
-                            <span class="icon-symbol">&yen;</span>
-                            <span class="product-price">{{discountItem.price}}</span>
-                        </p>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        </template>
+
 
         <!-- 底部菜单 -->
         <div class="footer-menu">
             <!-- row-1 -->
             <div class="footer-menu-box">
                 <div class="footer-menu-item">
-                    <a href="javascript:void(0);">登录</a>
+                    <a v-if="isLogin" class="outLogin" @click = 'outLogin' href="javascript:void(0);" >
+                        安全退出
+                    </a>
+                    <a v-else  href="/user/index#/login">
+                        登录
+                    </a>
                 </div>
                 <div class="footer-menu-item">
                     <a href="javascript:void(0);">账号申请</a>
@@ -386,8 +421,7 @@
     import 'src/static/plugins/swiper-3.4.2.min.js';
     import { request } from 'common';
     import * as Datas from "api";
-    import {setStore,getStore} from '@js/config';
-    import {mapState, mapMutations} from 'vuex';
+    import {setStore,getStore,removeStore} from '@js/config';
     export default {
         name:'App',
         components:{
@@ -403,33 +437,7 @@
                 toTop:false,
                 companyCode:1000,
                 carouselInfo:[],
-                navitems:[
-                    {
-                        navImg:'../../static/images/index/m-nav20160918-01.png',
-                        navLink:'/index/newproduct',
-                        navText:'新品上线'
-                    },
-                     {
-                        navImg:'../../static/images/index/m-nav20160918-02.png',
-                        navLink:'/index/specialOffer',
-                        navText:'特价优惠'
-                    },
-                     {
-                        navImg:'../../static/images/index/m-nav20160918-03.png',
-                        navLink:'indx.html',
-                        navText:'商品分类'
-                    },
-                     {
-                        navImg:'../../static/images/index/m-nav20160918-04.png',
-                        navLink:'/index/controlsale',
-                        navText:'控销专区'
-                    },
-                     {
-                        navImg:'../../static/images/index/m-nav20160918-05.png',
-                        navLink:'indx.html',
-                        navText:'会员中心'
-                    }
-                ],
+                navitems:[],
                 hotBrandInfo:[],
                 dailyNewInfo:{
                     name:'新品上线',
@@ -442,21 +450,31 @@
                 discountDepotInfo:{},
                 extensionInfo:{},
                 extensionInfoTwo:{}
-
             }
         },
         created(){
-           let  userId = getStore('user_id'),
+            let userId = getStore('user_id'),
                 userCode = getStore('user_code');
-
-           console.log('用户id'+userId);
-           //console.log('用户信息'+userInfo)
-           if(userId){
+            console.log('用户id'+userId);
+            if(userId){
                 this.isLogin = true;
-                this.getIndexData(userCode,userId);
-           }else{
-               this.getIndexData(1000,'');
-           }
+                this.companyCode = userCode;
+                this.getIndexData(userId);
+            }else{
+                this.initData();
+            }
+            if(userCode == 1000){
+                this.site = '粤东'
+            }else if(userCode == 1001){
+                this.site = '佛山'
+            }else if(userCode == 1002){
+                this.site = '珠海'
+            }else if(userCode == 1003){
+                this.site = '广州'
+            }
+        },
+        beforeMount(){
+
         },
         mounted(){
             //品牌专区
@@ -483,40 +501,97 @@
             window.addEventListener('scroll', this.scrFn);
         },
         methods:{
-            getIndexData(code,uid){
+            initData(){
                 let $this = this;
-                $this.requestFn($this,code,uid)
+                request.post(Datas.indexData, 'companyCode='+this.companyCode)
+                    .then(res => {
+                        console.log(res)
+                        console.log($this.specialOffersInfo)
+                        //首页轮播图
+                        res.carouselInfo.itemsArray.map(function(item){
+                            $this.carouselInfo.push(item.imgsrc);
+                        });
+                        //品牌专区
+                        $this.hotBrandInfo = res.hotBrandInfo;
+                        //新品上线
+                        $this.dailyNewInfo.itemsArray = res.dailyNewInfo.itemsArray;
+                        //活动买赠
+                        $this.newBuyGift = res.manysimpleInfo;
+                        //特价优惠
+                        $this.specialOffersInfo = res.specialOffersInfo;
+                        //推广广告1
+                        $this.extensionInfo = res.extensionInfo;
+                        //药店常备
+                        $this.necessMedicineInfo = res.necessMedicineInfo;
+                        //高毛利
+                        $this.highMarginInfo = res.highMarginInfo;
+                        //折扣区
+                        $this.discountDepotInfo = res.discountDepotInfo;
+                        //推广广告2
+                        $this.extensionInfoTwo = res.extension2Info;
+
+                    });
             },
-            requestFn(_this,code,user_id){
-                request.post(Datas.indexData, {
-                     'companyCode':code,
-                     'uid':user_id,
-                     'regionId':''
-                 })
+            getIndexData(_userId){
+                let $this = this;
+                request.post(Datas.indexData, 'uid='+_userId)
                 .then(res => {
                     console.log(res)
+                    console.log($this.specialOffersInfo)
                     //首页轮播图
                     res.carouselInfo.itemsArray.map(function(item){
-                        _this.carouselInfo.push(item.imgsrc);
+                        $this.carouselInfo.push(item.imgsrc);
                     });
                     //品牌专区
-                    _this.hotBrandInfo = res.hotBrandInfo;
+                    $this.hotBrandInfo = res.hotBrandInfo;
                     //新品上线
-                    _this.dailyNewInfo.itemsArray = res.dailyNewInfo.itemsArray;
+                    $this.dailyNewInfo.itemsArray = res.dailyNewInfo.itemsArray;
                     //活动买赠
-                    _this.newBuyGift = res.manysimpleInfo;
+                    $this.newBuyGift = res.manysimpleInfo;
                     //特价优惠
-                    _this.specialOffersInfo = res.specialOffersInfo;
+                    $this.specialOffersInfo = res.specialOffersInfo;
                     //推广广告1
-                    _this.extensionInfo = res.extensionInfo;
+                    $this.extensionInfo = res.extensionInfo;
                     //药店常备
-                    _this.necessMedicineInfo = res.necessMedicineInfo;
+                    $this.necessMedicineInfo = res.necessMedicineInfo;
                     //高毛利
-                    _this.highMarginInfo = res.highMarginInfo;
+                    $this.highMarginInfo = res.highMarginInfo;
                     //折扣区
-                    _this.discountDepotInfo = res.discountDepotInfo;
+                    $this.discountDepotInfo = res.discountDepotInfo;
                     //推广广告2
-                    _this.extensionInfoTwo = res.extension2Info;
+                    $this.extensionInfoTwo = res.extension2Info;
+
+                });
+            },
+            changeSiteData(_companyCode){
+                let $this = this;
+                request.post(Datas.indexData, 'companyCode='+_companyCode)
+                .then(res => {
+                    console.log(res)
+                    console.log($this.specialOffersInfo)
+                    //首页轮播图
+                    res.carouselInfo.itemsArray.map(function(item){
+                        $this.carouselInfo.push(item.imgsrc);
+                    });
+                    //品牌专区
+                    $this.hotBrandInfo = res.hotBrandInfo;
+                    //新品上线
+                    $this.dailyNewInfo.itemsArray = res.dailyNewInfo.itemsArray;
+                    //活动买赠
+                    $this.newBuyGift = res.manysimpleInfo;
+                    //特价优惠
+                    $this.specialOffersInfo = res.specialOffersInfo;
+                    //推广广告1
+                    $this.extensionInfo = res.extensionInfo;
+                    //药店常备
+                    $this.necessMedicineInfo = res.necessMedicineInfo;
+                    //高毛利
+                    $this.highMarginInfo = res.highMarginInfo;
+                    //折扣区
+                    $this.discountDepotInfo = res.discountDepotInfo;
+                    //推广广告2
+                    $this.extensionInfoTwo = res.extension2Info;
+
                 });
             },
             finish(){
@@ -526,13 +601,10 @@
                 this.showSites = true;
             },
             chooseSite(curSite,companyCode){
-                let $this = this;
-                $this.isFirst = true;
-                $this.showSites = false;
-                $this.site = curSite;
-                $this.companyCode = companyCode;
-                $this.carouselInfo = [];
-               $this.requestFn($this,companyCode);
+                this.isFirst = true;
+                this.showSites = false;
+                this.site = curSite;
+                changeSiteData(companyCode);
             },
             closeSitesLay(){
                 this.isFirst = true;
@@ -587,6 +659,11 @@
                         clearInterval(timer);
                     }
                 },30);
+            },
+            outLogin(){
+                removeStore('user_id');
+                removeStore('user_code');
+                window.location.reload();
             }
         }
     }
