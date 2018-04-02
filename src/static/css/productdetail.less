@@ -144,6 +144,8 @@
 .prodectPictureBox{
     width:100%;
     height:4rem;
+    min-width: 320px;
+    max-width: 640px;
     position: relative;
 }
 .swiper-slide{
@@ -166,6 +168,117 @@
                 max-width:100%;
                 height: auto;
                 max-height: 4rem;
+            }
+        }
+    }
+}
+
+/*---产品信息---*/
+.productNameBox{
+    .productName{
+        color: #0D549B;
+        font-size: .32rem;
+        text-align: center;
+        margin: 10px 0;
+    }
+    .activityMsg{
+        color: #FA0019;
+        font-size: .26rem;
+    }
+}
+.productInfoBox{
+    min-width: 320px;
+    max-width: 640px;
+    margin:0 auto;
+    .productInfo{
+        padding:0 .4rem;
+        .promotionChoose{
+            margin-top: 0.3rem;
+        }
+        .productDetailRow{
+            margin-bottom: .3rem;
+            span{
+                display:inline-block;
+                vertical-align:middle;
+                font-size:.3rem;
+            }
+            .productDetailName{
+                width: 1.6rem;
+                text-align: justify;
+                -ms-text-justify: inter-word;
+                text-justify: inter-cluster;
+                text-align-last: justify;
+                -moz-text-align-last: justify;
+            }
+            .chooseGroup{
+                display: inline-block;
+                position: relative;
+                font-size:.3rem;
+                vertical-align: middle;
+                label{
+                    display: inline-block;
+                    width: 1.63rem;
+                    height: 0.6rem;
+                    line-height: 0.55rem;
+                    text-align: center;
+                    border: 1px solid #999;
+                    font-size: 14px;
+                    color: #666;
+                    position: relative;
+                    border-radius: 0.05rem;
+                    &.active{
+                        width: 1.63rem;
+                        height: 0.6rem;
+                        line-height: 0.55rem;
+                        border: 1px solid #0068cf;
+                        color: #0068cf;
+                        color: #0068cf;
+                    }
+                    &.discountTab{
+                        margin-left: 0.26rem;
+                    }
+                    .chooseInput{
+                        width: 100%;
+                        height: 100%;
+                        display: block;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        display: none;
+                    }
+                    .discountTabIcon{
+                        display: inline-block;
+                        width: 0;
+                        height: 0;
+                        border-top: 12px solid transparent;
+                        border-right: 14px solid transparent;
+                        border-bottom: 12px solid #cce1f5;
+                        border-left: 14px solid transparent;
+                        position: absolute;
+                        bottom: -17px;
+                        left: 50%;
+                        margin-left: -14px;
+                    }
+                }
+            }
+        }
+        .discountNote{
+            width: 100%;
+            font-size: .28rem;
+            background: #cce1f5;
+            padding: 0.2rem 0.3rem;
+            border-radius: 0.1rem;
+            position: relative;
+            font-size:.3rem;
+            .discountNoteTit{
+                font-weight: bold;
+                color: #0068cf;
+                background: url("../../static/images/topic/outLetblueIcon.png") no-repeat;
+                background-size: auto auto;
+                background-size: 22px;
+                padding-left: 30px;
+                font-size: 16px;
+                margin-bottom: 10px;
             }
         }
     }
