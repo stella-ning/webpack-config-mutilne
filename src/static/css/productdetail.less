@@ -195,15 +195,19 @@
         .promotionChoose{
             margin-top: 0.3rem;
         }
+        .productDetail{
+            margin-top:.3rem;
+        }
         .productDetailRow{
             margin-bottom: .3rem;
+            font-size:0.32rem;
             span{
                 display:inline-block;
                 vertical-align:middle;
                 font-size:.3rem;
             }
             .productDetailName{
-                width: 1.6rem;
+                width: 1.8rem;
                 text-align: justify;
                 -ms-text-justify: inter-word;
                 text-justify: inter-cluster;
@@ -279,7 +283,106 @@
                 padding-left: 30px;
                 font-size: 16px;
                 margin-bottom: 10px;
+
+            }
+            .discountNoteText{
+                color: #333;
+                padding-left: 0.3rem;
+                margin-bottom: 10px;
+                li{
+                    list-style: decimal;
+                    line-height: 20px
+                }
+            }
+            .discountNoteMore{
+                color: #0068cf !important;
+                padding-left: 2px;
+                display: block;
             }
         }
     }
+}
+.similarProductBox{
+    font-size:.32rem;
+    .detailTitle{
+        width:100%;
+        height:.8rem;
+        line-height:.8rem;
+        font-size:.34rem;
+        color:#333;
+        i{
+            width:0.1rem;
+            height:.5rem;
+            background:#0D549B;
+            display:inline-block;
+            vertical-align: middle;
+        }
+    }
+    .similarProduct{
+        .productList{
+            .productListLi{
+                display:-webkit-flex;
+                display:flex;
+                height:2rem;
+                .productImgBox{
+                    flex:1;
+                    .productImg{
+                        display:table;
+                        vertical-align: middle;
+                        a{
+                            display:table-cell;
+                            vertical-align: middle;
+                            img{
+                                display:block;
+                                width:auto;
+                                max-width: 100%;
+                                height:auto;
+                                max-height:2rem;
+                            }
+                        }
+                    }
+                }
+                .similarproductInfo{
+                    flex:2;
+                    height:2rem;
+                    display:table;
+                    .contain{
+                        display: table-cell;
+                        height:auto;
+                        max-height:2rem;
+                        vertical-align: middle;
+                    }
+                    p{
+                        margin-bottom:.1rem;
+                    }
+                    .appellation{
+                        font-size:.28rem;
+                        margin-top:.15rem;
+                        a{
+                            color:#004C97;
+                        }
+                    }
+                    .similarproductPrice{
+                        font-size:0.28rem;
+                        color:#FA0019;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.problemPhone{
+    width:100%;
+    height:.8rem;
+    line-height: .8rem;
+    font-size:.24rem;
+    color: #767676;
+    background: #EEEEEE;
+    text-align: center;
+    border-top: 1px solid #D8D8D8;
+    border-bottom: 1px solid #D8D8D8;
+}
+.place{
+    height:.8rem;
 }

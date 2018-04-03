@@ -67,28 +67,34 @@
             <div class="productInfo">
                 <!-- 选择正价或者折扣商品 -->
                 <div class="promotionChoose">
-                    <div class="productDetailRow" style="margin-bottom:.1rem;">
-                        <span class="productDetailName">选择商品：</span>
-                        <div class="chooseGroup">
-                            <label class="active">
-                                <input name="goodsBtn" class="chooseInput" id="normal" value="正价商品" checked="checked" type="radio">
-                                正价商品
-                            </label>
-                            <label class="discountTab">
-                                <input name="goodsBtn" class="chooseInput" id="discount" value="折扣商品" type="radio">折扣商品
-                                <i class="discountTabIcon" style="display: none;"></i>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="discountNote">
-                        <div class="discountNoteTit">购买须知：</div>
-                        <ul class="discountNoteText">
-                            <li>折扣商品外包装有轻微褶皱，但绝无质量问题，不影响药效，请放心购买</li>
-                            <li>折扣商品非质量问题不予退换货</li>
-                        </ul>
-                        <a class="discountNoteMore" href="/search/discountAreaMobile">查看更多折扣商品&gt;</a>
-                    </div>
+                    <template v-if="isDiscount == true">
+                            <div class="productDetailRow">
+                                <span class="productDetailName">选择商品：</span>
+                                <div class="chooseGroup">
+                                    <label class="normalTab" @click="handleChoseNormal">
+                                        <input name="goodsBtn" class="chooseInput" id="normal" value="正价商品" checked="checked" type="radio">
+                                        正价商品
+                                    </label>
+                                    <label class="discountTab" @click="handleChoseDiscount" :class="isDiscount?'active':''">
+                                        <input name="goodsBtn" class="chooseInput" id="discount" value="折扣商品" type="radio">折扣商品
+                                        <i class="discountTabIcon" v-show="isShowDiscount" ></i>
+                                    </label>
+                                </div>
+                            </div>
+                    </template>
+
+                    <template v-if="isShowDiscount == true">
+                        <div class="discountNote">
+                                <div class="discountNoteTit">购买须知：</div>
+                                <ul class="discountNoteText">
+                                    <li>折扣商品外包装有轻微褶皱，但绝无质量问题，不影响药效，请放心购买</li>
+                                    <li>折扣商品非质量问题不予退换货</li>
+                                </ul>
+                                <a class="discountNoteMore" href="/search/discountAreaMobile">查看更多折扣商品&gt;</a>
+                            </div>
+                    </template>
                 </div>
+                <!-- 商品信息 -->
                 <div class="productDetail">
                     <div class="productDetailRow">
                         <span class="productDetailName">价格：</span>
@@ -96,63 +102,102 @@
                     </div>
                     <div class="productDetailRow">
                         <span class="productDetailName">库存：</span>
-                        <span class="contain">{{price}}</span>
+                        <span class="contain">{{realStock}}</span>
                     </div>
                     <div class="productDetailRow">
                         <span class="productDetailName">规格：</span>
-                        <span class="contain">{{price}}</span>
+                        <span class="contain">{{specifications}}</span>
                     </div>
                     <div class="productDetailRow">
                         <span class="productDetailName">生产日期：</span>
-                        <span class="contain">{{price}}</span>
+                        <span class="contain">{{productionDate}}</span>
                     </div>
                     <div class="productDetailRow">
                         <span class="productDetailName">有效期：</span>
-                        <span class="contain">{{price}}</span>
+                        <span class="contain">{{effectiveDate}}</span>
                     </div>
                     <div class="productDetailRow">
                         <span class="productDetailName">生产厂家：</span>
-                        <span class="contain">{{price}}</span>
+                        <span class="contain">{{ean}}</span>
                     </div>
                     <div class="productDetailRow">
                         <span class="productDetailName">包装：</span>
-                        <span class="contain">{{price}}</span>
+                        <span class="contain">
+                                (中/大包装：
+                                <template v-if="">**</template>
+                                <template>
+                                        <span class="mPackage"></span>/
+                                        <span class="bPackage"></span>
+                                </template>
+                                )
+                        </span>
                     </div>
                     <div class="productDetailRow">
                         <span class="productDetailName">剂型：</span>
-                        <span class="contain">{{price}}</span>
+                        <span class="contain">{{form}}</span>
                     </div>
                     <div class="productDetailRow">
                         <span class="productDetailName">经营类别：</span>
-                        <span class="contain">{{price}}</span>
+                        <span class="contain">{{saleScope}}</span>
                     </div>
                     <div class="productDetailRow">
                         <span class="productDetailName">商品类别：</span>
-                        <span class="contain">{{price}}</span>
+                        <span class="contain">{{supercategories}}</span>
                     </div>
                     <div class="productDetailRow">
                         <span class="productDetailName">商品编号：</span>
-                        <span class="contain">{{price}}</span>
+                        <span class="contain">{{code}}</span>
                     </div>
                     <div class="productDetailRow">
                         <span class="productDetailName">OTC/RX：</span>
-                        <span class="contain">{{price}}</span>
+                        <span class="contain">{{otc}}</span>
                     </div>
                     <div class="productDetailRow">
                         <span class="productDetailName">批准文号：</span>
-                        <span class="contain">{{price}}</span>
+                        <span class="contain">{{licenseNumber}}</span>
                     </div>
                     <div class="productDetailRow">
                         <span class="productDetailName">条形码：</span>
-                        <span class="contain">{{price}}</span>
+                        <span class="contain">{{barcode}}</span>
                     </div>
                     <div class="productDetailRow">
                         <span class="productDetailName">生产许可证：</span>
-                        <span class="contain">{{price}}</span>
+                        <span class="contain">{{medicalDeviceLicense}}</span>
+                    </div>
+                </div>
+                <!-- 其他商品 -->
+                <div class="similarProductBox">
+                    <div class="detailTitle">
+                        <i></i>
+                        其他同类商品
+                    </div>
+                    <div class="similarProduct">
+                        <ul class="productList">
+                            <li class="productListLi" v-for="item in productRefereArray">
+                                <div class="productImgBox">
+                                    <div class="productImg">
+                                        <a :href="'index/productdetail?'+item.code">
+                                            <img :src="item.imgsrc" alt="">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="similarproductInfo">
+                                    <div class="contain">
+                                        <P class="appellation"><a :href="'index/productdetail?'+item.code">{{item.name}}</a></P>
+                                        <p class="similarproductPrice">{{item.price}}</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
+        <br>
+        <div class="problemPhone">
+            若有使用疑问请拨打我们客服免费热线<a style="color: #0054a7;font-size: 14px;" href="tel://400-8300-558">4008300558</a>
+        </div>
+        <div class="place"></div>
     </div>
 </body>
 </html>
