@@ -464,7 +464,7 @@ export const saveScore = '/UserInterface/saveScore';
 export const getScoreData = '/UserInterface/getScoreData';
 
 /**
- *获取折扣库商品信息
+ *折扣专区,折扣库商品信息
  *@type {string}
  */
 export const getDiscountDepot = '/UserInterface/getDiscountDepot';
