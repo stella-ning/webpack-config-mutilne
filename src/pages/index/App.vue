@@ -315,7 +315,7 @@
                     <ul class="special-product-list clearfix">
                         <li class="special-product-cell" v-for="(discountItem,index) in discountDepotInfo.itemsArray" :key="index">
                             <div class="imgBox">
-                                <a :href="'/index/productdetail?code='+discountItem.code">
+                                <a :href="'/index/productdetail?code='+discountItem.code+'&discountClick=true'">
                                     <img v-lazy="discountItem.imgsrc" alt=""/>
                                 </a>
                             </div>
