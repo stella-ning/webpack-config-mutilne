@@ -22,7 +22,7 @@ import '@style/topic.less';
 
 // Vue.config.productionTip = false;
 new Vue({
-    el: '#controlSale',
+    el: '#outLetBox',
     router,
     components:{
         HeadTop,
