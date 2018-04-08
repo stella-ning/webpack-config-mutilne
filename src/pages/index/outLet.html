@@ -14,7 +14,7 @@
 <body>
     <div id="outLetBox" v-cloak>
         <Head-top head-title="折扣专区" go-back="true"></Head-top>
-        <div class="main-container">
+        <div class="main-container outLetCon">
             <!-- 折扣banner图 -->
             <div class="factory-instr-ad">
                 <img src="../../static/images/topic/outLetbanner.png" alt=""/>
@@ -41,11 +41,11 @@
                     <div class="searchBox clearfix">
                         <div class="inputGroup">
                             <span class="searchIcon">
-                                <!-- <img src="image/outLetSearch.png" alt=""> -->
+                                <img src="../../static/images/topic/outLetSearch.png" alt="">
                             </span>
                             <input type="text" name="hotKeywords" class="searchInput" placeholder="请输入药品名称/商品编码">
                             <span class="clearSearch">
-                                <!-- <img src="image/icon_close.png" alt=""> -->
+                                <img src="../../static/images/topic/icon_close.png" alt="">
                             </span>
                         </div>
                         <!-- 关闭按钮 -->
@@ -54,9 +54,16 @@
                         </button>
                     </div>
                 </form>
+                <div class="sortBox">
+                    <div class="sort">
+                        <a href="javascript:void(0)" class="sortStock active"> 按库存-排序</a>
+                        <a href="javascript:void(0)" class="sortProduce"> 按新品-排序</a>
+                    </div>
+
+                </div>
             </div>
-            <!-- <div class="product-list"  >
-                <div class="product-floor" v-for="(productItemList,index) in controlSaleArray" :key="index" >
+            <div class="product-list"  >
+                <div class="product-floor" v-for="(productItemList,index) in outLetArray" :key="index" >
                     <div class="product-thumb floor-item">
                         <a :href="'/index/productdetail?code='+productItemList.code">
                             <img v-lazy="productItemList.imgsrc" alt=""/>
@@ -75,10 +82,10 @@
                             {{productItemList.specifications}}
                         </p>
                         <p class="product-package txt-style">
-                            中/大包装：{{productItemList.quantityFormat}}
+                            中/大包装：{{productItemList.zhongPackage}}/{{productItemList.bigPackage}}{{productItemList.minUnit}}
                         </p>
                         <p class="product-date txt-style">
-                            生产日期：{{productItemList.creationDate}}
+                            生产日期：{{productItemList.productionDate}}
                         </p>
                         <p class="product-validity txt-style">
                             有效日期：{{productItemList.effectiveDate}}
@@ -87,7 +94,7 @@
                         <div class="product-state-box clearfix">
                             <div class="product-price f-left">
                                 <span class="txt-style">价格：</span>
-                                <span class="price">{{productItemList.price}}</span>
+                                <span class="price">{{productItemList.discountPrice}}</span>
                                 <span class="unit-kg">/ {{productItemList.minUnit}}</span>
                             </div>
                             <div class="product-inventory f-right">
@@ -107,7 +114,7 @@
                 <div class='loading' v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
                     加载中...
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 </body>

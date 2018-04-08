@@ -30,17 +30,20 @@ new Vue({
     },
     data(){
         return{
-            'controlSaleArray': [],
-            'busy': false,
-            'page':0,
-            'pageSize': 10
-
+            outLetArray: [],
+            busy: false,
+            page:0,
+            pageSize: 10,
+            companyCode:1000,
+            userId:null
         };
     },
     methods: {
         getDatas(){
-            request.post(Datas.getControlsale, {}).then(res => {
-                this.controlSaleArray = res.controlsaleArray;
+            let $this = this;
+            request.post(Datas.getDiscountDepot, 'companyCode='+$this.companyCode).then(res => {
+                console.log(res);
+                $this.outLetArray = res.resultArray;
             });
         },
         getGoodsList(flag){
@@ -51,18 +54,18 @@ new Vue({
                 page:this.page,
                 pageSize:this.pageSize
             };
-            request.post(Datas.getControlsale,{params:param}).then(res=>{
+            request.post(Datas.getDiscountDepot,{params:param}).then(res=>{
                 if(flag){
                     // 多次加载数据
-                    this.controlSaleArray = this.controlSaleArray.concat(res.controlsaleArray);
-                    if(res.controlsaleArray == 0){
+                    this.outLetArray = this.outLetArray.concat(res.resultArray);
+                    if(res.resultArray == 0){
                         this.busy = true;
                     }else{
                         this.busy = false;
                     }
                 }else{
                     // 第一次加载数据
-                    this.controlSaleArray = res.controlsaleArray;
+                    this.outLetArray = res.resultArray;
                     // 当第一次加载数据完之后，把这个滚动到底部的函数触发打开
                     this.busy = false;
                 }
@@ -73,7 +76,7 @@ new Vue({
             // 多次加载数据
             setTimeout(() => {
                 this.page ++;
-                this.getGoodsList(true);
+                //this.getGoodsList(true);
             }, 100);
         }
 

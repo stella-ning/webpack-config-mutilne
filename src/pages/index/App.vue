@@ -305,7 +305,7 @@
                 <div class="area-title">
                     <img src="../../static/images/index/floor_title_bg_06.png" alt=""/>
                     <div class="more-to-link">
-                        <a href="javascript:void(0);">
+                        <a href="/index/outLet">
                             更多
                             <span class="icon iconfont icon-left"></span>
                         </a>
