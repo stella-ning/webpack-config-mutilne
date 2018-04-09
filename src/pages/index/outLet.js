@@ -9,6 +9,7 @@ import * as Datas from 'api';
 import VueLazyLoad from 'vue-lazyload';
 import HeadTop from 'src/common/header.vue';
 import {setStore,getStore} from '@js/config';
+import {addClass,removeClass} from 'src/static/js/dom.js';
 
 //懒加载
 Vue.use(VueLazyLoad,{
@@ -37,6 +38,9 @@ new Vue({
             userId:null,
             priceChecked:''
         };
+    },
+    computed:{
+
     },
     methods: {
         initDatas(){
@@ -82,13 +86,36 @@ new Vue({
                 }
             });
         },
-        loadMore: function() {
+        loadMore() {
             this.busy = true;
             // 多次加载数据
             setTimeout(() => {
                 this.page ++;
                 this.getGoodsList(true);
             }, 100);
+        },
+        sortByStock(event){
+            let currentTargetDom = event.currentTarget;
+            addClass(currentTargetDom,'active');
+            var siblingDom = document.querySelector('.sortProduce');
+            removeClass(siblingDom ,'active');
+            this.outLetArray.sort(function(x,y){
+                return x.realStock-y.realStock;
+            });
+        },
+        sortByTime(){
+            let currentTargetDom = event.currentTarget;
+            addClass(currentTargetDom,'active');
+            var siblingDom = document.querySelector('.sortStock');
+            removeClass(siblingDom ,'active');
+            //将日期转换为时间戳
+            this.outLetArray.forEach(function(outLetItem){
+                var date = new Date(outLetItem.creationDate);
+                outLetItem.creationDate = date.getTime();
+            });
+            this.outLetArray.sort(function(x,y){
+                return x.creationDate-y.creationDate;
+            });
         }
 
     },
@@ -106,14 +133,9 @@ new Vue({
 
     },
     mounted(){
-        window.onload = function(){
-            let stock = document.querySelectorAll('.stock');
-            for(let i=0;i<stock.length;i++){
-                var value = stock[i].innerHTML;
-                stock[i].innerHTML = parseFloat(stock[i].innerHTML);
-            }
-        }
 
-    }
+
+    },
+
 
 });

@@ -56,8 +56,8 @@
                 </form>
                 <div class="sortBox">
                     <div class="sort">
-                        <a href="javascript:void(0)" class="sortStock active"> 按库存-排序</a>
-                        <a href="javascript:void(0)" class="sortProduce"> 按新品-排序</a>
+                        <a href="javascript:void(0)" class="sortStock" @click="sortByStock"> 按库存-排序</a>
+                        <a href="javascript:void(0)" class="sortProduce" @click="sortByTime"> 按新品-排序</a>
                     </div>
 
                 </div>
@@ -120,7 +120,7 @@
                             <div class="product-inventory f-right">
                                 <span class="txt-style">库存：</span>
                                 <span class="txt-style" v-if="productItemList.realStock == '缺货'">{{productItemList.realStock}}</span>
-                                <span class="txt-style stock" v-else>{{productItemList.realStock}}</span>
+                                <span class="txt-style stock" v-html="parseFloat(productItemList.realStock)" v-else ></span>
                             </div>
                         </div>
                         <div class="product-user clearfix">
