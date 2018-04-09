@@ -8,7 +8,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="full-screen" content="yes">
     <meta name="x5-fullscreen" content="true">
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_424201_i05mmx8bkaoiggb9.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_424201_rhw1sg24lgrgrpb9.css">
     <link rel="stylesheet" href="../../static/css/swiper-3.4.1.min.css">
     <title>商品详情</title>
 </head>
@@ -214,9 +214,36 @@
             若有使用疑问请拨打我们客服免费热线<a style="color: #0054a7;font-size: 14px;" href="tel://400-8300-558">4008300558</a>
         </div>
         <div class="place"></div>
-        <div class="fixedBox">
+        <!-- 底部操作 -->
+        <section class="actionBar">
+            <div class="actionBar-container">
+                <a href="" class="addfav cell">
+                    <span class="iconfont icon-shoucang1"></span>
+                    <span class="text">收藏</span>
+                </a>
+                <a href="" class="cartList cell">
+                    <span class="iconfont icon-gouwuche2"></span>
+                    <span class="text">购物车</span>
+                </a>
+                <template v-if="userId">
+                    <div class="trade" :class="Number(price)?'allow':''">
+                        <a class="addCart"  href="javascript:;">
+                            加入购物车
+                        </a>
+                    </div>
+                </template>
+                <template v-else>
+                    <div class="trade">
+                        <a class="addCart"  href="/user/index#/login">
+                            加入购物车
+                        </a>
+                    </div>
+                </template>
 
-        </div>
+
+
+            </div>
+        </section>
 
     </div>
 </body>
