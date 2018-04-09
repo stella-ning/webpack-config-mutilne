@@ -64,42 +64,63 @@
             </div>
             <div class="product-list"  >
                 <div class="product-floor" v-for="(productItemList,index) in outLetArray" :key="index" >
-                    <div class="product-thumb floor-item">
-                        <a :href="'/index/productdetail?code='+productItemList.code">
-                            <img v-lazy="productItemList.imgsrc" alt=""/>
-                        </a>
+                    <div class="productBox">
+                        <div class="product-thumb floor-item">
+                            <a :href="'/index/productdetail?code='+productItemList.code">
+                                <img v-lazy="productItemList.imgsrc" alt=""/>
+                            </a>
+                        </div>
+                        <div class="youhui-tis">优惠</div>
                     </div>
+
                     <div class="product-instr floor-item">
-                        <p class="product-name">
+                        <p class="product-name" >
                             <a :href="'/index/productdetail?code='+productItemList.code">
                                 {{productItemList.name}}
                             </a>
                         </p>
-                        <p class="factory-name txt-style">
+                        <p class="factory-name txt-style" :class="userId?'':'mrg10'">
                             {{productItemList.ean}}
                         </p>
-                        <p class="product-spec txt-style">
-                            {{productItemList.specifications}}
-                        </p>
-                        <p class="product-package txt-style">
-                            中/大包装：{{productItemList.zhongPackage}}/{{productItemList.bigPackage}}{{productItemList.minUnit}}
-                        </p>
-                        <p class="product-date txt-style">
-                            生产日期：{{productItemList.productionDate}}
-                        </p>
-                        <p class="product-validity txt-style">
-                            有效日期：{{productItemList.effectiveDate}}
-                        </p>
+                        <template v-if="userId">
+                            <p class="product-spec txt-style">
+                                {{productItemList.specifications}}
+                            </p>
+                            <p class="product-package txt-style">
+                                中/大包装：{{productItemList.zhongPackage}}/{{productItemList.bigPackage}}{{productItemList.minUnit}}
+                            </p>
+                            <p class="product-date txt-style">
+                                生产日期：{{productItemList.productionDate}}
+                            </p>
+                            <p class="product-validity txt-style">
+                                有效日期：{{productItemList.effectiveDate}}
+                                <template v-if="productItemList.validity">
+                                    <span style="color:#ff3a32">(1年内，请慎拍)</span>
+                                </template>
+                            </p>
+                        </template>
+
 
                         <div class="product-state-box clearfix">
-                            <div class="product-price f-left">
-                                <span class="txt-style">价格：</span>
-                                <span class="price">{{productItemList.discountPrice}}</span>
-                                <span class="unit-kg">/ {{productItemList.minUnit}}</span>
+                            <!-- 已登录 -->
+                            <div class="product-price f-left" v-if="userId">
+                                <template v-if="productItemList.discountPrice == '即将上线'">
+                                    <span class="price" >{{productItemList.discountPrice}}</span>
+                                </template>
+                                <template v-else>
+                                    <span class="txt-style">价格：</span>
+                                    <span class="price" >￥{{productItemList.discountPrice}}</span>
+                                    <span class="unit-kg" style="color:#ff3a32;"> / {{productItemList.minUnit}}</span>
+                                </template>
+                            </div>
+                            <!-- 未登录 -->
+                            <div class="product-price f-left" v-else>
+                                <span class="price" >{{productItemList.discountPrice}}</span>
                             </div>
                             <div class="product-inventory f-right">
                                 <span class="txt-style">库存：</span>
-                                <span class="txt-style">{{productItemList.realStock}}</span>
+                                <span class="txt-style" v-if="productItemList.realStock == '缺货'">{{productItemList.realStock}}</span>
+                                <span class="txt-style stock" v-else>{{productItemList.realStock}}</span>
                             </div>
                         </div>
                         <div class="product-user clearfix">
@@ -107,7 +128,7 @@
                             <input type="text" class="product-amount f-left" value="1"/>
                             <span class="plus f-left">+</span>
                             <span class="product-unit txt-style f-left">{{productItemList.minUnit}}</span>
-                            <a class="add-cart f-right" href="javascript:void(0);">加入购物车</a>
+                            <a class="add-cart f-right" :class="productItemList.realStock == '缺货'? 'bgGray':''" href="javascript:void(0);">加入购物车</a>
                         </div>
                     </div>
                 </div>

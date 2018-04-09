@@ -43,7 +43,6 @@
     line-height: 0.65rem;
 }
 .add-cart, .arrivalNotice, .add_card, .add_card2{
-    width: 1.5rem;
     height: 0.6rem;
     line-height: 0.6rem;
     background: #0068cf;
@@ -57,6 +56,28 @@
     display: inline-block;
     font-size:0.3rem;
     padding:0 0.12rem;
+    &.bgGray{
+        background:#ccc;
+        color:#999999;
+    }
+}
+
+.youhui-tis{
+    width: 1rem;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    color: #ffffff;
+    background: #ff3a32;
+    text-align: center;
+    position: absolute;
+    top: 0.1rem;
+    right: -0.3rem;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    font-size: .15rem;
 }
 
 /*-------新品上线--------*/
@@ -134,6 +155,7 @@
                 display: table;
                 vertical-align: middle;
                 margin:0 auto;
+                overflow: hidden;
                 a{
                     display: table-cell;
                 vertical-align: middle;
@@ -148,14 +170,14 @@
                 width: 75%;
                 padding-left: 0.15rem;
                 .product-name{
-                    color: #004C97;
+                    color: #0068cf;
                     a{
-                        font-size: 0.28rem;
-                        color: #004C97;
+                        font-size: 0.32rem;
+                        color: #0068cf;
                     }
                 }
                 .txt-style{
-                    font-size: 0.24rem;
+                    font-size: 0.28rem;
                     color: #666666;
                     padding-top: 0.05rem;
                 }
@@ -163,17 +185,16 @@
                     padding-top: 0.06rem;
                     margin-bottom: .1rem;
                     .product-price{
-                        font-size: 0.25rem;
-                        color: #ff0000;
+                        font-size: 0.3rem;
                         .price{
-                            color:#333
+                            color:#ff3a32;
                         }
                         .unit-kg{
                             color:#333
                         }
                     }
                     .product-inventory{
-                        padding-right: 0.45rem;
+                        // padding-right: 0.45rem;
                         font-size:0.24rem;
                     }
                 }
@@ -224,10 +245,14 @@
                 padding: .17rem .54rem .17rem .56rem;
                 font-size: 24px;
                 dt{
-                    font-size: .24rem;
+                    font-size: .28rem;
                     color: #ff3a32;
                     margin-bottom: .1rem;
                     line-height: .3rem;
+                    img{
+                        width:0.5rem;
+                        vertical-align: sub
+                    }
                 }
                 dd{
                     font-size: .24rem;
@@ -326,6 +351,17 @@
                     }
                 }
             }
+        }
+    }
+    .mrg10{
+        margin-bottom:0.1rem;
+    }
+    .productBox{
+        width:25%;
+        position:relative;
+        overflow: hidden;
+        .product-thumb{
+            width:95%;
         }
     }
 }
