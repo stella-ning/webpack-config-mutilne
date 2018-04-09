@@ -117,10 +117,14 @@
                             <div class="product-price f-left" v-else>
                                 <span class="price" >{{productItemList.discountPrice}}</span>
                             </div>
-                            <div class="product-inventory f-right">
+                            <div class="product-inventory f-right" v-if="userId">
                                 <span class="txt-style">库存：</span>
                                 <span class="txt-style" v-if="productItemList.realStock == '缺货'">{{productItemList.realStock}}</span>
                                 <span class="txt-style stock" v-html="parseFloat(productItemList.realStock)" v-else ></span>
+                            </div>
+                            <div class="product-inventory f-right" v-else>
+                                <span class="txt-style">库存：</span>
+                                <span class="txt-style stock" v-html="productItemList.realStock"></span>
                             </div>
                         </div>
                         <div class="product-user clearfix">

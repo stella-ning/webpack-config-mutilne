@@ -167,7 +167,7 @@
                                     <span class="product-size">{{newProduct.specifications}}</span>
                                 </p>
                                 <p class="discount-price">
-                                    <span v-show="isLogin" class="icon-symbol">&yen;</span>
+                                    <span class="icon-symbol" v-if="Number(newProduct.price)">&yen;</span>
                                     {{newProduct.price}}
                                 </p>
                             </a>
@@ -224,7 +224,7 @@
                         </div>
                         <p class="area-product-name">{{specialOffersItem.name}}</p>
                         <p class="area-product-price">
-                            <span v-show="isLogin" class="icon-symbol">&yen;</span>
+                            <span class="icon-symbol" v-if="Number(specialOffersItem.price)">&yen;</span>
                             <span class="product-price">{{specialOffersItem.price}}</span>
                         </p>
                     </li>
@@ -258,7 +258,7 @@
                         </div>
                         <p class="area-product-name">{{necessMedicine.name}}</p>
                         <p class="area-product-price">
-                            <span v-show="isLogin" class="icon-symbol">&yen;</span>
+                            <span class="icon-symbol" v-if="Number(necessMedicine.price)">&yen;</span>
                             <span class="product-price">{{necessMedicine.price}}</span>
                         </p>
                     </li>
@@ -292,7 +292,7 @@
                         </div>
                         <p class="area-product-name">{{highMarginItem.name}}</p>
                         <p class="area-product-price">
-                            <span v-show = "isLogin" class="icon-symbol">&yen;</span>
+                            <span class="icon-symbol" v-if="Number(highMarginItem.price)">&yen;</span>
                             <span class="product-price">{{highMarginItem.price}}</span>
                         </p>
                     </li>
@@ -321,7 +321,7 @@
                             </div>
                             <p class="area-product-name">{{discountItem.name}}</p>
                             <p class="area-product-price">
-                                <span class="icon-symbol">&yen;</span>
+                                <span class="icon-symbol" v-if="Number(discountItem.price)">&yen;</span>
                                 <span class="product-price">{{discountItem.price}}</span>
                             </p>
                         </li>

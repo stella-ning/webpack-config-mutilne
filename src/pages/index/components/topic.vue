@@ -24,17 +24,21 @@
                     中/大包装：{{productItemList.quantityFormat}}
                 </p>
                 <p class="product-date txt-style">
-                    生产日期：{{productItemList.creationDate}}
+                    生产日期：{{productItemList.productionDate}}
                 </p>
                 <p class="product-validity txt-style">
                     有效日期：{{productItemList.effectiveDate}}
+                    <template v-if="productItemList.validity">
+                        <span style="color:#ff3a32">(1年内，请慎拍)</span>
+                    </template>
                 </p>
 
                 <div class="product-state-box clearfix">
                     <div class="product-price f-left">
                         <span class="txt-style">价格：</span>
+                        <span class="price" v-if="Number(productItemList.price)">&yen;</span>
                         <span class="price">{{productItemList.price}}</span>
-                        <span class="unit-kg">/ {{productItemList.minUnit}}</span>
+                        <span class="unit-kg" v-if="userId">/ {{productItemList.minUnit}}</span>
                     </div>
                     <div class="product-inventory f-right">
                         <span class="txt-style">库存：</span>
@@ -57,10 +61,14 @@
 <script>
 export default {
     props: {
-      infoDatas: {
-        type: Array,
-        default: []
-      }
+        infoDatas: {
+            type: Array,
+            default: []
+        },
+        userId:{
+            type:String,
+            default:''
+        }
     },
     data(){
         return {

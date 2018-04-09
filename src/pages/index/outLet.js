@@ -32,11 +32,11 @@ new Vue({
         return{
             outLetArray: [],
             busy: false,
-            page:0,
+            currentPage:0,
             pageSize: 10,
             companyCode:1000,
             userId:null,
-            priceChecked:''
+            priceChecked:'',
         };
     },
     computed:{
@@ -60,37 +60,51 @@ new Vue({
             });
         },
         getGoodsList(flag){
-            let sort = this.sortFlag ? 1 : -1;
-            let param = {
-                sort:sort,
-                priceLevel:this.priceChecked,
-                page:this.page,
-                pageSize:this.pageSize
-            };
-            request.post(Datas.getDiscountDepot,{params:param}).then(res=>{
-                if(flag){
-                    // 多次加载数据
-                    this.outLetArray = this.outLetArray.concat(res.resultArray);
-                    if(res.resultArray == 0){
-                        this.busy = true;
-                        document.querySelector('.loading').innerHTML = '没有更多了';
-                        //console.log(document.querySelector('.loading').innerHTML);
+            //let sort = this.sortFlag ? 1 : -1;
+
+            if(this.userId){
+                request.post(Datas.getDiscountDepot,'uid='+this.userId+'&currentPage='+this.currentPage).then(res=>{
+                    if(flag){
+                        // 多次加载数据
+                        this.outLetArray = this.outLetArray.concat(res.resultArray);
+                        if(res.resultArray == 0){
+                            this.busy = true;
+                            document.querySelector('.loading').innerHTML = '没有更多了';
+                        }else{
+                            this.busy = false;
+                        }
                     }else{
+                        // 第一次加载数据
+                        this.outLetArray = res.resultArray;
+                        // 当第一次加载数据完之后，把这个滚动到底部的函数触发打开
                         this.busy = false;
                     }
-                }else{
-                    // 第一次加载数据
-                    this.outLetArray = res.resultArray;
-                    // 当第一次加载数据完之后，把这个滚动到底部的函数触发打开
-                    this.busy = false;
-                }
-            });
+                });
+            }else{
+                request.post(Datas.getDiscountDepot,'companyCode='+this.companyCode+'&currentPage='+this.currentPage).then(res=>{
+                    if(flag){
+                        // 多次加载数据
+                        this.outLetArray = this.outLetArray.concat(res.resultArray);
+                        if(res.outLetArray == 0){
+                            this.busy = true;
+                            document.querySelector('.loading').innerHTML = '没有更多了';
+                        }else{
+                            this.busy = false;
+                        }
+                    }else{
+                        // 第一次加载数据
+                        this.outLetArray = res.resultArray;
+                        // 当第一次加载数据完之后，把这个滚动到底部的函数触发打开
+                        this.busy = false;
+                    }
+                });
+            }
         },
         loadMore() {
             this.busy = true;
             // 多次加载数据
             setTimeout(() => {
-                this.page ++;
+                this.currentPage ++;
                 this.getGoodsList(true);
             }, 100);
         },

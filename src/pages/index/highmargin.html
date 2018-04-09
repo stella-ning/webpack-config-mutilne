@@ -9,17 +9,20 @@
     <meta name="full-screen" content="yes">
     <meta name="x5-fullscreen" content="true">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_424201_i05mmx8bkaoiggb9.css">
-    <title>特价优惠</title>
+    <title>高毛利专区</title>
 </head>
 <body>
     <div id="highmargin" v-cloak>
-        <Head-top head-title="特价优惠" go-back="true"></Head-top>
+        <Head-top head-title="高毛利专区" go-back="true"></Head-top>
         <div class="main-container">
             <div class="factory-instr-ad">
                 <img :src="bannurl" alt=""/>
             </div>
             <div class="product-list" >
-                <product-list :info-datas='highmarginArray'></product-list>
+                <product-list :info-datas='highmarginArray' userId="userId"></product-list>
+            </div>
+            <div class='loading' v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+                加载中...
             </div>
         </div>
     </div>

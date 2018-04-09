@@ -35,8 +35,11 @@
                         <p class="product-spec txt-style">
                             {{productItemList.specifications}}
                         </p>
-                        <p class="product-package txt-style">
-                            中/大包装：{{productItemList.quantityFormat}}
+                        <p class="product-package txt-style" v-if="userId">
+                            中/大包装：{{productItemList.zhongPackage}}/{{productItemList.bigPackage}}{{productItemList.minUnit}}
+                        </p>
+                        <p class="product-package txt-style" v-else>
+                                中/大包装：**
                         </p>
                         <p class="product-date txt-style">
                             生产日期：{{productItemList.creationDate}}
@@ -48,8 +51,9 @@
                         <div class="product-state-box clearfix">
                             <div class="product-price f-left">
                                 <span class="txt-style">价格：</span>
+                                <span class="price" v-if="Number(productItemList.price)">&yen;</span>
                                 <span class="price">{{productItemList.price}}</span>
-                                <span class="unit-kg">/ {{productItemList.minUnit}}</span>
+                                <span class="unit-kg"v-if="Number(productItemList.price)">/ {{productItemList.minUnit}}</span>
                             </div>
                             <div class="product-inventory f-right">
                                 <span class="txt-style">库存：</span>
