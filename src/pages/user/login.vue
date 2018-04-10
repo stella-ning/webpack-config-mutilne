@@ -68,6 +68,7 @@
         min-height: 200px;
         min-width:320px;
         max-width:640px;
+        margin:0 auto;
         .username_row{
             margin-top: 0.4rem;
             margin-bottom: 0.2rem;
@@ -175,7 +176,7 @@
     import registerVue from './register.vue';
     import { Notification } from 'element-ui';
     import {mapState, mapMutations} from 'vuex';
-import { setTimeout } from 'timers';
+    import { setTimeout } from 'timers';
 
     //定义字典
     const dictionary = {

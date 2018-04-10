@@ -1,7 +1,7 @@
 <template>
     <div class="app" v-cloak>
         <div id="header">
-            <div class="header-container clearfix hasBgImg">
+            <div class="header-container clearfix hasBgImg" v-cloak>
                 <div class="logo">
                     <!-- site / 站点 -->
                     <div v-if="isLogin" class="siteBox f-left">
@@ -22,7 +22,7 @@
                         </a>
                     </div>
 
-                    <a v-if="isLogin" class="shopCart f-right" href="javascript:void(0);" >
+                    <a v-if="isLogin" class="shopCart f-right" href="/user/index#/cart" >
                         <img src="../../static/images/public/iconCart.png" alt="">
                     </a>
                     <a v-else class="login f-right" href="/user/index#/login">
@@ -123,7 +123,7 @@
                     </div>
                 </div>
                 <!-- 品牌专区 -->
-                <div class="hotBrandInfo swiper-container">
+                <div class="hotBrandInfo swiper-container" v-cloak>
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" v-for="(hotBrand,index) in hotBrandInfo.itemsArray" :key="index">
                             <div class="special-factory-img">
@@ -138,7 +138,7 @@
             </div>
         </template>
         <!-- 新品上线 -->
-        <div class="module-floor short-floor">
+        <div class="module-floor short-floor" v-cloak>
             <div class="module-title">
                 <div class="icon-module">
                     <img src="../../static/images/index/icon_floor_02.png" alt=""/>
@@ -178,7 +178,7 @@
         </div>
 
         <!-- 活动买赠 -->
-        <div class="special-area">
+        <div class="special-area" v-cloak>
             <div class="area-title">
                 <img src="../../static/images/index/floor_title_bg_02.png" alt=""/>
                 <div class="more-to-link">
@@ -204,7 +204,7 @@
         </div>
 
         <!--特价专区-->
-        <div class="special-area">
+        <div class="special-area" v-cloak>
             <div class="area-title">
                 <img src="../../static/images/index/floor_title_bg_04.png" alt=""/>
                  <div class="more-to-link">
@@ -238,7 +238,7 @@
             </a>
         </div>
         <!-- 药店常备 -->
-        <div class="special-area">
+        <div class="special-area" v-cloak>
             <div class="area-title">
                 <img src="../../static/images/index/floor_title_bg_03.png" alt=""/>
                  <div class="more-to-link">
@@ -272,7 +272,7 @@
             </a>
         </div>
         <!-- 高毛利 -->
-        <div class="special-area">
+        <div class="special-area" v-cloak>
             <div class="area-title">
                 <img src="../../static/images/index/floor_title_bg_05.png" alt=""/>
                  <div class="more-to-link">
@@ -301,7 +301,7 @@
         </div>
         <!-- 折扣专区 -->
         <template v-if="companyCode == 1000 || companyCode == 1001">
-            <div class="special-area">
+            <div class="special-area" v-cloak>
                 <div class="area-title">
                     <img src="../../static/images/index/floor_title_bg_06.png" alt=""/>
                     <div class="more-to-link">

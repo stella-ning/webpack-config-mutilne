@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Login from './login.vue';
 import Register from './register.vue';
 import MenberCenter from './menbercenter.vue';
+import CartPage from './cart.vue';
 
 Vue.use(VueRouter);
 
@@ -20,6 +21,10 @@ export default new VueRouter({
         {
             path: '/reg',
             component: Register
+        },
+        {
+            path: '/cart',
+            component: CartPage
         }
     ]
 })
