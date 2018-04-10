@@ -188,7 +188,10 @@
                                         <div class="similarproductInfo">
                                             <div class="contain">
                                                 <P class="appellation"><a :href="'index/productdetail?'+item.code">{{item.name}}</a></P>
-                                                <p class="similarproductPrice">{{item.price}}</p>
+                                                <p class="similarproductPrice">
+                                                    <span v-if="Number(item.price)">￥</span>
+                                                    {{item.price}}
+                                                </p>
                                             </div>
                                         </div>
                                     </li>
@@ -226,11 +229,21 @@
                     <span class="text">购物车</span>
                 </a>
                 <template v-if="userId">
-                    <div class="trade" :class="Number(price)?'allow':''">
-                        <a class="addCart"  href="javascript:;">
-                            加入购物车
-                        </a>
-                    </div>
+                    <template v-if="Number(price)">
+                        <div class="trade allow" @click="opencover">
+                            <a class="addCart"  href="javascript:;">
+                                加入购物车
+                            </a>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <div class="trade">
+                            <a class="addCart"  href="javascript:;">
+                                加入购物车
+                            </a>
+                        </div>
+                    </template>
+
                 </template>
                 <template v-else>
                     <div class="trade">
@@ -242,6 +255,35 @@
 
 
 
+            </div>
+        </section>
+        <!-- 加入购物车弹出层 -->
+        <section class="widgetsCover" >
+            <div class="coverBg" data-area="关闭层" @click="closecover"></div>
+            <div class="coverContent">
+                <div class="sku-wrap">
+                    <header>
+                        <div class="detailTitle">
+                            <i></i>
+                            数量
+                        </div>
+                    </header>
+                    <div class="body">
+                        <div class="content clearfix">
+                            <label class="productDetailName" for="number">合计金额:</label>
+                            <span class="uint" v-if="totalSum">￥</span>
+                            <span class="totalSum">{{totalSum}}</span>
+                            <div class="number">
+                                <button class="decrease disabled">-</button>
+                                <input type="number" id="number" v-model="count">
+                                <button class="increase">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="trade">
+                        <a href="javascript:;" class="ok">确定</a>
+                    </footer>
+                </div>
             </div>
         </section>
 

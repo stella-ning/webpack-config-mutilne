@@ -135,7 +135,10 @@ new Vue({
                 discountProductionDate:'',
                 discountEffectiveDate:'',
                 discountValidity:''
-            }
+            },
+            count:1,
+            totalSum:null,
+            showCover:false,
         };
     },
     beforemount(){
@@ -457,6 +460,20 @@ new Vue({
             var siblingDom = document.querySelector('#namepages');
             removeClass(siblingDom ,'active');
             this.currentContent = 1;
+        },
+        opencover(){
+            this.showCover = true;
+            let widgetsCover = document.querySelector('.widgetsCover');
+            addClass(widgetsCover,'show');
+            widgetsCover.style.display = 'block';
+
+        },
+        closecover(){
+            this.showCover = false;
+            let widgetsCover = document.querySelector('.widgetsCover');
+            removeClass(widgetsCover,'show');
+            widgetsCover.style.display = 'none';
+
         }
     },
     beforeCreate(){
