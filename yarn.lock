@@ -5943,6 +5943,10 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "http://registry.npm.taobao.org/vary/download/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
 
+vee-validate@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-2.0.6.tgz#0a28046e3c80fb5b9b944da5f7771c7404f90a6a"
+
 vendors@^1.0.0:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/vendors/download/vendors-1.0.1.tgz#37ad73c8ee417fb3d580e785312307d274847f22"
@@ -5965,9 +5969,21 @@ vue-hot-reload-api@^2.2.0:
   version "2.2.0"
   resolved "http://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.2.0.tgz#9a21b35ced3634434a43ee80efb7350ea8fb206d"
 
+vue-i18n@^7.6.0:
+  version "7.6.0"
+  resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-7.6.0.tgz#8745807756f6ca5090fd85629e9cab99b1c6e442"
+
 vue-infinite-loading@^2.1.3:
   version "2.2.1"
   resolved "http://registry.npm.taobao.org/vue-infinite-loading/download/vue-infinite-loading-2.2.1.tgz#91a349c0fde8a1a51befd9d867eafd80c0dc2126"
+
+vue-infinite-scroll@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/vue-infinite-scroll/-/vue-infinite-scroll-2.0.2.tgz#ca37a91fe92ee0ad3b74acf8682c00917144b711"
+
+vue-lazyload@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/vue-lazyload/-/vue-lazyload-1.2.2.tgz#73335ed32db25264f5957df1a21d277823423743"
 
 vue-loader@^13.0.4:
   version "13.3.0"
@@ -6012,6 +6028,10 @@ vue-template-es2015-compiler@^1.6.0:
 vue@^2.4.2:
   version "2.5.2"
   resolved "http://registry.npm.taobao.org/vue/download/vue-2.5.2.tgz#fd367a87bae7535e47f9dc5c9ec3b496e5feb5a4"
+
+vuex@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.0.1.tgz#e761352ebe0af537d4bb755a9b9dc4be3df7efd2"
 
 vux-loader@^1.1.5:
   version "1.1.13"

@@ -278,53 +278,61 @@ html,body{
                         font-weight: 500;
                     }
                 }
-                .number{
-                    height: 28px;
-                    float: right;
-                    padding-right:.2rem;
-                    margin-top:4px;
-                    .decrease,.increase{
-                        float:left;
-                        border: 1px solid #dddddd;
-                        width: 28px;
-                        height: 28px;
-                        line-height: 26px;
-                        font-size: 0.32rem;
-                        color: #666666;
-                        text-align: center;
-                        background:#fff;
-                        outline: none;
-                        padding:0;
-                    }
-                    .decrease{
-                        border-radius: 2px 0 0 2px;
-                    }
-                    .increase{
-                        border-radius: 0 2px 2px 0;
-                    }
-                    .unit{
-                        float: left;
-                        padding-left: .1rem;
-                        font-size:.28rem;
-                        color:#666;
-                        line-height: 28px;
-                    }
-                    .numberInp{
-                        float: left;
-                        border: 1px solid #dddddd;
-                        border-left: transparent;
-                        border-right: transparent;
-                        border-radius: 0;
-                        width: .8rem;
-                        height: 28px;
-                        line-height: 26px;
-                        font-size: 0.24rem;
-                        text-align: center;
-                        color: @colorRed;
-                    }
-                }
+
             }
         }
+    }
+}
+.number{
+    height: 28px;
+    float: right;
+    padding-right:.2rem;
+    margin-top:4px;
+    &.changeCount{
+        float:none;
+        width:50%;
+        margin:0 auto;
+        padding-right:0;
+        padding-left:10px;
+    }
+    .decrease,.increase{
+        float:left;
+        border: 1px solid #dddddd;
+        width: 28px;
+        height: 28px;
+        line-height: 26px;
+        font-size: 0.32rem;
+        color: #666666;
+        text-align: center;
+        background:#fff;
+        outline: none;
+        padding:0;
+    }
+    .decrease{
+        border-radius: 2px 0 0 2px;
+    }
+    .increase{
+        border-radius: 0 2px 2px 0;
+    }
+    .unit{
+        float: left;
+        padding-left: .1rem;
+        font-size:.28rem;
+        color:#666;
+        line-height: 28px;
+    }
+    .numberInp{
+        float: left;
+        border: 1px solid #dddddd;
+        border-left: transparent;
+        border-right: transparent;
+        border-radius: 0;
+        width: .8rem;
+        height: 28px;
+        line-height: 26px;
+        font-size: 0.24rem;
+        text-align: center;
+        color: @colorRed;
     }
 }
 // 去确认
@@ -362,4 +370,8 @@ html,body{
         }
     }
 
+}
+//弹出样式覆盖
+.layui-m-layercont{
+    padding:20px 30px 40px;
 }

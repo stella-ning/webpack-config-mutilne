@@ -9,7 +9,6 @@ import store from 'src/store/';
 import Login from './login.vue';
 
 
-
 new Vue({
     el: '#app',
     router,

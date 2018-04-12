@@ -108,7 +108,8 @@ var config = {
       'common': resolve('src/static/js/common.js'),
       '@js': resolve('src/static/js'),
       '@style': resolve('src/static/css'),
-      '@components': resolve('src/static/components')
+      '@components': resolve('src/static/components'),
+      'jquery': 'jquery'
     },
     extensions: ['.js', '.less', '.vue'],
     modules: [
@@ -122,28 +123,32 @@ var config = {
     hints: false
   },
   plugins: [
-    new ExtractTextPlugin({
-      filename: (getPath) => {
-        // const ret = getPath('static/[name].css');
-        const temp = getPath('[name]').split('/');
-        temp[1] = 'css';
-        return isProd ? `static/${temp.join('/')}.css` : `static/${temp.join('/')}.css`;
-      }
-    }),
-    new webpack.optimize.LimitChunkCountPlugin({
-      minChunkSize: 1000
-    }),
-    // 通过合并小于 minChunkSize 大小的 chunk，将 chunk 体积保持在指定大小限制以上。
-    new webpack.optimize.MinChunkSizePlugin({
-      minChunkSize: 10000 // Minimum number of characters
-    }),
-    new CommonsChunkPlugin({
-      name: 'venders', // 将公共模块提取，生成名为`venders`的chunk
-      chunks: chunks,
-      minChunks: 2, // 提取所有entry共同依赖的模块
-      filename: 'static/common/js/vender.js'
-    })
-  // new webpack.optimize.ModuleConcatenationPlugin(),
+        new ExtractTextPlugin({
+            filename: (getPath) => {
+                // const ret = getPath('static/[name].css');
+                const temp = getPath('[name]').split('/');
+                temp[1] = 'css';
+                return isProd ? `static/${temp.join('/')}.css` : `static/${temp.join('/')}.css`;
+            }
+        }),
+        new webpack.optimize.LimitChunkCountPlugin({
+            minChunkSize: 1000
+        }),
+        // 通过合并小于 minChunkSize 大小的 chunk，将 chunk 体积保持在指定大小限制以上。
+        new webpack.optimize.MinChunkSizePlugin({
+            minChunkSize: 10000 // Minimum number of characters
+        }),
+        new CommonsChunkPlugin({
+            name: 'venders', // 将公共模块提取，生成名为`venders`的chunk
+            chunks: chunks,
+            minChunks: 2, // 提取所有entry共同依赖的模块
+            filename: 'static/common/js/vender.js'
+        }),
+        // new webpack.optimize.ModuleConcatenationPlugin(),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
+        })
   ]
 };
 

@@ -135,7 +135,7 @@
                             </div>
                             <div class="number f-right">
                                 <button class="decrease disabled">-</button>
-                                <input type="number" class="numberInp" @focus="handleFocus" @blur="handleBlur">
+                                <span class="numberInp" @click="handleFocus"></span>
                                 <button class="increase">+</button>
                                 <span class="unit">盒</span>
                             </div>
@@ -168,10 +168,20 @@
                 <div class="forSure">去确认</div>
             </div>
         </section>
+        <!-- 修改商品数量弹出 -->
+        <div id="changeCount" style="display:none;">
+            <div class="number changeCount clearfix">
+                <button class="decrease disabled">-</button>
+                <span class="numberInp" @click="handleFocus"></span>
+                <button class="increase">+</button>
+                <span class="unit">盒</span>
+            </div>
+        </div>
     </div>
 </template>
 <style lang="less" scoped>
     @import url('../../static/css/cart');
+
 </style>
 <script>
     import Vue from 'vue';
@@ -180,12 +190,15 @@
     import HeadTop from 'src/common/header.vue';
     import VueLazyLoad from 'vue-lazyload';
     import {setStore,getStore} from '@js/config';
+    import $ from 'jquery';
+    import 'src/static/plugins/layer_mobile/layer.js';
+    import 'src/static/plugins/layer_mobile/need/layer.css';
+
     Vue.use(VueLazyLoad,{
         error:'../static/images/public/loading.gif',
         loading:'../static/images/public/loading.gif'
     });
     export default {
-
         data(){
             return{
                 isShow:false,//是否显示菜单栏
@@ -222,11 +235,21 @@
                 this.currenCart = index;
             },
             handleFocus(){
-                document.querySelector('.actionBar').style.position = 'static';
+                //document.querySelector('.actionBar').style.position = 'static';
+
+                layer.open({
+                    title: [
+                        '修改商品数量',
+                        'height:40px;line-height:40px;color:#333;'
+                    ],
+                    anim: 'up',
+                    content: $('#changeCount').html(),
+                    btn: ['确认', '取消']
+                });
 
             },
             handleBlur(){
-                document.querySelector('.actionBar').style.position = 'fixed';
+                //document.querySelector('.actionBar').style.position = 'fixed';
             }
         },
         created(){
