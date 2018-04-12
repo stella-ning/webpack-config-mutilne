@@ -49,7 +49,7 @@
         </div>
         <!-- 购物车列表 -->
         <div class="cartTab">
-            <div class="cartView" v-for="(cartItem,index) in cartArray" :key="index" v-show="index == currenCart">
+            <div class="cartView" v-for="(cartItem,index1) in cartArray" :key="index1" v-show="index1 == currenCart">
                 <ul class="productBox">
                     <li class="productList" v-for="(cartProduct,index) in cartItem.entryArray" :key="index">
                         <div class="cartInfo clearfix">
@@ -129,14 +129,15 @@
                             </div>
                         </div>
                         <div class="cartCount clearfix">
-                            <div class="setCount f-left">
+                            <div class="setCount f-left" v-if="Number(cartProduct.price)">
                                 小计：
-                                <span class="subtotal">$4545</span>
+                                <span style="color:#ff3a32;">￥</span>
+                                <span class="subtotal" v-html="(parseFloat(cartProduct.price)*parseFloat(cartProduct.quantity)).toFixed(2)"></span>
                             </div>
                             <div class="number f-right">
-                                <button class="decrease disabled">-</button>
-                                <span class="numberInp" @click="handleFocus"></span>
-                                <button class="increase">+</button>
+                                <button class="decrease disabled" @click='handleChange(index1,index,-1)'>-</button>
+                                <input  type="number" class="numberInp" @click="handleFocus" v-model.number="cartProduct.quantity" >
+                                <button class="increase" @click='handleChange(index1,index,1)'>+</button>
                                 <span class="unit">盒</span>
                             </div>
                         </div>
@@ -172,12 +173,14 @@
         <div id="changeCount" style="display:none;">
             <div class="number changeCount clearfix">
                 <button class="decrease disabled">-</button>
-                <span class="numberInp" @click="handleFocus"></span>
-                <button class="increase">+</button>
+                <input class="numberInp" @click="handleFocus" v-model.number="quantity" >
+                <button class="increase" >+</button>
                 <span class="unit">盒</span>
             </div>
         </div>
+        <input type="numbr" v-model.number="quantity">
     </div>
+
 </template>
 <style lang="less" scoped>
     @import url('../../static/css/cart');
@@ -209,6 +212,7 @@
                 sumSize:null,
                 currenCart:0,
                 isEditt:false,
+                quantity:2.0
             }
         },
         components:{
@@ -250,6 +254,26 @@
             },
             handleBlur(){
                 //document.querySelector('.actionBar').style.position = 'fixed';
+            },
+            handleChange(index1,index,numChange){
+                var goods = this.cartArray[index1]['entryArray'][index],
+                    _this = this;
+                    _this.quantity = parseFloat(goods.quantity);
+                if ( numChange == 1 ) {
+                   _this.quantity ++;
+                   console.log('++')
+                } else if ( numChange == -1 ) {
+                    _this.quantity --;
+                    console.log('--')
+                }
+
+                if ( _this.quantity <= 1 ) {
+                    goods.quantity = 1;
+                }
+
+                if ( _this.quantity >= parseFloat(goods.realStock) ) {
+                    goods.quantity = parseFloat(goods.realStock);
+                }
             }
         },
         created(){
