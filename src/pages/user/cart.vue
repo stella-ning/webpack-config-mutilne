@@ -135,10 +135,26 @@
                                 <span class="subtotal" v-html="(parseFloat(cartProduct.price)*parseFloat(cartProduct.quantity)).toFixed(2)"></span>
                             </div>
                             <div class="number f-right">
-                                <button class="decrease disabled" @click='handleChange(index1,index,-1)'>-</button>
-                                <input  type="number" class="numberInp" @click="handleFocus" v-model.number="cartProduct.quantity" >
-                                <button class="increase" @click='handleChange(index1,index,1)'>+</button>
-                                <span class="unit">盒</span>
+                                <!-- 强制中包装 -->
+                                <template v-if="cartProduct.constraint">
+                                    <button class="decrease disabled" @click='handleChange(index1,index,-1,parseFloat(cartProduct.zhongPackage))'>-</button>
+                                    <span  type="number" class="numberInp" readonly
+                                        v-html="parseFloat(cartProduct.quantity)"
+                                        contenteditable="true"
+                                    ></span>
+                                    <button class="increase" @click='handleChange(index1,index,1,parseFloat(cartProduct.zhongPackage))'>+</button>
+                                    <span class="unit">盒</span>
+                                </template>
+                                <!-- 非强制中包装 -->
+                                <template v-else>
+                                    <button class="decrease disabled" @click='handleChange(index1,index,-1,parseFloat(cartProduct.minValue))'>-</button>
+                                    <span  type="number" class="numberInp" readonly
+                                        v-html="parseFloat(cartProduct.quantity)"
+                                        contenteditable="true"
+                                    ></span>
+                                    <button class="increase" @click='handleChange(index1,index,1,parseFloat(cartProduct.minValue))'>+</button>
+                                    <span class="unit">盒</span>
+                                </template>
                             </div>
                         </div>
                     </li>
@@ -173,12 +189,11 @@
         <div id="changeCount" style="display:none;">
             <div class="number changeCount clearfix">
                 <button class="decrease disabled">-</button>
-                <input class="numberInp" @click="handleFocus" v-model.number="quantity" >
+                <input class="numberInp" @click="handleFocus">
                 <button class="increase" >+</button>
                 <span class="unit">盒</span>
             </div>
         </div>
-        <input type="numbr" v-model.number="quantity">
     </div>
 
 </template>
@@ -219,13 +234,16 @@
             HeadTop
         },
         methods:{
+            //菜单栏的显示与隐藏
             handleMenu() {
                 this.isShow = !this.isShow;
             },
+            //返回上一页
             goback(){
-                window.history.go(-1);
+                //window.history.go(-1);
                 this.$router.go(-1);
             },
+            //获取数据
             getDatas(){
                 let _this = this;
                 request.post(Datas.getMyCart,'uid='+this.userId)
@@ -235,12 +253,13 @@
                     _this.isShowJYHT = res.isShowJYHT;
                 })
             },
+            //购物车tab切换
             changeTab(index){
                 this.currenCart = index;
             },
-            handleFocus(){
+            //数量宽点击事件
+            handleCountClick(){
                 //document.querySelector('.actionBar').style.position = 'static';
-
                 layer.open({
                     title: [
                         '修改商品数量',
@@ -255,25 +274,56 @@
             handleBlur(){
                 //document.querySelector('.actionBar').style.position = 'fixed';
             },
-            handleChange(index1,index,numChange){
+            handleFocus(){
+
+            },
+            //商品数量控制
+            handleChange(index1,index,numChange,step){
                 var goods = this.cartArray[index1]['entryArray'][index],
                     _this = this;
-                    _this.quantity = parseFloat(goods.quantity);
                 if ( numChange == 1 ) {
-                   _this.quantity ++;
-                   console.log('++')
+                    goods.quantity = parseFloat(goods.quantity);
+                    goods.quantity = parseFloat((parseInt(goods.quantity*1000+step*1000)/1000).toFixed(2));
+                   console.log('++'+ goods.quantity)
                 } else if ( numChange == -1 ) {
-                    _this.quantity --;
-                    console.log('--')
+                    goods.quantity = parseFloat(goods.quantity);
+                    //goods.quantity -= step;
+                    goods.quantity =parseFloat((parseInt(goods.quantity*1000-step*1000)/1000).toFixed(2))
+                    console.log('--'+ goods.quantity)
+                }
+                console.log('是否是折扣商品'+this.cartArray[index1].isDiscount)
+                //判断是否是折扣商品
+                if(this.cartArray[index1].isDiscount){
+                    if ( parseFloat(goods.quantity) >= parseFloat(goods.discountRealStock) ) {
+                        goods.quantity = parseFloat((parseInt(goods.discountRealStock/step)*step).toFixed(2));
+                        layer.open({
+                            content:'购买量不能高于'+ parseFloat((parseInt(goods.discountRealStock/step)*step).toFixed(2))+goods.minUnit,
+                            skin: 'msg',
+                            time: 2000
+                        })
+                    }
+                }else{
+                    if ( parseFloat(goods.quantity) >= parseFloat(goods.realStock) ) {
+                        goods.quantity = parseFloat((parseInt(goods.realStock/step)*step).toFixed(2));
+                        layer.open({
+                            content:'购买量不能高于'+ parseFloat((parseInt(goods.realStock/step)*step).toFixed(2))+goods.minUnit,
+                            skin: 'msg',
+                            time: 200000
+                        })
+                    }
+                }
+                //商品数量小于最小步长
+                if ( parseFloat(goods.quantity) <= step ) {
+                    goods.quantity = step;
+                    layer.open({
+                        content:'购买量不能少于'+step+goods.minUnit,
+                        skin: 'msg',
+                        time: 2
+                    })
+
                 }
 
-                if ( _this.quantity <= 1 ) {
-                    goods.quantity = 1;
-                }
 
-                if ( _this.quantity >= parseFloat(goods.realStock) ) {
-                    goods.quantity = parseFloat(goods.realStock);
-                }
             }
         },
         created(){
