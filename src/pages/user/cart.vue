@@ -167,7 +167,7 @@
                 <div class="selectInfo">
                     <label class="check-wrap f-left" for="checkAll">
                         <span class="checkbox-inner-wrap">
-                            <input type="checkbox"  checked="checked" class="checkAll" id="checkAll">
+                            <input type="checkbox"  checked="checked" class="checkAll" id="checkAll" v-model="allChecked">
                             <span class="checkbox-inner"></span>
                         </span>
                         全选
@@ -227,7 +227,8 @@
                 sumSize:null,
                 currenCart:0,
                 isEditt:false,
-                quantity:2.0
+                allChecked:true,//全选
+                isChecked:true,//选中
             }
         },
         components:{
@@ -279,19 +280,107 @@
             },
             //商品数量控制
             handleChange(index1,index,numChange,step){
-                var goods = this.cartArray[index1]['entryArray'][index],
+                let goods = this.cartArray[index1]['entryArray'][index],
                     _this = this;
                 if ( numChange == 1 ) {
+                    //加
                     goods.quantity = parseFloat(goods.quantity);
                     goods.quantity = parseFloat((parseInt(goods.quantity*1000+step*1000)/1000).toFixed(2));
-                   console.log('++'+ goods.quantity)
+                    console.log('jian'+goods.quantity);
+                   isDiscountFn();
+
                 } else if ( numChange == -1 ) {
+                    //减
                     goods.quantity = parseFloat(goods.quantity);
                     //goods.quantity -= step;
-                    goods.quantity =parseFloat((parseInt(goods.quantity*1000-step*1000)/1000).toFixed(2))
-                    console.log('--'+ goods.quantity)
+                    goods.quantity =parseFloat((parseInt(goods.quantity*1000-step*1000)/1000).toFixed(2));
+                   // console.log('--'+ goods.quantity);
+                   isDiscountFn()
+
                 }
-                console.log('是否是折扣商品'+this.cartArray[index1].isDiscount)
+                //判断是否是折扣商品
+                function isDiscountFn(){
+                    //console.log('是否是折扣商品'+_this.cartArray[index1].isDiscount)
+                    if(_this.cartArray[index1].isDiscount){
+                        if ( parseFloat(goods.quantity) >= parseFloat(goods.discountRealStock) ) {
+                            if(parseFloat(goods.discountRealStock) > step){
+                                 goods.quantity = parseFloat((parseInt(goods.discountRealStock/step)*step).toFixed(2));
+                                layer.open({
+                                    content:'购买量不能高于'+ parseFloat((parseInt(goods.discountRealStock/step)*step).toFixed(2))+goods.minUnit,
+                                    skin: 'msg',
+                                    time: 2
+                                })
+                            }else{
+                                goods.quantity = step;
+                                layer.open({
+                                    content:'商品已卖完,下次来早点哦',
+                                    skin: 'msg',
+                                    time: 2
+                                })
+                            }
+
+                        }else if(parseFloat(goods.quantity) < step){
+                            goods.quantity = step;
+                            layer.open({
+                                content:'购买量不能少于'+step+goods.minUnit,
+                                skin: 'msg',
+                                time: 2
+                            })
+                        }else{
+                            request.post(Datas.updateCartQuantity,'uid='+_this.userId+'&quantity='+goods.quantity+'&cartName='+_this.cartArray[index1].cartName+'&code='+ goods.code)
+                                .then(res =>  {
+                                //console.log('成功'+res)
+                            })
+                        }
+                    }else{
+                        if ( parseFloat(goods.quantity) >= parseFloat(goods.realStock) ) {
+                            //库存大于步长
+                            if(parseFloat(goods.realStock) > step){
+                                goods.quantity = parseFloat((parseInt(goods.realStock/step)*step).toFixed(2));
+                                layer.open({
+                                    content:'购买量不能高于'+ parseFloat((parseInt(goods.realStock/step)*step).toFixed(2))+goods.minUnit,
+                                    skin: 'msg',
+                                    time: 2
+                                })
+                            }else{
+                                goods.quantity = step;
+                                layer.open({
+                                    content:'库存不足',
+                                    skin: 'msg',
+                                    time: 2
+                                })
+                            }
+                        }else if(parseFloat(goods.quantity) < step){
+                            console.log('shuliang'+goods.quantity)
+                            goods.quantity = step;
+                            layer.open({
+                                content:'购买量不能少于'+step+goods.minUnit,
+                                skin: 'msg',
+                                time: 2
+                            })
+                        }else{
+                            request.post(Datas.updateCartQuantity,'uid='+_this.userId+'&quantity='+goods.quantity+'&cartName='+_this.cartArray[index1].cartName+'&code='+ goods.code)
+                                .then(res =>  {
+                                //console.log('成功'+res)
+                            })
+                        }
+                    }
+                }
+
+            },
+            //输入
+            enteryChange(index1,index,step){
+                let goods = this.cartArray[index1]['entryArray'][index],
+                     _this = this;
+                //判断输入是否是符合的数量
+                if(isNaN(goods.quantity)){
+                    goods.quantity = step;
+                    layer.open({
+                        content:'请输入正确的数量',
+                        skin: 'msg',
+                        time: 2
+                    })
+                }
                 //判断是否是折扣商品
                 if(this.cartArray[index1].isDiscount){
                     if ( parseFloat(goods.quantity) >= parseFloat(goods.discountRealStock) ) {
@@ -299,7 +388,7 @@
                         layer.open({
                             content:'购买量不能高于'+ parseFloat((parseInt(goods.discountRealStock/step)*step).toFixed(2))+goods.minUnit,
                             skin: 'msg',
-                            time: 2000
+                            time: 2
                         })
                     }
                 }else{
@@ -308,7 +397,7 @@
                         layer.open({
                             content:'购买量不能高于'+ parseFloat((parseInt(goods.realStock/step)*step).toFixed(2))+goods.minUnit,
                             skin: 'msg',
-                            time: 200000
+                            time: 2
                         })
                     }
                 }
@@ -322,9 +411,22 @@
                     })
 
                 }
+            },
+            //全选
+            handleAllCheck(){
+                let goodsList = this.cartArray[index]['entryArray'];
+                if ( this.cartArray[index]['checked'] ) {
+                    for (var i = 0; i < len; i++ ) {
+                        list[i]['checked'] = false;
+                    }
+                } else {
+                    for (var i = 0; i < len; i++ ) {
+                        list[i]['checked'] = true;
+                    }
+                }
+                this.goodsObj[index]['checked'] = !this.goodsObj[index]['checked'];
+            },
 
-
-            }
         },
         created(){
             //获取用户信息
