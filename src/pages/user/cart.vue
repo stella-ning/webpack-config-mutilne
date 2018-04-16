@@ -251,6 +251,7 @@
         </div>
         <!-- 底部 -->
         <section class="actionBar">
+            <!-- 去确认 -->
             <div class="toSure">
                 <div class="selectInfo" v-for="(checkallItem,index) in cartArray" :key="index" v-show="index ==currenCart">
                     <label class="check-wrap f-left" for="checkAll">
@@ -271,6 +272,9 @@
                     </span>
                 </div>
                 <div class="forSure">去确认</div>
+            </div>
+            <!-- 删除 -->
+            <div class="toDelete">
             </div>
         </section>
         <!-- 修改商品数量弹出 -->
