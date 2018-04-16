@@ -68,7 +68,7 @@
                                 </label>
                                 <div class="productImgBox f-left">
                                     <div class="productImg">
-                                        <a :href="'/index/cartProduct?code='+cartProduct.code+'&discountClick=true'">
+                                        <a :href="'/index/productdetail?code='+cartProduct.code+'&discountClick=true'">
                                             <img v-lazy="cartProduct.imgsrc" alt=""/>
                                         </a>
                                     </div>
@@ -149,19 +149,20 @@
                     <template v-else>
                         <li class="productList" v-for="(cartProduct,index) in cartItem.entryArray" :key="index" :class="parseFloat(cartProduct.realStock)?'':'noStock'">
                             <div class="cartInfo clearfix">
-                                <label class="check-wrap f-left" v-show="cartProduct.hide">
+                                <label class="check-wrap f-left" v-if="cartProduct.hide">
                                     <span class="checkbox-inner-wrap">
                                         <input type="checkbox" name="productCodes[]"
                                             class="selectInput"
                                             :id="'check'+cartProduct.code+'_'+cartItem.isDiscount"
                                             :checked="cartProduct.checked"
+                                            @click="choose(index1,index)"
                                         >
                                         <span class="checkbox-inner"></span>
                                     </span>
                                 </label>
                                 <div class="productImgBox f-left">
                                     <div class="productImg">
-                                        <a :href="'/index/cartProduct?code='+cartProduct.code">
+                                        <a :href="'/index/productdetail?code='+cartProduct.code">
                                             <img v-lazy="cartProduct.imgsrc" alt=""/>
                                         </a>
                                     </div>
@@ -254,19 +255,19 @@
                 <div class="selectInfo" v-for="(checkallItem,index) in cartArray" :key="index" v-show="index ==currenCart">
                     <label class="check-wrap f-left" for="checkAll">
                         <span class="checkbox-inner-wrap">
-                            <input type="checkbox"  checked="checked" class="checkAll" id="checkAll" v-model="allChecked" @click="handleAllCheck(index)">
+                            <input type="checkbox"  checked="checked" class="checkAll" id="checkAll" v-model="checkallItem.checked" @click="handleAllCheck(index)">
                             <span class="checkbox-inner"></span>
                         </span>
                         全选
                     </label>
                     <span class="txt">
                         品种合计：
-                        <span class="total totalCount">{{checkallItem.sumSize}}</span>
+                        <span class="total totalCount" v-html="calCheckLen(index)"></span>
                         种
                     </span>
                     <span class="txt">
                         总金额：￥
-                        <span class="total totalPrice" v-html="calEveryStore(index)">{{checkallItem.sumPrice}}</span>
+                        <span class="total totalPrice" v-html="calEveryStore(index)"></span>
                     </span>
                 </div>
                 <div class="forSure">去确认</div>
@@ -351,17 +352,22 @@
                                     if(Number(itemList.price)){
                                         itemList.checked = true;
                                         itemList.hide = true;
-                                        itemList.isnoStock = false;
+                                        //itemList.isnoStock = false;
                                     }else{
                                         itemList.checked = false;
                                         itemList.hide = false;
-                                        itemList.isnoStock = false;
-                                    }
 
+                                    }
+                                    itemList.isnoStock = false;
                                 }else{
                                     itemList.checked = false;
                                     itemList.hide = false;
-                                    itemList.isnoStock = true;
+                                    //预防新品上线的商品也没有库存时,不显示库存提醒
+                                    if(Number(itemList.price)){
+                                        itemList.isnoStock = true;
+                                    }else{
+                                        itemList.isnoStock = false;
+                                    }
                                 }
                             }else{
                                  //判断是否有库存
@@ -370,17 +376,22 @@
                                     if(Number(itemList.price)){
                                         itemList.checked = true;
                                         itemList.hide = true;
-                                        itemList.isnoStock = false;
+
                                     }else{
                                         itemList.checked = false;
                                         itemList.hide = false;
-                                        itemList.isnoStock = false;
                                     }
-
+                                    itemList.isnoStock = false;
                                 }else{
                                     itemList.checked = false;
                                     itemList.hide = false;
-                                    itemList.isnoStock = true;
+                                    //预防新品上线的商品也没有库存时,不显示库存提醒
+                                    if(Number(itemList.price)){
+                                        itemList.isnoStock = true;
+                                    }else{
+                                        itemList.isnoStock = false;
+                                    }
+
                                 }
                             }
 
@@ -613,7 +624,9 @@
                     list = this.cartArray[index]['entryArray'];
                 list.forEach(function(item, index, arr) {
                     if ( list[index]['checked'] ) {
-                        storeMoney += parseFloat(item.price) * parseFloat(item.quantity);
+                        if(parseFloat(item.price)){
+                            storeMoney += parseFloat(item.price) * parseFloat(item.quantity);
+                        }
                     }
                 });
 
@@ -624,23 +637,35 @@
                 var list = this.cartArray[index1]['entryArray'],
                     len = list.length;
                 if ( list[index]['checked'] ) {
+                    console.log(1)
                     this.cartArray[index1]['checked'] = false;
-                    this.allChecked = false;
                     list[index]['checked'] = !list[index]['checked'];
+
                 } else {
                     list[index]['checked'] = !list[index]['checked'];
-                    // 判断是否选择当前tab的全选
-                    var flag = true;
-                    for (var i = 0; i < len; i++ ) {
-                        if ( list[i]['checked'] == false ) {
-                            flag = false;
-                            break;
-                        }
-                    }
-                    flag == true ? this.cartArray[index1]['checked'] = true : this.cartArray[index1]['checked'] = false;
+
+                }
+                var inputLen = $('.cartView').eq(index1).find('input[name="productCodes[]"]').length;
+                // 判断是否选择当前tab的全选
+                if(checkLen ==inputLen){
+                    this.cartArray[index1]['checked'] = true;
+                }else{
+                    this.cartArray[index1]['checked'] = false;
                 }
 
             },
+            //计算选中了多少个商品
+            calCheckLen(index){
+                var checkLen = 0,
+                    list = this.cartArray[index]['entryArray'];
+                list.forEach(function(item, index, arr) {
+                    if ( list[index]['checked'] ) {
+                        checkLen += 1
+                    }
+                });
+
+                return checkLen;
+            }
 
         },
         created(){
@@ -650,7 +675,6 @@
             this.getDatas();
         },
         mounted(){
-
 
         }
     }
