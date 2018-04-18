@@ -503,7 +503,7 @@
         methods:{
             initData(){
                 let $this = this;
-                request.post(Datas.indexData, 'companyCode='+this.companyCode)
+                request.post(Datas.indexData, 'companyCode=1000')
                     .then(res => {
                         console.log(res)
                         console.log($this.specialOffersInfo)
@@ -604,7 +604,7 @@
                 this.isFirst = true;
                 this.showSites = false;
                 this.site = curSite;
-                changeSiteData(companyCode);
+                this.changeSiteData(companyCode);
             },
             closeSitesLay(){
                 this.isFirst = true;
