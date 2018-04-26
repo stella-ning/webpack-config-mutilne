@@ -449,7 +449,8 @@
                 necessMedicineInfo:{},
                 discountDepotInfo:{},
                 extensionInfo:{},
-                extensionInfoTwo:{}
+                extensionInfoTwo:{},
+                dataArray:[],
             }
         },
         created(){
@@ -604,6 +605,7 @@
                 this.isFirst = true;
                 this.showSites = false;
                 this.site = curSite;
+                this.companyCode = companyCode;
                 this.changeSiteData(companyCode);
             },
             closeSitesLay(){
