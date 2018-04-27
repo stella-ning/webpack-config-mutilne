@@ -450,7 +450,6 @@
                 discountDepotInfo:{},
                 extensionInfo:{},
                 extensionInfoTwo:{},
-                dataArray:[],
             }
         },
         created(){
