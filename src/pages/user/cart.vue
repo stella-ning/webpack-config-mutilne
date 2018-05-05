@@ -599,7 +599,7 @@
                             }else{
                                 request.post(Datas.updateCartQuantity,'uid='+_this.userId+'&quantity='+goods.quantity+'&cartName='+_this.cartArray[index1].cartName+'&code='+ goods.code)
                                     .then(res =>  {
-                                    //console.log('成功'+res)
+                                    console.log('成功'+res)
                                 });
                             }
                         }
