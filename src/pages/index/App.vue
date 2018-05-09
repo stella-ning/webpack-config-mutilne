@@ -40,21 +40,21 @@
                     </header>
                     <div class="modalBody">
                         <ul class="sites">
-                            <li class="siteList clearfix" @click="chooseSite('粤东','1000')">
+                            <li class="siteList clearfix" @click="chooseSite('粤东',1000)">
                                 <a href="javascript:void(0)">
                                     <h3>粤东地区</h3>
                                     <p>向（创美药业股份有限公司）采购</p>
                                     <img class="arrowRight" src="../../static/images/public/arrowRight.png">
                                 </a>
                             </li>
-                            <li class="siteList clearfix" @click="chooseSite('佛山','1001')">
+                            <li class="siteList clearfix" @click="chooseSite('佛山',1001)">
                                 <a href="javascript:void(0)">
                                     <h3>佛山地区</h3>
                                     <p>向（广东创美药业股份有限公司）采购</p>
                                     <img class="arrowRight" src="../../static/images/public/arrowRight.png">
                                 </a>
                             </li>
-                            <li class="siteList clearfix" @click="chooseSite('珠海','1002')">
+                            <li class="siteList clearfix" @click="chooseSite('珠海',1002)">
                                 <a href="javascript:void(0)">
                                     <h3>珠海地区</h3>
                                     <p>向（珠海创美恒祥医药有限公司）采购</p>
@@ -266,7 +266,7 @@
             </div>
         </div>
         <!-- 厂家广告图 -->
-        <div class="ad-factory-container short-floor" v-for="info2Item in extensionInfoTwo.itemsArray">
+        <div class="ad-factory-container short-floor" v-for="(info2Item,index) in extensionInfoTwo.itemsArray" >
             <a href="javascript:void(0);">
                 <img v-lazy="info2Item.imgsrc" alt=""/>
             </a>
