@@ -221,7 +221,7 @@
                                             :readonly="!cartProduct.checked"
                                             v-model.number="cartProduct.quantity"
                                             :id="cartProduct.code+'_'+cartProduct.isDiscount"
-                                            @keyup="enteryChange(index1,index,parseFloat(cartProduct.minValue))"
+                                            @keyup="enteryChange(index1,index,parseFloat(cartProduct.zhongPackage))"
                                         />
                                         <button class="increase" @click='handleChange(index1,index,1,parseFloat(cartProduct.zhongPackage))' :disabled="!cartProduct.checked">
                                             +
