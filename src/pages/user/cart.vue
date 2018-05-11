@@ -637,7 +637,7 @@
                 return storeMoney.toFixed(2);
             },
             //单选
-            choose : function( index1, index) {
+            choose : function(index1, index) {
                 var list = this.cartArray[index1]['entryArray'],
                     len = list.length;
                 if ( list[index]['checked'] ) {
@@ -650,6 +650,7 @@
 
                 }
                 var inputLen = $('.cartView').eq(index1).find('input[name="productCodes[]"]').length;
+                var checkLen = this.calCheckLen(index1);
                 // 判断是否选择当前tab的全选
                 if(checkLen ==inputLen){
                     this.cartArray[index1]['checked'] = true;
