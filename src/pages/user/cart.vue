@@ -8,7 +8,7 @@
                     <h1>
                         购物车
                         <!-- ( <span class="cartAmount">15</span> ) -->
-                        <span class="edit">编辑</span>
+                        <span class="edit" @click="handleEdit">编辑</span>
                     </h1>
                     <span class="more-info" @click="handleMenu"></span>
                 </div>
@@ -670,7 +670,11 @@
                 });
 
                 return checkLen;
-            }
+            },
+            //编辑
+            handleEdit(){
+                console.log('编辑')
+            },
 
         },
         created(){
