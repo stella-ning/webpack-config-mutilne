@@ -144,6 +144,8 @@
                                     </template>
                                 </div>
                             </div>
+                            <!-- 删除按钮 -->
+                            <div class="deleteBtn"></div>
                         </li>
                     </template>
                     <template v-else>
@@ -244,6 +246,8 @@
                                     </template>
                                 </div>
                             </div>
+                            <!-- 删除按钮 -->
+                            <div class="deleteBtn"></div>
                         </li>
                     </template>
                 </ul>
