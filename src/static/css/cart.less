@@ -212,6 +212,7 @@
             background:#fff;
             margin-bottom:.15rem;
             padding:.1rem .1rem .1rem .05rem;
+            position: relative;
             &.noStock{
                 background:#f5f5f5;
                 border:0.02rem solid @colorRed;
@@ -296,6 +297,22 @@
                     }
                 }
 
+            }
+            .deleteBtn{
+                position: absolute;
+                top: 30%;
+                right: 10px;
+                width: 0.6rem;
+                height: 0.6rem;
+                line-height: 0.6rem;
+                background: #ddd;
+                text-align: center;
+                color: #fff;
+                border-radius: 50%;
+                .iconfont{
+                    font-size: 20px;
+                    display:block;
+                }
             }
         }
     }
