@@ -8,7 +8,8 @@
                     <h1>
                         购物车
                         <!-- ( <span class="cartAmount">15</span> ) -->
-                        <span class="edit" @click="handleEdit">编辑</span>
+                        <span class="edit" @click="handleEdit" v-show="!isEdit">编辑</span>
+                        <span class="editEnd" @click="handleEditEnd" v-show="isEdit">完成</span>
                     </h1>
                     <span class="more-info" @click="handleMenu"></span>
                 </div>
@@ -145,7 +146,7 @@
                                 </div>
                             </div>
                             <!-- 删除按钮 -->
-                            <div class="deleteBtn">
+                            <div class="deleteBtn" v-show="isEdit">
                                 <span class="iconfont icon-delete"></span>
                             </div>
                         </li>
@@ -249,7 +250,7 @@
                                 </div>
                             </div>
                             <!-- 删除按钮 -->
-                            <div class="deleteBtn">
+                            <div class="deleteBtn" v-show="isEdit">
                                 <span class="iconfont icon-delete"></span>
                             </div>
                         </li>
@@ -260,7 +261,7 @@
         <!-- 底部 -->
         <section class="actionBar">
             <!-- 去确认 -->
-            <div class="toSure">
+            <div class="toSure" v-show="!isEdit">
                 <div class="selectInfo" v-for="(checkallItem,index) in cartArray" :key="index" v-show="index ==currenCart">
                     <label class="check-wrap f-left" for="checkAll">
                         <span class="checkbox-inner-wrap">
@@ -282,7 +283,17 @@
                 <div class="forSure">去确认</div>
             </div>
             <!-- 删除 -->
-            <div class="toDelete">
+            <div class="toDelete" v-show="isEdit">
+                <div class="DeleteAll  f-left" v-for="(checkallItem,index) in cartArray" :key="index" v-show="index ==currenCart">
+                    <label class="check-wrap" for="checkAll">
+                        <span class="checkbox-inner-wrap">
+                            <input type="checkbox"  checked="checked" class="checkAll" id="checkAll" v-model="checkallItem.checked" @click="handleAllCheck(index)">
+                            <span class="checkbox-inner"></span>
+                        </span>
+                        全选
+                    </label>
+                </div>
+                <div class="forDelete f-right">删除</div>
             </div>
         </section>
         <!-- 修改商品数量弹出 -->
@@ -327,7 +338,7 @@
                 isDiscount:false,
                 sumSize:null,
                 currenCart:0,
-                isEditt:false,
+                isEdit:false,
                 allChecked:true,//全选
                 isChecked:true,//选中
             }
@@ -681,8 +692,11 @@
             },
             //编辑
             handleEdit(){
-                console.log('编辑')
+                this.isEdit = true;
             },
+            handleEditEnd(){
+                this.isEdit = false;
+            }
 
         },
         created(){

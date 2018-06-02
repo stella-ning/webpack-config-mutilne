@@ -45,7 +45,7 @@
         .cartAmount{
             color:@colorRed;
         }
-        .edit{
+        .edit,.editEnd{
             line-height: .88rem;
             position: absolute;
             z-index: 1000;
@@ -385,10 +385,11 @@
     max-width:640px;
     margin-left:auto;
     margin-right:auto;
-    .toSure{
+    .toSure,.toDelete{
         width:100%;
         border-top: 0.02rem solid #ddd;
-        .selectInfo{
+
+        .selectInfo,.DeleteAll{
             height: .7rem;
             line-height: .7rem;
             background: #eee;
@@ -402,7 +403,12 @@
                 }
             }
         }
-        .forSure{
+        .DeleteAll{
+            height:0.8rem;
+            line-height:0.8rem;
+            background:#fff;
+        }
+        .forSure,.forDelete{
             width: 100%;
             height: .8rem;
             line-height: .8rem;
@@ -411,6 +417,13 @@
             color: #fff;
             font-size: .32rem;
         }
+        .forDelete{
+            width:20%;
+        }
+    }
+    .toDelete{
+        height:0.82rem;
+        background:#fff;
     }
 
 }
