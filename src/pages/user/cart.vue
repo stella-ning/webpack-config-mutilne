@@ -146,7 +146,7 @@
                                 </div>
                             </div>
                             <!-- 删除按钮 -->
-                            <div class="deleteBtn" v-show="isEdit">
+                            <div class="deleteBtn" v-show="isEdit" @click="handleDeleteOne(index1,index)">
                                 <span class="iconfont icon-delete"></span>
                             </div>
                         </li>
@@ -250,7 +250,7 @@
                                 </div>
                             </div>
                             <!-- 删除按钮 -->
-                            <div class="deleteBtn" v-show="isEdit">
+                            <div class="deleteBtn" v-show="isEdit" @click="handleDeleteOne(index1,index)">
                                 <span class="iconfont icon-delete"></span>
                             </div>
                         </li>
@@ -696,6 +696,14 @@
             },
             handleEditEnd(){
                 this.isEdit = false;
+            },
+            handleDeleteOne(index1,index){
+                 let goods = this.cartArray[index1]['entryArray'][index],
+                    _this = this;
+                request.post(Datas.deleteCart,'uid='+_this.userId+'&cartName='+_this.cartArray[index1].cartName+'&code='+ goods.code)
+                    .then(res =>  {
+                    console.log('成功'+res)
+                });
             }
 
         },
