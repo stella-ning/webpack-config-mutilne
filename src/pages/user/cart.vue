@@ -698,12 +698,15 @@
                 this.isEdit = false;
             },
             handleDeleteOne(index1,index){
-                 let goods = this.cartArray[index1]['entryArray'][index],
+                let goods = this.cartArray[index1]['entryArray'][index],
                     _this = this;
                 request.post(Datas.deleteCart,'uid='+_this.userId+'&cartName='+_this.cartArray[index1].cartName+'&code='+ goods.code)
                     .then(res =>  {
-                    console.log('成功'+res)
-                });
+                        this.cartArray[index1].entryArray = this.cartArray[index1].entryArray.filter(o =>{
+                            o.code =! goods.code
+                        })
+                    }
+                );
             }
 
         },
