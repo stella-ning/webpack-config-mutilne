@@ -41,11 +41,27 @@ new Vue({
         initDatas(){
             request.post(Datas.getControlsale,{}).then(res => {
                 this.controlSaleArray = res.controlsaleArray;
+                this.controlSaleArray.forEach(function(itemList){
+                    //追加数量框数据
+                    if(itemList.constraint){
+                        itemList.quantity = itemList.zhongPackage;
+                    }else{
+                        itemList.quantity = itemList.minValue;
+                    }
+                });
             });
         },
         getDatas(){
             request.post(Datas.getControlsale, 'uid='+this.userId).then(res => {
                 this.controlSaleArray = res.controlsaleArray;
+                this.controlSaleArray.forEach(function(itemList){
+                    //追加数量框数据
+                    if(itemList.constraint){
+                        itemList.quantity = itemList.zhongPackage;
+                    }else{
+                        itemList.quantity = itemList.minValue;
+                    }
+                });
             });
         },
         getGoodsList(flag){

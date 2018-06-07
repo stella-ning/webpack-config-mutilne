@@ -19,7 +19,7 @@
                 <img :src="bannurl" alt=""/>
             </div>
             <div class="product-list" >
-                <product-list :info-datas='highmarginArray' userId="userId"></product-list>
+                <product-list :info-datas='highmarginArray' :user-id="userId"></product-list>
             </div>
             <div class='loading' v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
                 加载中...

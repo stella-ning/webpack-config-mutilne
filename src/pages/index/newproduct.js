@@ -40,15 +40,83 @@ new Vue({
     },
     methods: {
         initDatas(){
-            request.get(Datas.newProductData,'companyCode='+this.companyCode).then(res => {
+            //未登录前数据渲染
+            request.post(Datas.newProductData,'companyCode='+this.companyCode).then(res => {
                 this.resultArray = res.resultArray;
+                this.resultArray.forEach(function(item,index){
+                    item.dailyNewArray.forEach(function(itemList){
+                        //追加数量框数据
+                        if(itemList.constraint){
+                            itemList.quantity = itemList.zhongPackage;
+                        }else{
+                            itemList.quantity = itemList.minValue;
+                        }
+                    });
+                });
             });
         },
         getDatas(){
-            request.get(Datas.newProductData, 'uid='+this.userId).then(res => {
+            request.post(Datas.newProductData, 'uid='+this.userId).then(res => {
                 this.resultArray = res.resultArray;
+                this.resultArray.forEach(function(item,index){
+                    item.dailyNewArray.forEach(function(itemList){
+                        //追加数量框数据
+                        if(itemList.constraint){
+                            itemList.quantity = itemList.zhongPackage;
+                        }else{
+                            itemList.quantity = itemList.minValue;
+                        }
+                    });
+                });
             });
         },
+        getGoodsList(flag){
+            let sort = this.sortFlag ? 1 : -1;
+            let param = {};
+            if(this.userId){
+                request.post(Datas.newProductData,'uid='+this.userId+'&currentPage='+this.currentPage).then(res=>{
+                    if(flag){
+                        // 多次加载数据
+                        this.resultArray = this.resultArray.concat(res.resultArray);
+                        if(res.resultArray == 0){
+                            this.busy = true;
+                        }else{
+                            this.busy = false;
+                        }
+                    }else{
+                        // 第一次加载数据
+                        this.resultArray = res.resultArray;
+                        // 当第一次加载数据完之后，把这个滚动到底部的函数触发打开
+                        this.busy = false;
+                    }
+                });
+            }else{
+                request.post(Datas.getControlsale,'companyCode='+this.companyCode+'&currentPage='+this.currentPage).then(res=>{
+                    if(flag){
+                        // 多次加载数据
+                        this.resultArray = this.resultArray.concat(res.resultArray);
+                        if(res.resultArray == 0){
+                            this.busy = true;
+                        }else{
+                            this.busy = false;
+                        }
+                    }else{
+                        // 第一次加载数据
+                        this.resultArray = res.resultArray;
+                        // 当第一次加载数据完之后，把这个滚动到底部的函数触发打开
+                        this.busy = false;
+                    }
+                });
+            }
+        },
+        loadMore: function() {
+            this.busy = true;
+            // 多次加载数据
+            setTimeout(() => {
+                this.currentPage ++;
+                this.getGoodsList(true);
+            }, 100);
+        }
     },
     created(){
         //获取用户信息
@@ -62,51 +130,5 @@ new Vue({
             this.initDatas();
         }
     },
-    getGoodsList(flag){
-        let sort = this.sortFlag ? 1 : -1;
-        let param = {};
-        if(this.userId){
-            request.post(Datas.newProductData,'uid='+this.userId+'&currentPage='+this.currentPage).then(res=>{
-                if(flag){
-                    // 多次加载数据
-                    this.resultArray = this.resultArray.concat(res.resultArray);
-                    if(res.resultArray == 0){
-                        this.busy = true;
-                    }else{
-                        this.busy = false;
-                    }
-                }else{
-                    // 第一次加载数据
-                    this.resultArray = res.resultArray;
-                    // 当第一次加载数据完之后，把这个滚动到底部的函数触发打开
-                    this.busy = false;
-                }
-            });
-        }else{
-            request.post(Datas.getControlsale,'companyCode='+this.companyCode+'&currentPage='+this.currentPage).then(res=>{
-                if(flag){
-                    // 多次加载数据
-                    this.resultArray = this.resultArray.concat(res.resultArray);
-                    if(res.resultArray == 0){
-                        this.busy = true;
-                    }else{
-                        this.busy = false;
-                    }
-                }else{
-                    // 第一次加载数据
-                    this.resultArray = res.resultArray;
-                    // 当第一次加载数据完之后，把这个滚动到底部的函数触发打开
-                    this.busy = false;
-                }
-            });
-        }
-    },
-    loadMore: function() {
-        this.busy = true;
-        // 多次加载数据
-        setTimeout(() => {
-            this.currentPage ++;
-            this.getGoodsList(true);
-        }, 100);
-    }
+
 });

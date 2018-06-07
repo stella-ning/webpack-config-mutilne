@@ -46,17 +46,33 @@ new Vue({
         initDatas(){
             let $this = this;
             request.post(Datas.getDiscountDepot, 'companyCode='+$this.companyCode).then(res => {
-                console.log(res);
+                //console.log(res);
                 $this.outLetArray = res.resultArray;
                 $this.pageSize = res.pageSize;
+                this.outLetArray.forEach(function(itemList){
+                    //追加数量框数据
+                    if(itemList.constraint){
+                        itemList.quantity = itemList.zhongPackage;
+                    }else{
+                        itemList.quantity = itemList.minValue;
+                    }
+                });
             });
         },
         getDatas(){
             let $this = this;
             request.post(Datas.getDiscountDepot, 'uid='+$this.userId).then(res => {
-                console.log(res);
+                //console.log(res);
                 $this.outLetArray = res.resultArray;
                 $this.pageSize = res.pageSize;
+                this.outLetArray.forEach(function(itemList){
+                    //追加数量框数据
+                    if(itemList.constraint){
+                        itemList.quantity = itemList.zhongPackage;
+                    }else{
+                        itemList.quantity = itemList.minValue;
+                    }
+                });
             });
         },
         getGoodsList(flag){

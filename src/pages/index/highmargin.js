@@ -43,11 +43,27 @@ new Vue({
         initDatas(){
             request.post(Datas.getHighMargin,'companyCode='+this.companyCode).then(res => {
                 this.highmarginArray = res.resultArray;
+                this.highmarginArray.forEach(function(itemList){
+                    //追加数量框数据
+                    if(itemList.constraint){
+                        itemList.quantity = itemList.zhongPackage;
+                    }else{
+                        itemList.quantity = itemList.minValue;
+                    }
+                });
             });
         },
         getDatas(){
             request.post(Datas.getHighMargin,'uid='+this.userId).then(res => {
                 this.highmarginArray = res.resultArray;
+                this.highmarginArray.forEach(function(itemList){
+                    //追加数量框数据
+                    if(itemList.constraint){
+                        itemList.quantity = itemList.zhongPackage;
+                    }else{
+                        itemList.quantity = itemList.minValue;
+                    }
+                });
             });
         },
         getGoodsList(flag){

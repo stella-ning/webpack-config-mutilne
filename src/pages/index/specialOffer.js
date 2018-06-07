@@ -43,11 +43,27 @@ new Vue({
         initDatas(){
             request.post(Datas.getSpecialOffers,'companyCode='+this.companyCode).then(res => {
                 this.specialOfferArray = res.resultArray;
+                this.specialOfferArray.forEach(function(itemList){
+                    //追加数量框数据
+                    if(itemList.constraint){
+                        itemList.quantity = itemList.zhongPackage;
+                    }else{
+                        itemList.quantity = itemList.minValue;
+                    }
+                });
             });
         },
         getDatas(){
             request.post(Datas.getSpecialOffers,'uid='+this.userId).then(res => {
                 this.specialOfferArray = res.resultArray;
+                this.specialOfferArray.forEach(function(itemList){
+                    //追加数量框数据
+                    if(itemList.constraint){
+                        itemList.quantity = itemList.zhongPackage;
+                    }else{
+                        itemList.quantity = itemList.minValue;
+                    }
+                });
             });
         },
         getGoodsList(flag){

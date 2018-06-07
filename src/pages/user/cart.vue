@@ -459,7 +459,7 @@
                     //加
                     goods.quantity = parseFloat(goods.quantity);
                     goods.quantity = parseFloat((parseInt(goods.quantity*1000+step*1000)/1000).toFixed(2));
-                    console.log('jian'+goods.quantity);
+                    //console.log('jian'+goods.quantity);
                    isDiscountFn();
 
                 } else if ( numChange == -1 ) {
