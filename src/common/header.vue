@@ -13,7 +13,7 @@
                     <div class="menu f-right">
                         <span class="icon-triangle"></span>
                         <ul class="menu-list">
-                            <li class="shopping-card"><a href="/cart">购物车</a></li>
+                            <li class="shopping-card"><a href="/user/index#/cart">购物车</a></li>
                             <li class="search"><a href="/searchpage">搜索</a></li>
                             <li class="category"><a href="/cmyy-category">分类</a></li>
                             <li class="home"><a href="/index/index">首页</a></li>

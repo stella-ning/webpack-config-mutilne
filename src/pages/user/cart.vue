@@ -226,7 +226,7 @@
                                             :readonly="!cartProduct.checked"
                                             v-model.number="cartProduct.quantity"
                                             :id="cartProduct.code+'_'+cartProduct.isDiscount"
-                                            @keyup="enteryChange(index1,index,parseFloat(cartProduct.zhongPackage))"
+                                            @blur="enteryChange(index1,index,parseFloat(cartProduct.zhongPackage))"
                                         />
                                         <button class="increase" @click='handleChange(index1,index,1,parseFloat(cartProduct.zhongPackage))' :disabled="!cartProduct.checked">
                                             +
@@ -240,7 +240,7 @@
                                             :readonly="!cartProduct.checked"
                                             v-model.number="cartProduct.quantity"
                                             :id="cartProduct.code+'_'+cartProduct.isDiscount"
-                                            @keyup="enteryChange(index1,index,parseFloat(cartProduct.minValue))"
+                                            @blur="enteryChange(index1,index,parseFloat(cartProduct.minValue))"
                                         />
                                         <button class="increase" @click='handleChange(index1,index,1,parseFloat(cartProduct.minValue))' :disabled="!cartProduct.checked">
                                             +
@@ -479,7 +479,7 @@
                             if(parseFloat(goods.discountRealStock) > step){
                                 goods.quantity = parseFloat((parseInt(goods.discountRealStock/step)*step).toFixed(2));
                                 layer.open({
-                                    style:'background:rgba(255,191,87,0.8);color:#666;',
+                                    style:'background:rgba(255,191,87,0.8);color:#333;',
                                     content:'购买量不能高于'+ parseFloat((parseInt(goods.discountRealStock/step)*step).toFixed(2))+goods.minUnit,
                                     skin: 'msg',
                                     time: 2
@@ -488,7 +488,7 @@
                             }else{
                                 goods.quantity = step;
                                 layer.open({
-                                    style:'background:rgba(255,191,87,0.8);color:#666;',
+                                    style:'background:rgba(255,191,87,0.8);color:#333;',
                                     content:'商品已卖完,下次来早点哦',
                                     skin: 'msg',
                                     time: 2
@@ -498,7 +498,7 @@
                         }else if(parseFloat(goods.quantity) < step){
                             goods.quantity = step;
                             layer.open({
-                                style:'background:rgba(255,191,87,0.8);color:#666;',
+                                style:'background:rgba(255,191,87,0.8);color:#333;',
                                 content:'购买量不能少于'+step+goods.minUnit,
                                 skin: 'msg',
                                 time: 2
@@ -515,7 +515,7 @@
                             if(parseFloat(goods.realStock) > step){
                                 goods.quantity = parseFloat((parseInt(goods.realStock/step)*step).toFixed(2));
                                 layer.open({
-                                    style:'background:rgba(255,191,87,0.8);color:#666;',
+                                    style:'background:rgba(255,191,87,0.8);color:#333;',
                                     content:'购买量不能高于'+ parseFloat((parseInt(goods.realStock/step)*step).toFixed(2))+goods.minUnit,
                                     skin: 'msg',
                                     time: 2
@@ -523,7 +523,7 @@
                             }else{
                                 goods.quantity = step;
                                 layer.open({
-                                    style:'background:rgba(255,191,87,0.8);color:#666;',
+                                    style:'background:rgba(255,191,87,0.8);color:#333;',
                                     content:'商品已卖完,下次来早点哦',
                                     skin: 'msg',
                                     time: 2
@@ -533,7 +533,7 @@
                             console.log('shuliang'+goods.quantity)
                             goods.quantity = step;
                             layer.open({
-                                style:'background:rgba(255,191,87,0.8);color:#666;',
+                                style:'background:rgba(255,191,87,0.8);color:#333;',
                                 content:'购买量不能少于'+step+goods.minUnit,
                                 skin: 'msg',
                                 time: 2
@@ -556,7 +556,7 @@
                    //console.log('是否为空')
                     goods.quantity = step;
                     layer.open({
-                        style:'background:rgba(255,191,87,0.8);color:#666;',
+                        style:'background:rgba(255,191,87,0.8);color:#333;',
                         content:'商品数量不能为小于'+step,
                         skin: 'msg',
                         time: 2
@@ -567,21 +567,23 @@
                         //判断是否输入合法的数量
                         if(parseFloat((goods.quantity*1000) % (step*1000)) != 0){
                             layer.open({
-                                style:'background:rgba(255,191,87,0.8);color:#666;',
+                                style:'background:rgba(255,191,87,0.8);color:#333;',
                                 content:'商品数量有误,已为您修改为'+step+'的倍数',
                                 skin: 'msg',
                                 time: 2
                             });
                             //parseFloat((($(_this).val())*1000) % (steps*1000))/1000
-                            goods.quantity = parseFloat((parseInt(goods.quantity/step)*step).toFixed(2));
-                            if(goods.quantity == 0){
+
+                            if(goods.quantity < step){
                                 goods.quantity = step;
+                            }else{
+                                goods.quantity = parseFloat((parseInt(goods.quantity/step)*step).toFixed(2));
                             }
                         }else {
                             if(parseFloat(goods.quantity) < step){
                                 goods.quantity = step;
                                 layer.open({
-                                    style:'background:rgba(255,191,87,0.8);color:#666;',
+                                    style:'background:rgba(255,191,87,0.8);color:#333;',
                                     content:'购买量不能少于'+step+goods.minUnit,
                                     skin: 'msg',
                                     time: 2
@@ -589,7 +591,7 @@
                             }else if ( parseFloat(goods.quantity) >= parseFloat(goods.discountRealStock) ) {
                                 goods.quantity = parseFloat((parseInt(goods.discountRealStock/step)*step).toFixed(2));
                                 layer.open({
-                                    style:'background:rgba(255,191,87,0.8);color:#666;',
+                                    style:'background:rgba(255,191,87,0.8);color:#333;',
                                     content:'购买量不能高于'+ parseFloat((parseInt(goods.discountRealStock/step)*step).toFixed(2))+goods.minUnit,
                                     skin: 'msg',
                                     time: 2
@@ -605,18 +607,21 @@
                         //判断是否输入合法的数量
                         if(parseFloat(goods.quantity*1000) % (step*1000) != 0){
                             layer.open({
-                                style:'background:rgba(255,191,87,0.8);color:#666;',
+                                style:'background:rgba(255,191,87,0.8);color:#333;',
                                 content:'商品数量有误,已为您修改为'+step+'的倍数',
                                 skin: 'msg',
                                 time: 2
                             });
-
-                            goods.quantity = parseFloat((parseInt(goods.quantity/step)*step).toFixed(2));
+                            if(goods.quantity < step){
+                                goods.quantity = step;
+                            }else{
+                                goods.quantity = parseFloat((parseInt(goods.quantity/step)*step).toFixed(2));
+                            }
                         }else {
                              if(parseFloat(goods.quantity) < step){
                                 goods.quantity = step;
                                 layer.open({
-                                    style:'background:rgba(255,191,87,0.8);color:#666;',
+                                    style:'background:rgba(255,191,87,0.8);color:#333;',
                                     content:'购买量不能少于'+step+goods.minUnit,
                                     skin: 'msg',
                                     time: 2
@@ -624,7 +629,7 @@
                             }else if ( parseFloat(goods.quantity) >= parseFloat(goods.realStock) ) {
                                 goods.quantity = parseFloat((parseInt(goods.realStock/step)*step).toFixed(2));
                                 layer.open({
-                                    style:'background:rgba(255,191,87,0.8);color:#666;',
+                                    style:'background:rgba(255,191,87,0.8);color:#333;',
                                     content:'购买量不能高于'+ parseFloat((parseInt(goods.realStock/step)*step).toFixed(2))+goods.minUnit,
                                     skin: 'msg',
                                     time: 2
@@ -720,7 +725,7 @@
                             return  o.code =! item.code;
                         });
                         layer.open({
-                            style:'background:rgba(255,191,87,0.8);color:#666;',
+                            style:'background:rgba(255,191,87,0.8);color:#333;',
                             content:'删除成功',
                             skin: 'msg',
                             time: 2
@@ -744,7 +749,7 @@
 
                         });
                         layer.open({
-                            style:'background:rgba(255,191,87,0.8);color:#666;',
+                            style:'background:rgba(255,191,87,0.8);color:#333;',
                             content:'删除成功',
                             skin: 'msg',
                             time: 2
