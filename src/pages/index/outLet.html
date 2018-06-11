@@ -127,13 +127,50 @@
                                 <span class="txt-style stock" v-html="productItemList.realStock"></span>
                             </div>
                         </div>
-                        <div class="product-user clearfix">
-                            <span class="minus f-left">-</span>
-                            <input type="text" class="product-amount f-left" value="1"/>
-                            <span class="plus f-left">+</span>
-                            <span class="product-unit txt-style f-left">{{productItemList.minUnit}}</span>
-                            <a class="add-cart f-right" :class="productItemList.realStock == '缺货'? 'bgGray':''" href="javascript:void(0);">加入购物车</a>
+                        <div class="productOperateBox">
+                            <p v-if="productItemList.constraint">请按<b>{{productItemList.zhongPackage}}</b>的倍数购买</p>
+                            <div class="product-user clearfix">
+                                <!-- 强制中包装 -->
+                                <template v-if="productItemList.constraint">
+                                    <!-- 减 -->
+                                    <span class="minus f-left" @click="handleChange(index,-1,parseFloat(productItemList.zhongPackage))">-</span>
+                                    <!-- 输入框 -->
+                                    <input type="number"  class="product-amount f-left" v-model.number="productItemList.quantity" @blur="enteryChange(index,parseFloat(productItemList.zhongPackage))" :id="'product_'+productItemList.code"/>
+                                    <!-- 加 -->
+                                    <span class="plus f-left" @click="handleChange(index,1,parseFloat(productItemList.zhongPackage))">+</span>
+                                </template>
+                                <!-- 非强制中包装 -->
+                                <template v-else>
+                                    <!-- 减 -->
+                                    <span class="minus f-left" @click="handleChange(index,-1,parseFloat(productItemList.minValue))">-</span>
+                                    <!-- 输入框 -->
+                                    <input type="number"  class="product-amount f-left" v-model.number="productItemList.quantity"  @blur="enteryChange(index,parseFloat(productItemList.minValue))" :id="'product_'+productItemList.code"/>
+                                    <!-- 加 -->
+                                    <span class="plus f-left" @click="handleChange(index,1,parseFloat(productItemList.minValue))">+</span>
+                                </template>
+                                <span class="product-unit txt-style f-left">{{productItemList.minUnit}}</span>
+                                <!-- 加入购物车按钮 -->
+                                <template v-if="userId">
+                                    <template v-if="productItemList.constraint">
+                                        <a class="add-cart f-right addToCart" v-if="Number(productItemList.price) && productItemList.realStock != '无货' && productItemList.realStock != '缺货'" href="javascript:void(0);" @click="addToCart(productItemList.code,productItemList.quantity,parseFloat(productItemList.zhongPackage))">
+                                            加入购物车
+                                        </a>
+                                    </template>
+                                    <template v-else>
+                                        <a class="add-cart f-right addToCart" v-if="Number(productItemList.price) && productItemList.realStock != '无货' && productItemList.realStock != '缺货'" href="javascript:void(0);" @click="addToCart(productItemList.code,productItemList.quantity,parseFloat(productItemList.minValue))">
+                                            加入购物车
+                                        </a>
+                                    </template>
+
+                                    <a class="add-cart f-right bgWhite" v-else-if="productItemList.realStock == '无货'" href="javascript:void(0);" @click="arrivalMsg(productItemList.code)">到货通知</a>
+                                    <a class="add-cart f-right bgGray" v-else-if="!Number(productItemList.price) || productItemList.realStock == '缺货'" href="javascript:void(0);">加入购物车</a>
+                                </template>
+                                <template v-else>
+                                    <a class="add-cart f-right" href="/user/index#/login">加入购物车</a>
+                                </template>
+                            </div>
                         </div>
+
                     </div>
                 </div>
                 <div class='loading' v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">

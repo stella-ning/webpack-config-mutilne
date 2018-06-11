@@ -88,6 +88,14 @@ new Vue({
                 });
             }else{
                 request.post(Datas.getSpecialOffers,'companyCode='+this.companyCode+'&currentPage='+this.currentPage).then(res=>{
+                    res.resultArray.forEach(function(itemList){
+                        //追加数量框数据
+                        if(itemList.constraint){
+                            itemList.quantity = itemList.zhongPackage;
+                        }else{
+                            itemList.quantity = itemList.minValue;
+                        }
+                    });
                     if(flag){
                         // 多次加载数据
                         this.specialOfferArray = this.specialOfferArray.concat(res.resultArray);

@@ -93,15 +93,6 @@
                         <p class="nav-title">商品分类</p>
                     </a>
                 </li>
-                <template v-if="companyCode == 1000">
-                    <li class="cm-nav-cell">
-                        <a href="/index/controlsale">
-                            <img class="icon-nav" src="../../static/images/index/m-nav20160918-04.png" alt=""/>
-                            <p class="nav-title">控销专区</p>
-                        </a>
-                    </li>
-                </template>
-
                 <li class="cm-nav-cell">
                     <a href="/user/menbercenter">
                         <img class="icon-nav" src="../../static/images/index/m-nav20160918-05.png" alt=""/>

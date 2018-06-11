@@ -88,6 +88,18 @@ new Vue({
                 });
             }else{
                 request.post(Datas.getNecessMedicine,'companyCode='+this.companyCode+'&currentPage='+this.currentPage).then(res=>{
+                    console.log('追加之前');
+                    console.log(res.resultArray);
+                    res.resultArray.forEach(function(itemList){
+                        //追加数量框数据
+                        if(itemList.constraint){
+                            itemList.quantity = itemList.zhongPackage;
+                        }else{
+                            itemList.quantity = itemList.minValue;
+                        }
+                    });
+                    console.log('追加之后');
+                    console.log(res.resultArray);
                     if(flag){
                         // 多次加载数据
                         this.necessMedicineArray = this.necessMedicineArray.concat(res.resultArray);

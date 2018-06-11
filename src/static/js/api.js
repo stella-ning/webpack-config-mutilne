@@ -412,7 +412,7 @@ export const getdriverData = '/UserInterface/getdriverData';
  *到货通知
  *@type {string}
  */
-export const getArrivalNotify = 'UserInterface/addNotice';
+export const getArrivalNotify = 'UserInterface/getArrivalNotify';
 
 /**
  *添加到货通知

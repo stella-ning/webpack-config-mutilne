@@ -55,7 +55,7 @@
                             <!-- 减 -->
                             <span class="minus f-left" @click="handleChange(index,-1,parseFloat(productItemList.zhongPackage))">-</span>
                             <!-- 输入框 -->
-                            <input type="number"  class="product-amount f-left" v-model.number="productItemList.quantity" @blur="enteryChange(index,parseFloat(productItemList.zhongPackage))"/>
+                            <input type="number"  class="product-amount f-left" v-model.number="productItemList.quantity" @keyup="enteryChange(index,parseFloat(productItemList.zhongPackage))" :id="'product_'+productItemList.code"/>
                             <!-- 加 -->
                             <span class="plus f-left" @click="handleChange(index,1,parseFloat(productItemList.zhongPackage))">+</span>
                         </template>
@@ -64,7 +64,7 @@
                             <!-- 减 -->
                             <span class="minus f-left" @click="handleChange(index,-1,parseFloat(productItemList.minValue))">-</span>
                             <!-- 输入框 -->
-                            <input type="number"  class="product-amount f-left" v-model.number="productItemList.quantity"  @blur="enteryChange(index,parseFloat(productItemList.minValue))"/>
+                            <input type="number"  class="product-amount f-left" v-model.number="productItemList.quantity"  @keyup="enteryChange(index,parseFloat(productItemList.minValue))" :id="'product_'+productItemList.code"/>
                             <!-- 加 -->
                             <span class="plus f-left" @click="handleChange(index,1,parseFloat(productItemList.minValue))">+</span>
                         </template>
@@ -72,8 +72,10 @@
                         <span class="product-unit txt-style f-left">{{productItemList.minUnit}}</span>
                         <!-- 加入购物车按钮 -->
                         <template v-if="userId">
-                            <a class="add-cart f-right addToCart" v-if="Number(productItemList.price) && productItemList.realStock != '无货' && productItemList.realStock != '缺货'" href="javascript:void(0);">加入购物车</a>
-                            <a class="add-cart f-right bgWhite" v-else-if="productItemList.realStock == '无货'" href="javascript:void(0);" @click="arrivalMsgarrivalMsg(productItemList.code)">到货通知</a>
+                            <a class="add-cart f-right addToCart" v-if="Number(productItemList.price) && productItemList.realStock != '无货' && productItemList.realStock != '缺货'" href="javascript:void(0);" @click="addToCart(productItemList.code,productItemList.quantity)">
+                                加入购物车
+                            </a>
+                            <a class="add-cart f-right bgWhite" v-else-if="productItemList.realStock == '无货'" href="javascript:void(0);" @click="arrivalMsg(productItemList.code)">到货通知</a>
                             <a class="add-cart f-right bgGray" v-else-if="!Number(productItemList.price) || productItemList.realStock == '缺货'" href="javascript:void(0);">加入购物车</a>
                         </template>
                         <template v-else>
@@ -97,6 +99,7 @@ import Vue from 'vue';
 import { request } from 'common';
 import * as Datas from 'api';
 import {setStore,getStore} from '@js/config';
+import $ from 'jquery';
 
 export default {
     props: {
@@ -136,8 +139,10 @@ export default {
         handleChange(index,numChange,step){
             var _this = this,
                 goods = this.infoDatas[index],
-                numberInp =document.getElementsByClassName('product-amount')[index],
+                goodsId = 'product_'+goods.code,
+                numberInp = $('#'+goodsId),
                 max = 9999999;
+                console.log('product_'+goods.code)
             var msgParms =  _this.msgFn(step,max,goods.minUnit);
             if ( numChange == 1 ) {
                 //加
@@ -157,7 +162,6 @@ export default {
             }
             //判断是否是折扣商品
             function operateFn(){
-                //console.log('是否是折扣商品'+_this.cartArray[index1].isDiscount)
                 if ( parseFloat(goods.quantity) >= parseFloat(max) ) {
                     //库存大于步长
                     if(parseFloat(max) > step){
@@ -172,7 +176,7 @@ export default {
                     _this.layerMsg(msgParms.msgA)
                 }else{
                     console.log('数量框'+goods.quantity)
-                    numberInp.value = goods.quantity;
+                    numberInp.val(goods.quantity);
                 }
             }
         },
@@ -180,45 +184,40 @@ export default {
         enteryChange(index,step){
             let goods = this.infoDatas[index],
                 _this = this,
-                numberInp =document.getElementsByClassName('product-amount')[index],
+                goodsId = 'product_'+goods.code,
+                numberInp = $('#'+goodsId),
                 max = 9999999;
             var msgParms =  _this.msgFn(step,max,goods.minUnit);
             //判断是否为空
             if(parseFloat(goods.quantity) == 0|| goods.quantity == ''){
                 //console.log('是否为空')
                 goods.quantity = step;
-                numberInp.value = step;
                 _this.layerMsg(msgParms.msgA);
             }else{
                 //判断是否输入合法的数量
-                if(parseFloat(numberInp.value*1000) % (step*1000) != 0){
+                if(parseFloat(goods.quantity*1000) % (step*1000) != 0){
                     _this.layerMsg(msgParms.msgC);
                     if(goods.quantity < step){
                         goods.quantity = step;
-                        numberInp.value = step;
                     }else{
                         goods.quantity = parseFloat((parseInt(goods.quantity/step)*step).toFixed(2));
-                        numberInp.value = parseFloat((parseInt(numberInp.value/step)*step).toFixed(2));
                     }
 
                 }else {
-                    if(parseFloat(numberInp.value) < step){
+                    if(parseFloat(goods.quantity) < step){
                         goods.quantity = step;
                         numberInp.value = step;
                         _this.layerMsg(msgParms.msgA);
-                    }else if ( parseFloat(numberInp.value) >= parseFloat(max) ) {
+                    }else if ( parseFloat(goods.quantity) > parseFloat(max) ) {
                         goods.quantity = parseFloat((parseInt(max/step)*step).toFixed(2));
-                        numberInp.value = parseFloat((parseInt(max/step)*step).toFixed(2));
                         _this.layerMsg(msgParms.msgB);
-                    }else{
-                        numberInp.value = goods.quantity;
                     }
                 }
             }
         },
         //到货通知
         arrivalMsg(codeId){
-            request.post(Datas.getArrivalNotify,{uid:this.userId,code:codeId})
+            request.post(Datas.addNotice,'uid='+this.userId+'&code='+codeId)
                 .then(res =>  {
                     console.log('成功'+res)
                     layer.open({
@@ -229,7 +228,21 @@ export default {
                     });
                 }
             );
-
+        },
+        //加入购物车
+        addToCart(codeId,quantity){
+            //{uid:this.userId,code:codeId,quantity:quantity}
+            request.post(Datas.joinCart,'uid='+this.userId+'&code='+codeId+'&quantity='+quantity)
+                .then(res =>  {
+                    console.log('成功'+res)
+                    layer.open({
+                        content: '成功加入购物车',
+                        skin: 'msg',
+                        icon:1,
+                        time: 2 //2秒后自动关闭
+                    });
+                }
+            );
         }
 
 

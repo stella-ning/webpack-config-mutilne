@@ -1,4 +1,6 @@
 //import 'babel-polyfill';
+import 'src/static/plugins/layer_mobile/layer.js';
+import 'src/static/plugins/layer_mobile/need/layer.css';
 import Vue from 'vue';
 import router from './router/router.js';
 //分页
@@ -10,6 +12,7 @@ import VueLazyLoad from 'vue-lazyload';
 import HeadTop from 'src/common/header.vue';
 import {setStore,getStore} from '@js/config';
 import {addClass,removeClass} from 'src/static/js/dom.js';
+import $ from 'jquery';
 
 //懒加载
 Vue.use(VueLazyLoad,{
@@ -75,11 +78,156 @@ new Vue({
                 });
             });
         },
+        layerMsg(msg){
+            layer.open({
+                style:'background:rgba(255,191,87,0.8);color:#333;',
+                content:'<div class="myMsgContent"><span class="msgIcon"><img src="../../../static/images/public/my_msg.png"></span><span class="msgTxt">'+msg+'</span></div>',
+                skin: 'msg',
+                time: 2
+            })
+        },
+        msgFn(steps,max,minUnit){
+            var msgObj = {
+                msgA:"购买数量不能小于<b>"+steps+"</b>"+minUnit,
+                msgB:"购买数量不能大于<b>"+parseFloat((parseInt(max/steps)*steps).toFixed(2))+"</b>"+minUnit,
+                msgC:"数量输入错误,已为您修改为<b>"+steps+"</b>的倍数",
+                msgD:"商品已卖完,下次来早点哦"
+            }
+            return msgObj;
+        },
+        handleChange(index,numChange,step){
+            var _this = this,
+                goods = this.outLetArray[index],
+                goodsId = 'product_'+goods.code,
+                numberInp = $('#'+goodsId),
+                max = 9999999;
+            var msgParms =  _this.msgFn(step,max,goods.minUnit);
+            if ( numChange == 1 ) {
+                //加
+                goods.quantity = parseFloat(goods.quantity);
+                goods.quantity = parseFloat((parseInt(goods.quantity*1000+step*1000)/1000).toFixed(2));
+                console.log('jian'+goods.quantity);
+                operateFn();
+
+            } else if ( numChange == -1 ) {
+                //减
+                goods.quantity = parseFloat(goods.quantity);
+                //goods.quantity -= step;
+                goods.quantity =parseFloat((parseInt(goods.quantity*1000-step*1000)/1000).toFixed(2));
+                // console.log('--'+ goods.quantity);
+                operateFn();
+
+            }
+            //判断是否是折扣商品
+            function operateFn(){
+                //console.log('是否是折扣商品'+_this.cartArray[index1].isDiscount)
+                if ( parseFloat(goods.quantity) >= parseFloat(max) ) {
+                    //库存大于步长
+                    if(parseFloat(max) > step){
+                        goods.quantity = parseFloat((parseInt(max/step)*step).toFixed(2));
+                        _this.layerMsg(msgParms.msgB);
+                    }else{
+                        goods.quantity = step;
+                        _this.layerMsg(msgParms.msgD);
+                    }
+                }else if(parseFloat(goods.quantity) < step){
+                    goods.quantity = step;
+                    _this.layerMsg(msgParms.msgA);
+                }else{
+                    console.log('数量框'+goods.quantity);
+                    numberInp.val(goods.quantity);
+                }
+            }
+        },
+        //输入
+        enteryChange(index,step){
+            let goods = this.outLetArray[index],
+                _this = this,
+                numberInp =document.getElementsByClassName('product-amount')[index],
+                max = 9999999;
+            var msgParms =  _this.msgFn(step,max,goods.minUnit);
+            //判断是否为空
+            if(parseFloat(goods.quantity) == 0|| goods.quantity == ''){
+                //console.log('是否为空')
+                goods.quantity = step;
+                //numberInp.value = step;
+                _this.layerMsg(msgParms.msgA);
+            }else{
+                //判断是否输入合法的数量
+                if(parseFloat(goods.quantity*1000) % (step*1000) != 0){
+                    _this.layerMsg(msgParms.msgC);
+                    if(goods.quantity < step){
+                        goods.quantity = step;
+                        //numberInp.value = step;
+                    }else{
+                        goods.quantity = parseFloat((parseInt(goods.quantity/step)*step).toFixed(2));
+                        //numberInp.value = parseFloat((parseInt(numberInp.value/step)*step).toFixed(2));
+                    }
+
+                }else {
+                    if(parseFloat(goods.quantity) < step){
+                        goods.quantity = step;
+                        //numberInp.value = step;
+                        _this.layerMsg(msgParms.msgA);
+                    }else if ( parseFloat(goods.quantity) >= parseFloat(max) ) {
+                        goods.quantity = parseFloat((parseInt(max/step)*step).toFixed(2));
+                        //numberInp.value = parseFloat((parseInt(max/step)*step).toFixed(2));
+                        _this.layerMsg(msgParms.msgB);
+                    }
+                }
+            }
+        },
+        //到货通知
+        arrivalMsg(codeId){
+            request.post(Datas.addNotice,'uid='+this.userId+'&code='+codeId)
+                .then(res =>  {
+                    console.log('成功'+res)
+                    layer.open({
+                        content: '如果该商品30天内到货,我们会短信通知您',
+                        skin: 'msg',
+                        icon:1,
+                        time: 2 //2秒后自动关闭
+                    });
+                }
+            );
+        },
+        //加入购物车
+        addToCart(codeId,quantity,step){
+            if(quantity < step || parseFloat(quantity*1000) % (step*1000) != 0){
+                layer.open({
+                    style:'background:rgba(255,191,87,0.8);color:#333;',
+                    content:'<div class="myMsgContent"><span class="msgIcon"><img src="../../../static/images/public/my_msg.png"></span><span class="msgTxt">购买数量有误,请修改购买数量</span></div>',
+                    skin: 'msg',
+                    time: 2
+                });
+            }else{
+                request.post(Datas.joinCart,'uid='+this.userId+'&code='+codeId+'&quantity='+quantity)
+                    .then(res =>  {
+                        console.log('成功'+res)
+                        layer.open({
+                            content: '成功加入购物车',
+                            skin: 'msg',
+                            icon:1,
+                            time: 2 //2秒后自动关闭
+                        });
+                    }
+                );
+            }
+
+        },
         getGoodsList(flag){
             //let sort = this.sortFlag ? 1 : -1;
 
             if(this.userId){
                 request.post(Datas.getDiscountDepot,'uid='+this.userId+'&currentPage='+this.currentPage).then(res=>{
+                    res.resultArray.forEach(function(itemList){
+                        //追加数量框数据
+                        if(itemList.constraint){
+                            itemList.quantity = itemList.zhongPackage;
+                        }else{
+                            itemList.quantity = itemList.minValue;
+                        }
+                    });
                     if(flag){
                         // 多次加载数据
                         this.outLetArray = this.outLetArray.concat(res.resultArray);
@@ -98,6 +246,14 @@ new Vue({
                 });
             }else{
                 request.post(Datas.getDiscountDepot,'companyCode='+this.companyCode+'&currentPage='+this.currentPage).then(res=>{
+                    res.resultArray.forEach(function(itemList){
+                        //追加数量框数据
+                        if(itemList.constraint){
+                            itemList.quantity = itemList.zhongPackage;
+                        }else{
+                            itemList.quantity = itemList.minValue;
+                        }
+                    });
                     if(flag){
                         // 多次加载数据
                         this.outLetArray = this.outLetArray.concat(res.resultArray);
