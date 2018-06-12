@@ -105,18 +105,15 @@ new Vue({
             if ( numChange == 1 ) {
                 //加
                 goods.quantity = parseFloat(goods.quantity);
-                goods.quantity = parseFloat((parseInt(goods.quantity*1000+step*1000)/1000).toFixed(2));
                 console.log('jian'+goods.quantity);
+                goods.quantity = parseFloat((parseInt(goods.quantity*1000+step*1000)/1000).toFixed(2));
                 operateFn();
 
             } else if ( numChange == -1 ) {
                 //减
                 goods.quantity = parseFloat(goods.quantity);
-                //goods.quantity -= step;
                 goods.quantity =parseFloat((parseInt(goods.quantity*1000-step*1000)/1000).toFixed(2));
-                // console.log('--'+ goods.quantity);
                 operateFn();
-
             }
             //判断是否是折扣商品
             function operateFn(){
@@ -133,10 +130,17 @@ new Vue({
                 }else if(parseFloat(goods.quantity) < step){
                     goods.quantity = step;
                     _this.layerMsg(msgParms.msgA);
-                }else{
-                    console.log('数量框'+goods.quantity);
-                    numberInp.val(goods.quantity);
+
+                }else if(parseFloat(goods.quantity*1000) % (step*1000) != 0){
+                    if(goods.quantity < step){
+                        goods.quantity = step;
+                        console.log(345)
+                    }else{
+                        goods.quantity = parseFloat((parseInt(goods.quantity/step)*step).toFixed(2));
+                        console.log(123)
+                    }
                 }
+                numberInp.val(goods.quantity);
             }
         },
         //输入

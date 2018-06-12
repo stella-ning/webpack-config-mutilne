@@ -152,18 +152,19 @@
                                 <!-- 加入购物车按钮 -->
                                 <template v-if="userId">
                                     <template v-if="productItemList.constraint">
-                                        <a class="add-cart f-right addToCart" v-if="Number(productItemList.price) && productItemList.realStock != '无货' && productItemList.realStock != '缺货'" href="javascript:void(0);" @click="addToCart(productItemList.code,productItemList.quantity,parseFloat(productItemList.zhongPackage))">
+                                        <a class="add-cart f-right addToCart" v-if="Number(productItemList.price) && productItemList.realStock != '无货' && productItemList.realStock != '缺货'" href="javascript:void(0);" @mousedown="addToCart(productItemList.code,productItemList.quantity,parseFloat(productItemList.zhongPackage))">
                                             加入购物车
                                         </a>
+                                        <a class="add-cart f-right bgWhite" v-else-if="productItemList.realStock == '无货'" href="javascript:void(0);" @click="arrivalMsg(productItemList.code)">到货通知</a>
+                                        <a class="add-cart f-right bgGray" v-else-if="!Number(productItemList.price) || productItemList.realStock == '缺货'" href="javascript:void(0);">加入购物车</a>
                                     </template>
                                     <template v-else>
-                                        <a class="add-cart f-right addToCart" v-if="Number(productItemList.price) && productItemList.realStock != '无货' && productItemList.realStock != '缺货'" href="javascript:void(0);" @click="addToCart(productItemList.code,productItemList.quantity,parseFloat(productItemList.minValue))">
+                                        <a class="add-cart f-right addToCart" v-if="Number(productItemList.price) && productItemList.realStock != '无货' && productItemList.realStock != '缺货'" href="javascript:void(0);" @mousedown="addToCart(productItemList.code,productItemList.quantity,parseFloat(productItemList.minValue))">
                                             加入购物车
                                         </a>
+                                        <a class="add-cart f-right bgWhite" v-else-if="productItemList.realStock == '无货'" href="javascript:void(0);" @click="arrivalMsg(productItemList.code)">到货通知</a>
+                                        <a class="add-cart f-right bgGray" v-else-if="!Number(productItemList.price) || productItemList.realStock == '缺货'" href="javascript:void(0);">加入购物车</a>
                                     </template>
-
-                                    <a class="add-cart f-right bgWhite" v-else-if="productItemList.realStock == '无货'" href="javascript:void(0);" @click="arrivalMsg(productItemList.code)">到货通知</a>
-                                    <a class="add-cart f-right bgGray" v-else-if="!Number(productItemList.price) || productItemList.realStock == '缺货'" href="javascript:void(0);">加入购物车</a>
                                 </template>
                                 <template v-else>
                                     <a class="add-cart f-right" href="/user/index#/login">加入购物车</a>

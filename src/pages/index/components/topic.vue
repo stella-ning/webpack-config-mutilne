@@ -55,7 +55,7 @@
                             <!-- 减 -->
                             <span class="minus f-left" @click="handleChange(index,-1,parseFloat(productItemList.zhongPackage))">-</span>
                             <!-- 输入框 -->
-                            <input type="number"  class="product-amount f-left" v-model.number="productItemList.quantity" @keyup="enteryChange(index,parseFloat(productItemList.zhongPackage))" :id="'product_'+productItemList.code"/>
+                            <input type="number"  class="product-amount f-left" v-model.number="productItemList.quantity" @blur="enteryChange(index,parseFloat(productItemList.zhongPackage))" :id="'product_'+productItemList.code"/>
                             <!-- 加 -->
                             <span class="plus f-left" @click="handleChange(index,1,parseFloat(productItemList.zhongPackage))">+</span>
                         </template>
@@ -64,7 +64,7 @@
                             <!-- 减 -->
                             <span class="minus f-left" @click="handleChange(index,-1,parseFloat(productItemList.minValue))">-</span>
                             <!-- 输入框 -->
-                            <input type="number"  class="product-amount f-left" v-model.number="productItemList.quantity"  @keyup="enteryChange(index,parseFloat(productItemList.minValue))" :id="'product_'+productItemList.code"/>
+                            <input type="number"  class="product-amount f-left" v-model.number="productItemList.quantity"  @blur="enteryChange(index,parseFloat(productItemList.minValue))" :id="'product_'+productItemList.code"/>
                             <!-- 加 -->
                             <span class="plus f-left" @click="handleChange(index,1,parseFloat(productItemList.minValue))">+</span>
                         </template>
@@ -72,17 +72,24 @@
                         <span class="product-unit txt-style f-left">{{productItemList.minUnit}}</span>
                         <!-- 加入购物车按钮 -->
                         <template v-if="userId">
-                            <a class="add-cart f-right addToCart" v-if="Number(productItemList.price) && productItemList.realStock != '无货' && productItemList.realStock != '缺货'" href="javascript:void(0);" @click="addToCart(productItemList.code,productItemList.quantity)">
-                                加入购物车
-                            </a>
-                            <a class="add-cart f-right bgWhite" v-else-if="productItemList.realStock == '无货'" href="javascript:void(0);" @click="arrivalMsg(productItemList.code)">到货通知</a>
-                            <a class="add-cart f-right bgGray" v-else-if="!Number(productItemList.price) || productItemList.realStock == '缺货'" href="javascript:void(0);">加入购物车</a>
+                            <template v-if="productItemList.constraint">
+                                <a class="add-cart f-right addToCart" v-if="Number(productItemList.price) && productItemList.realStock != '无货' && productItemList.realStock != '缺货'" href="javascript:void(0);" @mousedown="addToCart(productItemList.code,productItemList.quantity,parseFloat(productItemList.zhongPackage))">
+                                    加入购物车
+                                </a>
+                                <a class="add-cart f-right bgWhite" v-else-if="productItemList.realStock == '无货'" href="javascript:void(0);" @mousedown="arrivalMsg(productItemList.code,productItemList.quantity,parseFloat(productItemList.zhongPackage))">到货通知</a>
+                                <a class="add-cart f-right bgGray" v-else-if="!Number(productItemList.price) || productItemList.realStock == '缺货'" href="javascript:void(0);">加入购物车</a>
+                            </template>
+                            <template v-else>
+                                <a class="add-cart f-right addToCart" v-if="Number(productItemList.price) && productItemList.realStock != '无货' && productItemList.realStock != '缺货'" href="javascript:void(0);" @mousedown="addToCart(productItemList.code,productItemList.quantity,parseFloat(productItemList.minValue))">
+                                    加入购物车
+                                </a>
+                                <a class="add-cart f-right bgWhite" v-else-if="productItemList.realStock == '无货'" href="javascript:void(0);" @mousedown="arrivalMsg(productItemList.code,productItemList.quantity,parseFloat(productItemList.minValue))">到货通知</a>
+                                <a class="add-cart f-right bgGray" v-else-if="!Number(productItemList.price) || productItemList.realStock == '缺货'" href="javascript:void(0);">加入购物车</a>
+                            </template>
                         </template>
                         <template v-else>
                             <a class="add-cart f-right" href="/user/index#/login">加入购物车</a>
                         </template>
-
-
                     </div>
                 </div>
 
@@ -216,33 +223,42 @@ export default {
             }
         },
         //到货通知
-        arrivalMsg(codeId){
-            request.post(Datas.addNotice,'uid='+this.userId+'&code='+codeId)
-                .then(res =>  {
-                    console.log('成功'+res)
-                    layer.open({
-                        content: '如果该商品30天内到货,我们会短信通知您',
-                        skin: 'msg',
-                        icon:1,
-                        time: 2 //2秒后自动关闭
-                    });
-                }
-            );
+        arrivalMsg(codeId,quantity,step){
+            if(quantity < step || parseFloat(quantity*1000) % (step*1000) != 0){
+                return;
+            }else{
+                request.post(Datas.addNotice,'uid='+this.userId+'&code='+codeId)
+                    .then(res =>  {
+                        console.log('成功'+res)
+                        layer.open({
+                            content: '如果该商品30天内到货,我们会短信通知您',
+                            skin: 'msg',
+                            icon:1,
+                            time: 2 //2秒后自动关闭
+                        });
+                    }
+                );
+            }
+
         },
         //加入购物车
-        addToCart(codeId,quantity){
+        addToCart(codeId,quantity,step){
             //{uid:this.userId,code:codeId,quantity:quantity}
-            request.post(Datas.joinCart,'uid='+this.userId+'&code='+codeId+'&quantity='+quantity)
-                .then(res =>  {
-                    console.log('成功'+res)
-                    layer.open({
-                        content: '成功加入购物车',
-                        skin: 'msg',
-                        icon:1,
-                        time: 2 //2秒后自动关闭
-                    });
-                }
-            );
+            if(quantity < step || parseFloat(quantity*1000) % (step*1000) != 0){
+                return;
+            }else{
+                request.post(Datas.joinCart,'uid='+this.userId+'&code='+codeId+'&quantity='+quantity)
+                    .then(res =>  {
+                        console.log('成功'+res)
+                        layer.open({
+                            content: '成功加入购物车',
+                            skin: 'msg',
+                            icon:1,
+                            time: 2 //2秒后自动关闭
+                        });
+                    }
+                );
+            };
         }
 
 
