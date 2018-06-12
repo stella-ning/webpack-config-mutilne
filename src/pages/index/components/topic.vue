@@ -3,14 +3,14 @@
     <div class="productListBox">
         <div class="product-floor" v-for="(productItemList,index) in infoDatas" :key="index" >
             <div class="product-thumb floor-item">
-                <a href="javascript:void(0);">
+                <a :href="'/index/productdetail?code='+productItemList.code">
                     <img v-lazy="productItemList.imgsrc" alt=""/>
                 </a>
             </div>
             <!-- 产品信息 -->
             <div class="product-instr floor-item">
                 <p class="product-name">
-                    <a href="javascript:void(0);">
+                    <a :href="'/index/productdetail?code='+productItemList.code">
                         {{productItemList.name}}
                     </a>
                 </p>

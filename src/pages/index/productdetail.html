@@ -100,9 +100,9 @@
                             <div class="productDetailRow">
                                 <span class="productDetailName">价格：</span>
                                 <span class="contain" style="color:#FA0019">
-                                    <span v-if="userId">￥</span>
+                                    <span v-if="Number(price)">￥</span>
                                     <span>{{price}}</span>
-                                    <span v-if="userId">/{{minUnit}}</span>
+                                    <span v-if="Number(price)">/{{minUnit}}</span>
                                 </span>
                             </div>
                             <div class="productDetailRow">
@@ -180,14 +180,14 @@
                                     <li class="productListLi" v-for="item in productRefereArray">
                                         <div class="productImgBox">
                                             <div class="productImg">
-                                                <a :href="'index/productdetail?'+item.code">
+                                                <a :href="'productdetail?code='+item.code">
                                                     <img :src="item.imgsrc" alt="">
                                                 </a>
                                             </div>
                                         </div>
                                         <div class="similarproductInfo">
                                             <div class="contain">
-                                                <P class="appellation"><a :href="'index/productdetail?'+item.code">{{item.name}}</a></P>
+                                                <P class="appellation"><a :href="'productdetail?code='+item.code">{{item.name}}</a></P>
                                                 <p class="similarproductPrice">
                                                     <span v-if="Number(item.price)">￥</span>
                                                     {{item.price}}
@@ -229,7 +229,7 @@
                     <span class="text">购物车</span>
                 </a>
                 <template v-if="userId">
-                    <template v-if="Number(price)">
+                    <template v-if="Number(price) && realStock != '无货'">
                         <div class="trade allow" @click="opencover">
                             <a class="addCart"  href="javascript:;">
                                 加入购物车
@@ -252,9 +252,6 @@
                         </a>
                     </div>
                 </template>
-
-
-
             </div>
         </section>
         <!-- 加入购物车弹出层 -->
