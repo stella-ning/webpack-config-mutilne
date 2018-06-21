@@ -1,4 +1,4 @@
-//import 'babel-polyfill';
+import 'babel-polyfill';
 import Vue from 'vue';
 import router from './router/router.js';
 import '@js/rem';
@@ -127,7 +127,7 @@ new Vue({
                 salesPromotion:'',//促销信息
                 medicalDeviceLicense:'',
                 instructions:'',
-                isDiscount:false,//是否是折扣商品
+                isDiscount:true,//是否是折扣商品
                 discountPrice:'',
                 discountRealStock:'',
                 discountPackage:'',

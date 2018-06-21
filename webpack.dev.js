@@ -6,10 +6,11 @@ const { config: webpackBaseConfig, getFiles } = base;
 
 //  接口服务器地址
 const API_HOST = 'https://test.cmyynet.com';
+
 //const API_HOST = 'https://10.16.17.207:9002';
 
 // 开发环境的webp打包工具配置
-const PORT = 4000;
+const PORT = 3000;
 
 // 开发环境下，将静态资源的根路径重置为/
 webpackBaseConfig.output.publicPath = '/';

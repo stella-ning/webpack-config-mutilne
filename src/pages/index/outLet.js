@@ -1,4 +1,4 @@
-//import 'babel-polyfill';
+import 'babel-polyfill';
 import 'src/static/plugins/layer_mobile/layer.js';
 import 'src/static/plugins/layer_mobile/need/layer.css';
 import Vue from 'vue';

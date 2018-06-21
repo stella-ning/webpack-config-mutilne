@@ -1,4 +1,4 @@
-//import 'babel-polyfill';
+import 'babel-polyfill';
 import Vue from 'vue';
 import router from './router/router.js';
 //分页
