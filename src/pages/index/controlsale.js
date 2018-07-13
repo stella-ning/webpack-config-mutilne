@@ -1,5 +1,6 @@
-import 'babel-polyfill';
+
 import Vue from 'vue';
+import 'babel-polyfill';
 import router from './router/router.js';
 //分页
 import infiniteScroll from 'vue-infinite-scroll';
