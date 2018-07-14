@@ -23,6 +23,7 @@
                         v-if="cartArray.length !=1"
                     >
                         {{cartList.cartName}}
+
                     </div>
                 </div>
                 <!-- 折扣商品特别说明 -->
