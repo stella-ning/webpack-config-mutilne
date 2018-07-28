@@ -13,7 +13,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
   import Slide from './slide.vue'
 
   const COMPONENT_NAME = 'pull-page-slide'

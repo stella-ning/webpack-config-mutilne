@@ -319,13 +319,14 @@
     import { request } from 'common';
     import * as Datas from 'api';
     import HeadTop from 'src/common/header.vue';
-    import VueLazyLoad from 'vue-lazyload';
+
     import {setStore,getStore} from '@js/config';
     import $ from 'jquery';
     import {addClass,removeClass} from 'src/static/js/dom.js';
     import 'src/static/plugins/layer_mobile/layer.js';
     import 'src/static/plugins/layer_mobile/need/layer.css';
 
+    import VueLazyLoad from 'vue-lazyload';
     Vue.use(VueLazyLoad,{
         error:'../static/images/public/loading.gif',
         loading:'../static/images/public/loading.gif'
