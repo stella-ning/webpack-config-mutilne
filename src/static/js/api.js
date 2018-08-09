@@ -29,6 +29,7 @@ export const getSpecialOffers = '/Interface/getSpecialOffers';
  */
 export const getHighMargin = '/Interface/getHighMargin';
 
+
 /**
  * 药店常备-更多
  *@type {string}
